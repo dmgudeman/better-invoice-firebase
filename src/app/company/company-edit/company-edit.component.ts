@@ -6,22 +6,23 @@ import {
   FormsModule, 
   ReactiveFormsModule,
   Validators,
-}                         from '@angular/forms';
+}                           from '@angular/forms';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable ,
   FirebaseObjectObservable,
-  }                         from 'angularfire2/database';
+}                           from 'angularfire2/database';
 import { 
   Router, 
   ActivatedRoute, 
   Params, 
-  }                         from '@angular/router';
+}                           from '@angular/router';
 import { $ }                from 'jquery';
 import { Observable }       from 'rxjs/Observable';
 
 import { Company }          from '../company';
 import { CompanyService }   from '../company.service';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-company-edit',
@@ -43,17 +44,16 @@ export class CompanyEditComponent implements OnInit {
   myform : FormGroup;
 
   constructor(
-  
-    private _companyService: CompanyService,
-    private _router:Router,
-    private _route:ActivatedRoute,
-    private _fb:FormBuilder,
+    private companyService: CompanyService,
+    private router:Router,
+    private route:ActivatedRoute,
+    private fb:FormBuilder,
     private db: AngularFireDatabase,
   ) { }
 
   ngOnInit() {
     this.companies = this.db.list('/companies');
-     this.myform = this._fb.group({
+     this.myform = this.fb.group({
             name:['', Validators.required],
             color:'',
             hourly: '',
@@ -61,7 +61,7 @@ export class CompanyEditComponent implements OnInit {
             active: '',
             userId: ''
           });
-          this._route.params
+          this.route.params
             .subscribe(params => { 
                 this.coId = params['id']
                 this.coName = params['coName']
@@ -91,37 +91,33 @@ export class CompanyEditComponent implements OnInit {
   }
 
   setCompany() {
-    let formValue = this.myform.value;
-    let name = formValue.name;
-    let color = formValue.color;
-    let hourly = formValue.hourly;
-    let paymentTerms = formValue.paymentTerms;
-    let active = formValue.active;
-    console.log(name, color, paymentTerms);
-    this.companies.push({
-      name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1
-    });
-    return name;
+    
   }  
 
-
   onSubmit() {
-    console.log('onSubmit fired');
-    let  id = this.coId;
-    let stringUid = '' + this.userId;
-    var payload = this.myform.value;
-    payload.userId=this.userId;
+    // console.log('onSubmit fired');
+    // let  id = this.coId;
+    // let stringUid = '' + this.userId;
+    // var payload = this.myform.value;
+    // payload.userId=this.userId;
     // let modified = {"company": payload};
     
-    console.log('name', name);
 
     // this._companyService
     //     .addCompany({name: 'Sinclair', color: 'green', paymentTerms: 30})
     //     .subscribe(data => console.log(data));
 
-  this.setCompany().subscribe(data => {
-    console.log('data', data);
-  });
+  let mf = this.myform.value;
+    let name = mf.name;
+    let color = mf.color;
+    let hourly = mf.hourly;
+    let paymentTerms = mf.paymentTerms;
+    let active = mf.active;
+    console.log(name, color, paymentTerms);
+    this.companies.push({
+      name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1
+    });
+    this.router.navigate(['companies']);
 
     // var result;
     //     if (id) {
@@ -137,7 +133,7 @@ export class CompanyEditComponent implements OnInit {
     //         let result = this._companyService.addCompany(payload);
     //         console.log(`444result ${result}`);
     //     }   
-            this._router.navigate(['companies']);
+            
     //    this._companyService.addCompany(payload).subscribe(x => {
     //         // Ideally, here we'd want:
     //         // this.form.markAsPristine();
