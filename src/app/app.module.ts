@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -13,13 +14,18 @@ import { environment }        from '../environments/environment';
 import { AppRoutingModule }        from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompanyModule }        from './company/company.module';
+import { ItemListComponent } from './item/item-list/item-list.component';
+import { ItemEditComponent } from './item/item-edit/item-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
+    ItemListComponent,
+    ItemEditComponent,
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,

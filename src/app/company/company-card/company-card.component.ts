@@ -37,9 +37,11 @@ export class CompanyCardComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('this.company.name', this.company.name);
+    console.log('this.company.$key', this.company.$key);
     this.name = this.company.name;
     this.color = this.company.color;
+    this.coId = this.company.$key
+  
   }
   
   
@@ -53,7 +55,7 @@ export class CompanyCardComponent implements OnInit {
     // let coHourly  company.hourly;
     // let coColor= company.color
     // let uId = 1
-    this.router.navigate(['/company-details', {id:this.company.$key}]);
+    this.router.navigate(['/company-details/', {id:this.company.$key}]);
     //                                            coId:coId,
     //                                            coColor:coColor,
     //                                            coHourly:coHourly, 
@@ -85,10 +87,10 @@ export class CompanyCardComponent implements OnInit {
      }
 
   }
-  goToEditItem(company){
-      let coName = company.name;
-      let coId = company.id;
-      this.router.navigate(['/item-edit', {coName: coName, coId:coId }]);
+  goToEditItem(){
+     
+
+      this.router.navigate(['/item-edit/', { coId:this.coId }]);
   }
-}
+} 
 
