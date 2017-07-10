@@ -1,3 +1,57 @@
-<p>
-  company-details works!
-</p>
+<div class="my-container">
+     <!-- SECTION 1 the Header -->
+    <div id="section1" class="section  header">
+        <div id="sec1row1" class="row" [ngClass]="setColor(coColor)">
+            <div id="sec1row1col1" class="column">
+                <div id="left-arrow" class="item">
+                    <a (click)="goBack()" class="glyphicon glyphicon-chevron-left"></a>
+                </div>
+            </div>
+            <div id="sec1row1col2" class="column">
+                <div id="title" class="item">{{coName + " Details"}}</div>
+            </div>
+            <div id="sec1row1col3" class="column">
+                <div id="plus" class="item">
+                    <a id="plus-link" (click)="goToEditCompany()" aria-hidden="true">edit</a></div>
+            </div>
+        </div>
+        <div id="sec1row2" class="row">
+            <div id="sec1row2col1"></div>
+            <div id="sec1row2col2">
+                <!--<app-address class="spacer" (click)="goToEditCompany()" [coId]="coId">
+    
+                </app-address>-->
+
+            </div>
+            <div id="sec1row2col3"></div>
+            
+        </div>
+        <div id="sec1row3" class="row">
+            <div class="column cd-midbar" [ngClass]="setColor(coColor)"></div>
+        </div>
+    </div>
+     <!-- SECTION 2 the Body -->
+    <div id="section2" class="section">
+        <div id="sec2row1" class="row">
+            <div id="sec2row1col1" class="column"></div>
+            <div id="sec2row1col2" class="column">
+                <div id="detail-wrapper">
+                    <!--<app-item-detail *ngFor="let i of items" [item]="i" [itemColor]="coColor"></app-item-detail>-->
+                </div>
+            </div>
+            <div id="sec2row1col3" class="column"></div>
+        </div>
+    </div>
+    <!-- SECTION 3 the Footer -->
+    <div id="section3" class="section">
+        <div id="sec3row1" class="row">
+            <div id="sec3row1col1" class="column"></div>
+            <div id="sec3row1col2" class="column">
+                <button id="cd-submit" class=" item" (click)=" getNothing()">
+                Submit
+            </button>
+            </div>
+            <div id="sec3row1col3" class="column"></div>
+        </div>
+    </div>
+</div>

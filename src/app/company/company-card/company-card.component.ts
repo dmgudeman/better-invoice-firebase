@@ -20,7 +20,6 @@ import { Shared } from '../../shared/shared';
   styleUrls: ['./company-card.component.css'],
 })
   
-  
 export class CompanyCardComponent implements OnInit {
   shared:Shared = new Shared();
   coId: number;
@@ -38,47 +37,29 @@ export class CompanyCardComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log('this.company', this.company);
+    console.log('this.company.name', this.company.name);
     this.name = this.company.name;
     this.color = this.company.color;
-    this.db.object('/companies/' + this.company.$key).subscribe(x=>{
-     this.company = x;
-     console.log('this.company', this.company);
-    })
   }
   
-  // getCompany(id) {
-    
-
-     
-     
-  //    return this.companyService
-  //               .getCompany(id)
-  //               .subscribe(
-  //                   company => {this.company = company,
-  //                               this.name = this.company.name;
-  //                               this.color = this.company.color;},
-  //                   response => { if (response.status = 404) {
-  //                                       this.router.navigate(['not-found']);}
-  //                               }
-  //               );
-  // }
+  
   setClassColor() {
       return this.shared.setClassColor(null, this.color);
   }
-  goToCompanyDetails(company:Company){
-    let coId = company.id;
-    let coName = company.name;
-    let coHourly = company.hourly;
-    let coColor= company.color
-    let uId = 1
-    this.router.navigate(['/company-details', {
-                                               coId:coId,
-                                               coColor:coColor,
-                                               coHourly:coHourly, 
-                                               coName:coName, 
-                                               uId:uId,
-                                               }]);
+  goToCompanyDetails(){
+    console.log('company.name', this.company.$key);
+    // let coId = company.id;
+    // let coName = company.name;
+    // let coHourly  company.hourly;
+    // let coColor= company.color
+    // let uId = 1
+    this.router.navigate(['/company-details', {id:this.company.$key}]);
+    //                                            coId:coId,
+    //                                            coColor:coColor,
+    //                                            coHourly:coHourly, 
+    //                                            coName:coName, 
+    //                                            uId:uId,
+    //                                            }]);
   }
 
   goToInvoice(company:Company) {
@@ -88,7 +69,6 @@ export class CompanyCardComponent implements OnInit {
     // company.id;
     // this.invoice = this._invoiceService.makeInvoice(uId,coId);
     this.router.navigate(['/invoice-edit', {id:coId}]);
-
   }
 
   goToEditCompany(company?:Company){
