@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyAfldBZz7sGRngB3p1GKgRTHxsEzT5rHGo",
+    authDomain: "better-invoice-firebase.firebaseapp.com",
+    databaseURL: "https://better-invoice-firebase.firebaseio.com",
+    projectId: "better-invoice-firebase",
+    storageBucket: "better-invoice-firebase.appspot.com",
+    messagingSenderId: "1016088883434"
+  }
 };
