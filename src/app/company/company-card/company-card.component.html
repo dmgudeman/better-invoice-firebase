@@ -1,3 +1,13 @@
-<p>
-  company-card works!
-</p>
+<div class="my-card">
+    <div [ngClass]="setClassColor()" id="my-card-top">
+        <section class="top-line transparent">
+            <div  id="co-name" (click)="goToCompanyDetails(company)">{{name}}</div>
+        </section>
+    </div>
+    <div [ngClass]="setClassColor()" id="my-card-bottom">
+        <section class="bottom-line">
+            <div class="column" (click)="goToInvoice(company)">Export Invoice</div>
+            <div class="column" (click)="goToEditItem(company)">Add</div>
+        </section>
+    </div>
+</div>

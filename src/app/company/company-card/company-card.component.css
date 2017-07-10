@@ -1,0 +1,89 @@
+
+/*-------------- over-all --------------*/
+* {
+    font-size: 20px;
+    color: white;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight:300;
+}
+
+.my-card {
+  display: flex;
+  flex-direction:column;
+  margin: 10px;
+}
+/*-------------regional--------------------*/
+section {
+    display: flex;
+    width: 275px;
+    height: 51px;
+    padding: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+/*-------------top-portion-----------------*/
+#my-card-top {
+    align-items:flex-start;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    width: 300px;
+    height: 60px;
+    border-radius: 12px 12px 0px 0px;
+    padding: 5px;
+    font-size: 125%;
+}
+.top-line {
+    align-items:center;
+    display: flex;
+    justify-content: flex-start;
+    padding-left:7%;
+    flex-grow:2;
+    flex-shrink:2;
+    flex-basis: 0;
+}
+#co-name {
+        font-size: 115%;
+}
+
+/*-------------- bottom-portion --------*/
+#my-card-bottom {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 40px;
+    border-radius: 0px 0px 12px 12px ;
+    padding: 12px;
+    font-size:50%;
+}
+
+.bottom-line {
+    flex-grow:1;
+    flex-shrink:1;
+    flex-basis: 5px;
+}
+.column {
+    margin: 10px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    text-align: center;
+}
+.bottom-line .column {
+        font-size: 80%;
+}
+
+/*------------colors--------------------*/
+.blue   { background-color: #3498db; }
+.green  { background-color: #00C853; }
+.yellow { background-color: #f1c40f; }
+.red    { background-color: #e74c3c; }
+.purple { background-color: #9b59b6; }
+.brown  { background-color: #8D6E63; }
+#my-card-bottom.green  { background-color: #00d95a; }
+#my-card-bottom.brown  { background-color: #795548; }
+#my-card-bottom.red    { background-color: #eb685a; }
+#my-card-bottom.blue   { background-color: #2487c9; }
+#my-card-bottom.yellow { background-color: #e2b70d; }
+#my-card-bottom.purple { background-color: #a265bb; }

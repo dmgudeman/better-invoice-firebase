@@ -1,3 +1,5 @@
+// displays a list of company-card.component
+// input: list of companies for a given user
 import { Component, OnInit } from '@angular/core';
 import { 
   FormBuilder, 
@@ -25,8 +27,8 @@ import { Company }          from '../company';
   styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
-  getCompanies: FirebaseListObservable<any[]>;
-  companies: Company[];
+  gompanies: FirebaseListObservable<any[]>;
+  companiesArray: Company[];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -40,7 +42,8 @@ export class CompaniesComponent implements OnInit {
         orderByChild: 'name'
       }
     }).subscribe(x=>{
-     this.companies = x;
+     this.companiesArray = x;
+    //  console.log('companies in ngOnInit', this.companies);
     })
   }
     

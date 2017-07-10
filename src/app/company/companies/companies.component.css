@@ -1,0 +1,151 @@
+
+* {
+    font-size: 20px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 300;
+}
+
+.my-container {
+    display: flex;
+    flex-direction: column;
+    background: mediumpurple;
+    background: transparent;
+    width: 100vw;
+    height: 100%;
+}
+.section {
+    display: flex;
+    flex-direction:row;
+    min-height:40px;
+    min-width: 100%;
+    max-height: 80%;
+    margin: 0px;
+}
+.column {
+    display: flex;
+    flex: 1 1 0px;
+    flex-direction:column;
+    background-color: orange;
+    background: transparent;
+    color: white;
+}
+
+/*------------SECTION 1: NAV---------------------*/
+#section1 {
+    display: flex;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 2;
+    background-color: black;
+}
+
+#section1.column {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sec1col1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width:10%;
+}
+
+#sec1col2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 9 9 0px;
+    background-color: orangered;
+    background: transparent;
+} 
+
+#plus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 200%;
+    font-weight: 400;
+}
+
+/*------------SECTION 2--------------------------*/
+#section2 {
+    display: flex;
+    flex-direction: row;
+    background-color: yellow;
+    background: transparent;
+    margin: 55px 0px 0px 0px;
+   
+}
+ 
+#sec2col1,
+#sec2col3 {
+    display: flex;
+    flex:1 1 0px;
+    background-color:brown;
+    background: transparent;
+}
+
+#sec2col2 {
+    display: flex;
+    align-items: flex-start;
+    flex: 11 11 0px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-height: 100%;
+    min-height: 700px;
+    max-width: 700px;
+    background-color: orangered;
+    background: transparent;
+} 
+
+#co-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1 1 0px;
+    justify-content: center;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 700px;
+    max-width: 700px;
+    margin: 0px;
+    background-color:green;
+    background: transparent;
+}
+
+/*==============SMALLER SCREENS=======================*/
+/*--------------SMALL SCREEN--------------------------*/
+@media (max-width: 766px) {
+   .my-container {
+    min-width: 100%;
+    max-width: 100%;
+}
+#sec1col2 {
+    flex: 3 3 0px;
+}
+
+#sec2col1,
+#sec2col3 {
+    display: none
+}
+   
+#sec2col2 {
+    flex-direction: column;
+
+} 
+
+#co-card {
+    flex-direction: row;
+    min-width: 350px;
+    max-width: 414px;
+    margin: 0 ;
+    max-height: 100%;
+    min-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
+}
+  
+}
