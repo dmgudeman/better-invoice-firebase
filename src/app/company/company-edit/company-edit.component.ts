@@ -33,7 +33,8 @@ export class CompanyEditComponent implements OnInit {
   coName;
   // color;
   company:Company;
-  addCompany: FirebaseObjectObservable<any[]>;
+  setCompanyObs: FirebaseObjectObservable<any[]>;
+  companies: FirebaseListObservable<any[]>
   // hourly;
   // paymentTerms;
   // active;
@@ -51,7 +52,7 @@ export class CompanyEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-     this.addCompany = this.db.object('/company');
+    this.companies = this.db.list('/companies');
      this.myform = this._fb.group({
             name:['', Validators.required],
             color:'',
@@ -90,43 +91,58 @@ export class CompanyEditComponent implements OnInit {
   }
 
   setCompany() {
-    this.addCompany.set({
-      name: 'Sinclair', color: 'green', paymentTerms: 30
-    })
+    let formValue = this.myform.value;
+    let name = formValue.name;
+    let color = formValue.color;
+    let hourly = formValue.hourly;
+    let paymentTerms = formValue.paymentTerms;
+    let active = formValue.active;
+    console.log(name, color, paymentTerms);
+    this.companies.push({
+      name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1
+    });
+    return name;
   }  
 
-  onSubmit3() {
-        let  id = this.coId;
-        let stringUid = '' + this.userId;
-        var payload = this.myform.value;
-        payload.userId=this.userId;
-        // let modified = {"company": payload};
-        console.log(`111edit-company onSubmit ${id}`);
-        console.log(`222edit-company onSubmit payload ${JSON.stringify(payload)}`);
 
-        this._companyService
-            .addCompany({name: 'Sinclair', color: 'green', paymentTerms: 30})
-            .subscribe(data => console.log(data));
-        // var result;
-        //     if (id) {
-        //         let result = this._companyService
-        //                          .updateCompany(payload, id)
-        //                          .subscribe(result => {
-        //                                 console.log(`RESULT = ${JSON.stringify(result)}`);
-        //                          })
-        //         // this._router.navigate(['companies']);
-        //     } else {
-        //         let ID = (id) ? id : "ID NOT HERE";
-        //         console.log(`333edit-company onSubmit payload ${JSON.stringify(payload)}`);
-        //         let result = this._companyService.addCompany(payload);
-        //         console.log(`444result ${result}`);
-        //     }   
-               this._router.navigate(['companies']);
-        //    this._companyService.addCompany(payload).subscribe(x => {
-        //         // Ideally, here we'd want:
-        //         // this.form.markAsPristine();
-        //         this._router.navigate(['companies']);
-        //     });
+  onSubmit() {
+    console.log('onSubmit fired');
+    let  id = this.coId;
+    let stringUid = '' + this.userId;
+    var payload = this.myform.value;
+    payload.userId=this.userId;
+    // let modified = {"company": payload};
+    
+    console.log('name', name);
+
+    // this._companyService
+    //     .addCompany({name: 'Sinclair', color: 'green', paymentTerms: 30})
+    //     .subscribe(data => console.log(data));
+
+  this.setCompany().subscribe(data => {
+    console.log('data', data);
+  });
+
+    // var result;
+    //     if (id) {
+    //         let result = this._companyService
+    //                          .updateCompany(payload, id)
+    //                          .subscribe(result => {
+    //                                 console.log(`RESULT = ${JSON.stringify(result)}`);
+    //                          })
+    //         // this._router.navigate(['companies']);
+    //     } else {
+    //         let ID = (id) ? id : "ID NOT HERE";
+    //         console.log(`333edit-company onSubmit payload ${JSON.stringify(payload)}`);
+    //         let result = this._companyService.addCompany(payload);
+    //         console.log(`444result ${result}`);
+    //     }   
+            this._router.navigate(['companies']);
+    //    this._companyService.addCompany(payload).subscribe(x => {
+    //         // Ideally, here we'd want:
+    //         // this.form.markAsPristine();
+    //         this._router.navigate(['companies']);
+    //     });
     }
 
 }
