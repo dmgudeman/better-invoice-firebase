@@ -110,7 +110,7 @@ export class ItemEditComponent implements OnInit {
     //          this.setDate(date); 
              
     //      }
-    //     this.makeHoursArray(41);
+        this.makeHoursArray(41);
     }
 
     makeTitle(coName:string, itemId?:number){

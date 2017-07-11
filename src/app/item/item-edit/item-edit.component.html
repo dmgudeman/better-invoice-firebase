@@ -1,4 +1,81 @@
-<md-tab-group>
-  <md-tab label="Tab 1">Content 1</md-tab>
-  <md-tab label="Tab 2">Content 2</md-tab>
-</md-tab-group>
+<!-- NAVIGATION -->
+<div class="container">
+     <header id="header"  (click)="goBack()">
+       <div>
+            <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
+            {{title}}
+        </div> 
+    </header>
+    <div id="section1"  (click)="goBack()">
+        <div id="col1" class="ni-nav">
+            <a class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></a>
+            <span>{{title}}</span>
+        </div>
+    </div>
+       <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
+    <div id="section2" class="row">
+        <div id="col2" class="column">
+        </div>
+        <div id="col3" class="column">
+            <!--  FORM -->
+            <form [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate>
+                <md-tab-group>
+                    <md-tab label="Hours">
+                      <div class="form-group col-xs-12 col-md-6">
+                        <label for="hours">Hours</label>
+                        <select
+                              class="form-control ni-input "
+                              formControlName="hours"
+                              id="hours" 
+                              type="text"
+                        >
+                        <option *ngFor="let h of hoursArray" [value]="h">{{h}}</option>
+                        </select>
+                      </div>
+                    </md-tab>
+                    <md-tab label="$Amount">
+                        <div class="form-group col-xs-12 col-md-6">
+                            <label for="amount">$Amount</label>
+                            <input 
+                                formControlName="amount"
+                                id="amount" 
+                                type="text" 
+                                class="form-control"
+                                placeholder="0"
+                            >
+                        </div>
+                    </md-tab>
+                </md-tab-group>
+                        <div class="form-group col-xs-12 col-md-6">
+                            <label for="date">Date</label><br>
+                           
+                            <!--<my-date-picker
+                                 name="date" 
+                                 formControlName="date"
+                                 id="date" 
+                                 [options]="myDatePickerOptions"
+                                 >
+                            </my-date-picker>-->
+                            
+                        </div>
+                        <div class="form-group col-xs-12">
+                            <label for="description">Description/notes</label>
+                            <textarea 
+                                formControlName="description"
+                                id="description" 
+                                type="textbox" 
+                                class="form-control ni-description" 
+                                placeholder="Type Here">
+                            </textarea>
+                        </div>
+                <div>
+                    <button class="col-xs-12 col-md-6 myCol"  >
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div id="col4" class="column"></div>
+    </div>
+     <footer id="footer" (click)="onSubmit()">Submit</footer>
+</div>

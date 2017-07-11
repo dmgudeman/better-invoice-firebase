@@ -2,6 +2,7 @@ import { BrowserModule }             from '@angular/platform-browser';
 import { BrowserAnimationsModule }   from '@angular/platform-browser/animations';
 import { 
   NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
 }                                    from '@angular/core';
 import { 
   FormsModule,
@@ -43,6 +44,9 @@ import { MdTabsModule }               from '@angular/material';
   ],
   providers: [
     RouterOutlet,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
   ],
   bootstrap: [AppComponent]
 })
