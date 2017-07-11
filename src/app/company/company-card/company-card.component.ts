@@ -22,7 +22,7 @@ import { Shared } from '../../shared/shared';
   
 export class CompanyCardComponent implements OnInit {
   shared:Shared = new Shared();
-  coId: number;
+  companyKey: string;
   @Input() company;
   name:string;
   color:string;
@@ -40,7 +40,7 @@ export class CompanyCardComponent implements OnInit {
     console.log('this.company.$key', this.company.$key);
     this.name = this.company.name;
     this.color = this.company.color;
-    this.coId = this.company.$key
+    this.companyKey = this.company.$key
   
   }
   
@@ -50,13 +50,13 @@ export class CompanyCardComponent implements OnInit {
   }
   goToCompanyDetails(){
     console.log('company.name', this.company.$key);
-    // let coId = company.id;
+    // let companyKey = company.id;
     // let coName = company.name;
     // let coHourly  company.hourly;
     // let coColor= company.color
     // let uId = 1
     this.router.navigate(['/company-details/', {id:this.company.$key}]);
-    //                                            coId:coId,
+    //                                            companyKey:companyKey,
     //                                            coColor:coColor,
     //                                            coHourly:coHourly, 
     //                                            coName:coName, 
@@ -65,32 +65,30 @@ export class CompanyCardComponent implements OnInit {
   }
 
   goToInvoice(company:Company) {
-    let uId = 1;
-    let coId = company.id;
+    // let uId = 1;
+    // let companyKey = company.id;
     
     // company.id;
-    // this.invoice = this._invoiceService.makeInvoice(uId,coId);
-    this.router.navigate(['/invoice-edit', {id:coId}]);
+    // this.invoice = this._invoiceService.makeInvoice(uId,companyKey);
+    this.router.navigate(['/invoice-edit', {id:this.companyKey}]);
   }
 
   goToEditCompany(company?:Company){
       if (company){
-          let coId = company.id;
+          let companyKey = company.id;
           let coName = company.name;
           let color = company.color;
           let hourly = company.hourly;
           let paymentTerms = company.paymentTerms;
           let active = company.active;
-          this.router.navigate(['/edit-company/' + coId, {id:coId, name:coName, color:color}]);
+          this.router.navigate(['/edit-company/' + companyKey, {id:companyKey, name:coName, color:color}]);
       } else {
           this.router.navigate(['/edit-company']);
      }
 
   }
-  goToEditItem(){
-     
-
-      this.router.navigate(['/item-edit/', { coId:this.coId }]);
+  addItem(){
+    this.router.navigate(['/item-edit/', { companyKey:this.companyKey }]);
   }
 } 
 

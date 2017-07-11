@@ -1,0 +1,224 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+* {
+    box-sizing: border-box;
+    font-size: 20px;
+    max-width: 1200px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 300;
+}
+
+.container {
+    display: flex;
+    background-color: purple;
+    background: transparent;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 600px;
+    max-height: 100vh;
+}
+
+/*--------------HEADER-------------------------------- */
+#section1{
+    display: flex;
+    flex-direction:row;
+    background-color: aqua;
+    background: transparent;
+    flex: 1 1 0px;
+    margin: 0px -15px;
+    min-height:50px;
+    max-height:50px;
+}
+.ni-nav {
+    margin: 10px 0;
+}
+
+/*--------------BODY---------------------------------- */
+#section2 {
+    display: flex;
+    margin: 0 -15px;
+    min-height: 600px;
+    max-height: 100%;
+    background-color: pink;
+    background: transparent;
+}
+#col2, #col4{
+    flex: 1 1 0px;
+    min-height:50px;
+    max-height: 100%;
+    min-width: 15%;
+    max-width: 25%;
+    margin: 10px;
+    background-color: orange;
+    background: transparent;
+}
+#col3 {
+    flex: 11 11 0px;
+    min-height:50px;
+    max-height: 100%;
+    margin: 0px;
+    background-color: yellow;
+    background: transparent;
+}
+
+form {
+    display: flex;
+    flex-direction:column;
+    flex: 1 1 0px;
+    min-height:100%;
+    max-height:100%;
+    margin: 0px;
+    background-color: darkblue;
+    background: transparent;
+}
+
+.ni-group-addon {
+    background: transparent;
+    padding: 0;
+}
+
+label {
+    font-size: 73%;
+    color: #7f8c8d;
+    font-weight: 400;
+}
+
+.form-control {
+    font-size: 100%;
+}
+.ni-input{
+        font-size: 90%;
+        line-height: 125%;
+        color: black;
+        font-weight: 400;
+        text-align: center;
+    }
+.ni-my-datepicker {
+    width: 300px;
+    border-radius: 4px;
+}
+
+.ni-date {
+    width: 100%;
+}
+
+#ni-type {
+    visibility:hidden;
+}
+.ni-hours {
+    width: 100%;
+}
+/*--------------FOOTER--------------------------------*/
+.myCol {
+        font-size: 90%;
+        max-width: 150px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: transparent 0px;
+        background-color: #34495e;
+        color: #f2f2f2;
+        margin: 15px;
+        line-height: 2.0;
+    }
+
+/*==============SMALLER SCREENS=======================*/
+/*--------------SMALL SCREEN--------------------------*/
+@media (max-width: 766px) {
+    #col1,
+    #col2,
+    #col4, 
+    .myCol {
+        display: none
+    }
+
+    #header {
+        display: flex;
+        position: fixed;
+        font-size:130%;
+        font-weight:strong;
+        left: 0px;
+        top: 0px;
+        height:8%;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        justify-content: center;
+        z-index: 3;
+    }
+
+    .ni-description {
+        width: 100%;
+        height: 270px;
+        resize: none;
+        box-sizing: border-box;
+        border-radius: 4px;
+        background-color: #fff;
+        font-size: 90%;
+        font-weight: 300;
+        color: black;
+    }
+    #footer {
+        display: flex;
+        position: fixed;
+        padding-top: 4%;
+        left: 0px;
+        bottom: 0px;
+        height: 10%;
+        width: 100%;
+        background-color: #34495e;
+        color: #f2f2f2;
+        z-index: 2;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+/*--------------MEDIUM SCREEN-------------------------*/
+/*@media (min-width: 416px) and (max-width: 1025px) {
+    #col1,
+    .myCol {
+        display: none
+    }
+   .myCol {
+        font-size: 90%;
+        max-width: 150px;
+        box-sizing: border-box;
+        border-radius: 4px;
+        border: transparent 0px;
+        background-color: #34495e;
+        color: #f2f2f2;
+        margin: 15px;
+        line-height: 2.0;
+    }
+    .ni-description {
+        width: 100%;
+        height: 300px;
+        resize: none;
+        box-sizing: border-box;
+        border-radius: 4px;
+        background-color: #fff;
+        font-size: 90%;
+        font-weight: 300;
+        color: black;
+    }
+}*/
+
+/*--------------LARGE SCREEN--------------------------*/
+/*screen-lg corresponds with col-lg*/
+@media (min-width: 767px) {
+    header,
+    footer {
+        display: none;
+    }
+    
+    .ni-description {
+        width: 100%;
+        height: 300px;
+        resize: none;
+        box-sizing: border-box;
+        border-radius: 4px;
+        background-color: #fff;
+        font-size: 90%;
+        font-weight: 300;
+        color: black;
+    }
+}

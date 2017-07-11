@@ -1,14 +1,19 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { BrowserModule }             from '@angular/platform-browser';
+import { BrowserAnimationsModule }   from '@angular/platform-browser/animations';
+import { 
+  NgModule,
+}                                    from '@angular/core';
+import { 
+  FormsModule,
+  ReactiveFormsModule,
+}                                    from '@angular/forms';
+import { HttpModule }                from '@angular/http';
 import { RouterModule, 
          Routes, 
-         RouterOutlet }             from '@angular/router';
-import { AngularFireModule } from 'angularfire2';
+         RouterOutlet }              from '@angular/router';
+import { AngularFireModule }         from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuthModule }     from 'angularfire2/auth';
 import { environment }        from '../environments/environment';
 
 import { AppRoutingModule }        from './app-routing.module';
@@ -16,6 +21,7 @@ import { AppComponent } from './app.component';
 import { CompanyModule }        from './company/company.module';
 import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemEditComponent } from './item/item-edit/item-edit.component';
+import { MdTabsModule }               from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,14 +30,16 @@ import { ItemEditComponent } from './item/item-edit/item-edit.component';
   ],
   imports: [
     AppRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    CompanyModule,
     FormsModule,
     HttpModule,
-    CompanyModule,
+    MdTabsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     RouterOutlet,

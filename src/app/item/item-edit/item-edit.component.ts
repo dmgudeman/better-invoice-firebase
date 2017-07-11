@@ -1,7 +1,7 @@
 import { 
   Component, 
   OnInit,
-  HostBinding
+  HostBinding,
 }                                          from '@angular/core';
 import { 
   FormBuilder, 
@@ -13,7 +13,6 @@ import {
 }                                         from '@angular/forms';
 import { BrowserAnimationsModule }        from '@angular/platform-browser/animations';
 import { Location }                       from '@angular/common';
-import { MaterialModule }                 from '@angular/material';
 import { 
   Router,
   ActivatedRoute, 
