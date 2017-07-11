@@ -59,7 +59,8 @@ export class CompanyEditComponent implements OnInit {
             hourly: '',
             paymentTerms: '',
             active: '',
-            userId: ''
+            userId: '',
+            items: '',
           });
           this.route.params
             .subscribe(params => { 
@@ -113,6 +114,7 @@ export class CompanyEditComponent implements OnInit {
     let hourly = mf.hourly;
     let paymentTerms = mf.paymentTerms;
     let active = mf.active;
+    if(!mf.items) mf.items = null;
     console.log(name, color, paymentTerms);
     this.companies.push({
       name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1

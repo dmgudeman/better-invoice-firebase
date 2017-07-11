@@ -1,7 +1,7 @@
 import { 
   Component, 
-  OnInit,
   HostBinding,
+  OnInit,
 }                                          from '@angular/core';
 import { 
   FormBuilder, 
@@ -9,19 +9,27 @@ import {
   FormGroup,
   FormsModule, 
   ReactiveFormsModule, 
-  Validators 
+  Validators, 
 }                                         from '@angular/forms';
 import { BrowserAnimationsModule }        from '@angular/platform-browser/animations';
 import { Location }                       from '@angular/common';
 import { 
-  Router,
   ActivatedRoute, 
-  Params
+  Params,
+  Router,
 }                                         from '@angular/router';
+
+import { 
+  AngularFireDatabase, 
+  FirebaseListObservable ,
+  FirebaseObjectObservable,
+}                                         from 'angularfire2/database';
 import { Observable }                     from 'rxjs/Observable';
 
 import { IMyOptions, IMyDateModel }       from 'mydatepicker';
 import * as moment                        from 'moment'
+
+import { Company }                        from '../../company/company';
 import { Item }                           from '../item';
 // import { ItemService }                    from '../item.service';
 import { Tab }                            from '../../shared/tab';
@@ -43,74 +51,48 @@ export class ItemEditComponent implements OnInit {
    
   hoursArrayLimit = 25;
   hoursArray:number[] = [];
-  coId: number;
+  // coId: number;
   coName: string;
-  companyKey: string;
+  company: Company
+  companyId: string;
+  companyItems: FirebaseListObservable<any[]>
   date:Date;
-  id:number;
-  item = new Item();
+  // id:number;
+  // item = new Item();
   m: moment.Moment;
   myDatePickerOptions: IMyOptions = { dateFormat: 'yyyy-mm-dd'};
   title: string;
-  type: string = 'placeholder';
-  uId: number;
-
-
+  // type: string = 'placeholder';
+  // uId: number;
   myform : FormGroup;
-  // fcId        = new FormControl(0);
-  // fcHours     = new FormControl(0);
-  // fcAmount    = new FormControl(0);
-  // fcDate      = new FormControl({date: {year: 2018, month: 10, day: 9}}, Validators.required);
-  // fcNotes     = new FormControl('');
-  // fcType      = new FormControl('');
-  // fcCompanyId = new FormControl();
 
   constructor(
     // private _itemService: ItemService,
     private location: Location,
     private router:Router,
     private route:ActivatedRoute,
-    private fb:FormBuilder) { }
+    private fb:FormBuilder,
+    private db: AngularFireDatabase,
+    ) { }
 
     ngOnInit() {
       this.myform = this.fb.group({
-          id:'',
           date:[{date: {year: 2018, month: 10, day: 9}}, Validators.required],
           description:'',
           amount:'',
           hours:'',
           type:'',
-          companyId:''
+          companyKey: '',
       });
      
       this.route.params.subscribe(params => {
-        this.companyKey = params['coId'];
+        this.companyId = params['companyKey'];
       });
-    //       if(this.id) {
-    //             this.itemService.getItem(this.id)
-    //                    .subscribe(item => {this.item = item;
-    //                                 let date = this.item.date;
-    //                                 this.fcId.setValue(this.id);
-    //                                 this.fcDate.setValue(this.item.date);
-    //                                 this.setDate(date);
-    //                                 this.fcNotes.setValue(this.item.description);
-    //                                 this.fcAmount.setValue(this.item.amount);
-    //                                 this.fcHours.setValue(this.item.hours);
-    //                                 this.fcType.setValue(this.item.type);
-    //                                 this.fcCompanyId.setValue(this.item.companyId);
-    //                                 return this.item;
-    //             },
-    //             response => {
-    //                 if (response.status === 404){
-    //                     this.router.navigate(['NotFound']);
-    //             }
-    //         });
-    //      } else {
-    //          let date = new Date();
-    //          this.setDate(date); 
-             
-    //      }
-        this.makeHoursArray(41);
+      this.db.object('/companies/'+ this.companyId).subscribe(data => {
+        this.company = data; 
+        console.log('data ', data)});
+      
+      this.makeHoursArray(41);
     }
 
     makeTitle(coName:string, itemId?:number){
@@ -128,34 +110,22 @@ export class ItemEditComponent implements OnInit {
 
     // }
     onSubmit() {
-        let id      = this.id;
-        let date       = this.myform.value.date;
-        this.prepareDate(this.date);
+      console.log(this.companyId);
+        
+      this.myform.value.companyKey = this.companyId;
+      console.log(JSON.stringify(this.company))
       
-        let result;
-        // console.log (`x     ${x}`);
-        // console.log(`payload ${payload}`);
-        
-        // console.log(`HIIIIIIIIIII TTTTTTTTTTTTTT `)
-        // console.log(`this.fcType.value ${this.fcType.value}`);
-        let x = this.myform.value;
-        let payload = {item:x};
-        // console.log(`IE date  ${JSON.stringify(date)}`);
-        // console.log (`IE payload     ${JSON.stringify(payload)}`);
-        // console.log (`IE x     ${JSON.stringify(x)}`);
-        
-        // if (id) {
-        //    result = this.itemService.updateItem(payload, id);
+      if(!this.company.items) this.company.items = [];
+      this.company.items.push(this.myform.value);
+      
+      this.db.object('/companies/'+ this.companyId).update({items:this.company.items})
+      
 
-        // } else {    
-        //    result = this.itemService.addItem(payload);
-        // //    console.log(`result on onSubmit in item-edit ${JSON.stringify(result)}`);
-        // }
-        //    result.subscribe(x => {
-        //             // Ideally, here we'd want:
-        //             // this.form.markAsPristine();
-        //         this.router.navigate(['companies']);
-        //    });
+        // this.companyItems.push({
+        //   name:name, color:color,  paymentTermspaymentTerms, hourly:hourly, active:true, userId:1
+        // });
+        // this.router.navigate(['companies']);
+       
     }
     // from github.com/kekeh/mydatepicker
     setDate(beginDate?): void {
