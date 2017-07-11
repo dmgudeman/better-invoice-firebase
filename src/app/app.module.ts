@@ -20,13 +20,11 @@ import { environment }        from '../environments/environment';
 import { AppRoutingModule }        from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompanyModule }        from './company/company.module';
-import { ItemListComponent } from './item/item-list/item-list.component';
 import { ItemEditComponent } from './item/item-edit/item-edit.component';
 import { MdTabsModule }               from '@angular/material';
 @NgModule({
   declarations: [
     AppComponent,
-    ItemListComponent,
     ItemEditComponent,
   ],
   imports: [

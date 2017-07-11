@@ -15,8 +15,9 @@ import { CompanyCardComponent }    from './company-card/company-card.component';
 import { CompanyService }          from './company.service';
 import { CompanyRoutingModule }    from './company-routing/company-routing.module';
 import { CompanyEditComponent }    from './company-edit/company-edit.component';
-// import { ItemDetailComponent }     from '../item/item-detail/item-detail.component';
 // import { SharedModule }            from '../shared/shared.module';
+import { ItemListComponent } from '../item/item-list/item-list.component';
+import { ItemDetailComponent } from '../item/item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CompanyEditComponent }    from './company-edit/company-edit.component';
     CompanyCardComponent,
     CompanyDetailsComponent,
     CompanyEditComponent,
-    // ItemDetailComponent
+    ItemListComponent,
+    ItemDetailComponent,
     
   ],
   imports: [

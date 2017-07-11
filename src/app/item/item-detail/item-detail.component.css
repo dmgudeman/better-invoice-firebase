@@ -1,0 +1,109 @@
+* {
+        font-size: 20px;
+}
+
+.container {
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        min-width: 20%;
+        min-height: 25px;
+        max-height: 100%;
+        /*background-color: purple;*/
+        margin: 0 -15px;
+}
+
+.section {
+        display: flex;
+        flex-direction: row;
+        max-width: 100%;
+        min-width: 100%;
+        min-height: 25px;
+        max-height: 100%;
+        margin: 0px;
+        /*background-color: Aqua;*/
+}
+.column {
+        display: flex;
+        flex-direction: column;
+        min-width: 400px;
+        max-width: 100%;
+        min-height: 25px;
+        max-height: 100%;   
+        /*background-color: yellow;*/
+}
+.row {
+        display: flex;
+        flex-direction: row;
+        flex: 1 1 0px;
+        min-height: 25px;
+        max-height: 100%;
+        min-width:50%;
+        max-width: 100%;
+        margin: 0px;
+        /*background-color: saddlebrown;*/
+}
+
+.input-box {
+        display: flex;
+        flex: 1 1 0px;
+        flex-direction: row;
+        min-width: 100px;
+        margin: 0px;
+        /*background-color: yellowgreen;*/
+}
+.input {
+        font-size: 80%;
+        /*background-color:cadetblue;*/
+}
+label {
+        font-size: 80%;
+        color: darkgray;
+        /*background-color: cornflowerblue*/
+}
+
+#col2 {
+        display:flex;
+        flex-direction:column;
+        flex: 1 1 0px;
+        min-width:50%;
+        max-width:100%;
+        /*background-color: yellow;*/
+} 
+
+
+/*----------description-----------------------*/
+
+#input-box22 {
+        flex: 11 11 0px;
+        /*background-color: cadetblue;*/
+}
+
+/*--------------COLORS-----------------------*/
+.brown  { background-color: rgba(141,110,99, 0.3) }
+.blue   { background-color: rgba(52,152,219,0.3) }
+.green  { background-color: rgba(0, 200,83,0.3) }
+.yellow { background-color: rgba(241,196,15,0.3) }
+.red    { background-color: rgba(231,76,60, 0.3) }
+.purple { background-color: rgba(155,89,182, 0.3)}
+
+/*===============SMALL SCREENS===================*/
+/*---------screen-xs--------------------*/
+@media (max-width: 768px) { 
+  .container {
+          max-width: 850px;
+          min-width: 350px;
+          margin: 0 auto;
+  }
+  .section {
+          padding-left: 15px;
+  }
+  #col1,#col3, #input-box21 {
+          display: none;
+  }
+  #row1 {
+           flex-direction: column;
+   }
+  #section1 { min-height: 130px;}
+
+}

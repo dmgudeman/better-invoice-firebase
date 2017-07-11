@@ -10,6 +10,7 @@ import {
   ActivatedRoute,
   Params 
 }                              from '@angular/router';
+import { ItemListComponent }   from '../../item/item-list/item-list.component';
 
 @Component({
   selector: 'app-company-details',
@@ -36,8 +37,8 @@ export class CompanyDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe(params => {
+        this.companyKey = params['id']; 
         console.log('companyKey', this.companyKey);
-        return this.companyKey = params['id']; 
          });
     this.db.object('/companies/'+ this.companyKey).subscribe(x=>{
       this.company = x;
