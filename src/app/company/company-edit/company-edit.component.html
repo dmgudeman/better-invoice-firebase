@@ -1,92 +1,91 @@
 <!--<div class="overall">-->
 <!-- NAVIGATION -->
 <div class="my-container">
-    <header id="header" (click)="goBack()">
-       <div>
-            <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
-            {{title}}
-        </div> 
-    </header>
-    <nav id="section1" (click)="goBack()">
-        <div class="column" id="col1">
-            <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
-            {{title}}
+  <header id="header" (click)="goBack()">
+    <div>
+      <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
+      {{title}}
+    </div> 
+  </header>
+  <nav id="section1" (click)="goBack()">
+    <div class="column" id="col1"> <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
+      {{title}}
+    </div>
+  </nav>
+  <!--  FORM -->
+  <div id="section2" class="over-form tmp-form">
+    <div class="colum" id="col2"></div>
+    <div class="colum" id="col3">
+      <form [formGroup]="myform" (ngSubmit)="onSubmit()">
+          
+        <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
+        <div id="row1" class="row">
+          <div id="input-box1" class="input-box" name="name">
+            <label id="label1" class="input" for="name">Business Name</label>
+            <input id="name" class="input ec-input" formControlName="name" type="text">
+          </div>
+          <div class="input-box" id="input-box2">
+            <label id="label2" class="input" for="color">Color tag</label>
+            <div class="input" id="color">
+              <input type="radio" id="tag1" value="brown" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'brown'">
+              <label class=" ec-radio brown" for="tag1"></label>
+              <input type="radio" id="tag2" value="blue" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'blue'">
+              <label class=" ec-radio blue" for="tag2"></label>
+              <input type="radio" id="tag3" value="green" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'green'">
+              <label class=" ec-radio green" for="tag3"></label>
+              <input type="radio" id="tag4" value="yellow" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'yellow'">
+              <label class=" ec-radio yellow" for="tag4"></label>
+              <input type="radio" id="tag5" value="red" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'red'">
+              <label class=" ec-radio red" for="tag5"></label>
+              <input type="radio" id="tag6" value="purple" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'purple'">
+              <label class=" ec-radio purple" for="tag6"></label>
+            </div>
+          </div>
         </div>
-    </nav>
-    <!--  FORM -->
-    <div id="section2" class="over-form tmp-form">
-        <div class="colum" id="col2"></div>
-        <div class="colum" id="col3">
-            <form [formGroup]="myform" (ngSubmit)="onSubmit()">
-                
-                <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
-                <div id="row1" class="row">
-                    <div id="input-box1" class="input-box" name="name">
-                        <label id="label1" class="input" for="name">Business Name</label>
-                        <input id="name" class="input ec-input" formControlName="name" type="text">
-                    </div>
-                    <div class="input-box" id="input-box2">
-                        <label id="label2" class="input" for="color">Color tag</label>
-                        <div class="input" id="color">
-                            <input type="radio" id="tag1" value="brown" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'brown'">
-                            <label class=" ec-radio brown" for="tag1"></label>
-                            <input type="radio" id="tag2" value="blue" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'blue'">
-                            <label class=" ec-radio blue" for="tag2"></label>
-                            <input type="radio" id="tag3" value="green" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'green'">
-                            <label class=" ec-radio green" for="tag3"></label>
-                            <input type="radio" id="tag4" value="yellow" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'yellow'">
-                            <label class=" ec-radio yellow" for="tag4"></label>
-                            <input type="radio" id="tag5" value="red" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'red'">
-                            <label class=" ec-radio red" for="tag5"></label>
-                            <input type="radio" id="tag6" value="purple" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'purple'">
-                            <label class=" ec-radio purple" for="tag6"></label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" id="row2">
-                    <div id="input-box3" class="input-box">
-                        <label id="label3" class="input" for="hourly">Hourly pay</label>
-                        <input id="input3" class="input ec-input" formControlName="hourly" type="text">
-                    </div>
-                    <div id="input-box4" class="input-box">
-                        <label id="label4" class="input">Payment terms</label>
-                        <div id="input4" class="input ec-input" contenteditable>
-                            <select formControlName="paymentTerms">
-                                <option>30</option>
-                                <option>15</option>
-                                <option>7</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div id="row3" class="row">
-                    <div id="input-box5" class="input-box">
-                        <label id="label5" class="input">Active company</label>
-                         <div id="input5" class="input ec-input" contenteditable>
-                            <select formControlName="active"> 
-                                <option>true</option>
-                                <option>false</option>
-                            </select>
-                        </div>
-                        </div>
-                        <div id="input-box6" class="input-box"></div>
-                </div>
-               
-              
-            </form>
-                <!-- FOOTER -->
-             <footer id="row4" class="row">
-                    <div id="input-box7" class="input-box">
-                        <label id="label7" class="input"></label>
-                        <div class="footer-row">
-                            <button class="footer-col" (click)="onSubmit()" type="submit"> 
-                        Submit
-                    </button>
-                        </div>
-                    </div>
-                    <div id="input-box8" class="input-box"></div>
-                </footer>
-        </div>
+          <div class="row" id="row2">
+              <div id="input-box3" class="input-box">
+                  <label id="label3" class="input" for="hourly">Hourly pay</label>
+                  <input id="input3" class="input ec-input" formControlName="hourly" type="text">
+              </div>
+              <div id="input-box4" class="input-box">
+                  <label id="label4" class="input">Payment terms</label>
+                  <div id="input4" class="input ec-input" contenteditable>
+                      <select formControlName="paymentTerms">
+                          <option>30</option>
+                          <option>15</option>
+                          <option>7</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+          <div id="row3" class="row">
+              <div id="input-box5" class="input-box">
+                  <label id="label5" class="input">Active company</label>
+                    <div id="input5" class="input ec-input" contenteditable>
+                      <select formControlName="active"> 
+                          <option>true</option>
+                          <option>false</option>
+                      </select>
+                  </div>
+                  </div>
+                  <div id="input-box6" class="input-box"></div>
+          </div>
+            
+          
+        </form>
+              <!-- FOOTER -->
+            <footer id="row4" class="row">
+                  <div id="input-box7" class="input-box">
+                      <label id="label7" class="input"></label>
+                      <div class="footer-row">
+                          <button class="footer-col" (click)="onSubmit()" type="submit"> 
+                      Submit
+                  </button>
+                      </div>
+                  </div>
+                  <div id="input-box8" class="input-box"></div>
+              </footer>
+      </div>
         <div class="colum" id="col4"></div>
     </div>
     <footer id="footer" (click)="onSubmit()">Submit</footer>

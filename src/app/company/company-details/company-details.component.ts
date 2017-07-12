@@ -39,7 +39,7 @@ export class CompanyDetailsComponent implements OnInit {
       .subscribe(params => {
         this.companyKey = params['id']; 
         console.log('companyKey', this.companyKey);
-         });
+      });
     this.db.object('/companies/'+ this.companyKey).subscribe(x=>{
       this.company = x;
       this.coId = x.$key;

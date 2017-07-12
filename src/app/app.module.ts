@@ -32,6 +32,7 @@ import {
 import { InvoiceEditComponent }      from './invoice/invoice-edit/invoice-edit.component';
 import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 import { InvoiceService }            from './invoice/invoice.service';
+import { AddressEditComponent } from './address/address-edit/address-edit.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { InvoiceService }            from './invoice/invoice.service';
     ItemEditComponent,
     InvoiceEditComponent,
     InvoicePrePdfComponent,
+    AddressEditComponent,
   ],
   imports: [
     AppRoutingModule,

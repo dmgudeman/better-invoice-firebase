@@ -1,0 +1,92 @@
+<!--<div class="overall">-->
+<!-- NAVIGATION -->
+<div class="my-container">
+    <!--<header id="header" (click)="goBack()">
+       <div>
+            <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
+            {{title}}
+        </div> 
+    </header>-->
+    <!--<nav id="section1" (click)="goBack()">
+        <div class="column" id="col1">
+            <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
+            {{title}}
+        </div>
+    </nav>-->
+    <!--  FORM -->
+    <div id="section2" class="over-form tmp-form">
+        <div class="colum" id="col2"></div>
+        <div class="colum" id="col3">
+            <form [formGroup]="myform" (ngSubmit)="onSubmit2($event)">
+                <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
+                <!--street1-->
+                <div id="row1" class="row">
+                    <div id="input-box1" class="input-box" name="street1">
+                        <label id="label1" class="input" for="name">Street</label>
+                        <input id="street1" class="input ec-input" formControlName="street1" type="text">
+                    </div>
+                   
+                    </div>
+                <!--street2-->
+                <div id="row2" class="row">
+                    <div id="input-box2" class="input-box" street2="street2">
+                        <label id="label2" class="input" for="street2">Suite or Apt</label>
+                        <input id="street2" class="input ec-input" formControlName="street2" type="text">
+                    </div>
+                   
+                    </div>
+
+                <!--city-->
+                <div id="row3" class="row">
+                    <div id="input-box3" class="input-box" city="city">
+                        <label id="label3" class="input" for="city">City</label>
+                        <input id="city" class="input ec-input" formControlName="city" type="text">
+                    </div>
+                   
+                    </div>
+
+                <!--state-->
+                <div id="row4" class="row">
+                    <div id="input-box4" class="input-box" state="state">
+                        <label id="label4" class="input" for="state">State</label>
+                        <input id="state" class="input ec-input" formControlName="state" type="text">
+                    </div>
+                   
+                    </div>
+               
+                <!--postalCode-->
+                <div id="row5" class="row">
+                    <div id="input-box5" class="input-box" postal-code="postal-code">
+                        <label id="label5" class="input" for="postal-code">Postal Code</label>
+                        <input id="postal-code" class="input ec-input" formControlName="postalCode" type="text">
+                    </div>
+                   
+                    </div>
+
+                <!--country-->
+                <div id="row6" class="row">
+                    <div id="input-box6" class="input-box" country="country">
+                        <label id="label6" class="input" for="country">Country</label>
+                        <input id="country" class="input ec-input" formControlName="country" type="text">
+                    </div>
+                   
+                    </div>
+
+                <!-- FOOTER -->
+                <footer id="row4" class="row">
+                    <div id="input-box7" class="input-box">
+                        <label id="label7" class="input"></label>
+                        <div class="footer-row">
+                            <button class="footer-col" (click)="onSubmit2($event)" type="submit"> 
+                        Submit
+                    </button>
+                        </div>
+                    </div>
+                    <div id="input-box8" class="input-box"></div>
+                </footer>
+            </form>
+        </div>
+        <div class="colum" id="col4"></div>
+    </div>
+    <!--<footer id="footer" (click)="onSubmit()">Submit</footer>-->
+</div>

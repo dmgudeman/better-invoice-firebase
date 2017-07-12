@@ -1,6 +1,6 @@
 import { NgModule }               from '@angular/core';
 import { RouterModule, Routes }   from '@angular/router';
-// import { AddressEditComponent }   from './address/address-edit/address-edit.component';
+import { AddressEditComponent }   from './address/address-edit/address-edit.component';
 import { InvoicePrePdfComponent } from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 // import { ItemDetailComponent }    from './item/item-detail/item-detail.component';
 // import { ItemDetailOneComponent } from './item/item-detail-one/item-detail-one.component';
@@ -13,7 +13,7 @@ import { InvoiceEditComponent }   from './invoice/invoice-edit/invoice-edit.comp
 
 export const APP_ROUTES: Routes = [
   { path: '',  redirectTo: '/company-edit', pathMatch: 'full'}, 
-  // { path: 'address',              component: AddressEditComponent },
+  { path: 'address',              component: AddressEditComponent },
   { path: 'item-edit/:id',            component: ItemEditComponent },
   { path: 'item-edit',                component: ItemEditComponent },
   // { path: 'app-item-detail',      component: ItemDetailComponent }, 

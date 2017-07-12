@@ -9,6 +9,7 @@ export interface InvoiceInterface {
         discount: number;
         url;
         companyId: string;
-        Company: Company;
+        company: Company;
         items: Item[];
+        createdAt: string;
 }

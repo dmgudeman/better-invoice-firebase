@@ -1,3 +1,87 @@
-<p>
-  invoice-pre-pdf works!
-</p>
+<div class="my-container">
+     <header id="header"  class="row0" (click)="goBack()">
+        <div>
+            <a  class="glyphicon glyphicon-chevron-left left-arrow col0" aria-hidden="true"></a>
+        </div> 
+        <div class="col0-mid">Invoice Preview</div>
+        <div class="col0"></div>
+     
+    </header>
+    <!--<div id="section1"  (click)="goBack()">
+        <div id="col1" class="ni-nav">
+            <a class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></a>
+            <span>{{title}}</span>
+        </div>
+    </div>-->
+    <div id="invoice-body">
+    <div class="invoice-box" >
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <div>{{coName}}</div>
+                                <!--<img src="logo.png" style="width:100%; max-width:300px;">-->
+                            </td>
+                            <td>
+                                Invoice #: {{invoiceId}}<br> Created: {{createdDate| date:'yMd'}}<br> Due: {{dueDate| date:'yMd' }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                Next Step Webs, Inc.<br> 12345 Sunny Road<br> Sunnyville, TX 12345
+                            </td>
+                            <td>
+                                {{coName}}<br> John Doe<br> john@example.com
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="heading row1">
+                <td class="col1"> Payment Method </td>
+                <td class="col1 col1-mid"> </td>
+                <td class="col1"> Check # </td>
+            </tr>
+
+            <tr class="details row1">
+                <td class="col1"> Check </td>
+                <td class="col1 col1-mid"> </td>
+                <td class="col1"> 1000 </td>
+            </tr>
+
+            <tr class="heading item row1">
+                <td class="col1"> Item </td>
+                <td class="col1 col1-mid"> Description </td>
+                <td class="col1"> Price </td>
+            </tr>
+
+            <tr class="item row1"  *ngFor="let i of items">
+                <td class="col1"> {{i.date| date:'yMd'}} </td>
+                <td class="col1 col1-mid"> {{i.description}} </td>
+                <td class="col1"> {{i.amount}} </td>
+            </tr>
+            
+            <tr class="total row1">
+                <td class="col1"></td>
+                <td class="col1"></td>
+                <td class="col1"> Total: $385.00 </td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <footer id="footer" class="row2"> 
+       <div class="col2 col2-mid">
+           <button class="my-submit-btn" type="submit" (click)="submit()">Submit</button>
+       </div>
+    </footer>
+</div>

@@ -87,15 +87,15 @@ export class InvoiceEditComponent implements OnInit {
       companyId: '',
     });
     this.route.params.subscribe(params => {
-    this.companyId = params['companyKey'];
-    console.log('companyId', this.companyId);
-  });
-  this.invoices = this.db.list('/invoices')
-  this.db.object('/companies/'+ this.companyId).subscribe(data => {
-    this.company = data; 
-    this.items = this.company.items;
-    console.log('data ', data)});
-  }
+      this.companyId = params['companyKey'];
+      console.log('companyId', this.companyId);
+    });
+    this.invoices = this.db.list('/invoices')
+    this.db.object('/companies/'+ this.companyId).subscribe(data => {
+      this.company = data; 
+      this.items = this.company.items;
+      console.log('data ', this.company.name)});
+    }
   
   onFormChange() {
     this.myform.valueChanges.subscribe(data => {
@@ -157,9 +157,9 @@ export class InvoiceEditComponent implements OnInit {
     this.invoice = this.myform.value;
     this.invoice.companyId = this.companyId;
     this.invoice.items = this.filterByDateRange(bdate, edate);
-    console.log(JSON.stringify(this.invoice.items));
-    console.log(this.invoice);
-    console.log(this.company);
+    // console.log(JSON.stringify(this.invoice.items));
+    // console.log(this.invoice);
+    // console.log(this.company);
     
     // Get a key for a new Invoice
     let newInvoiceKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
@@ -169,7 +169,7 @@ export class InvoiceEditComponent implements OnInit {
     updates['/invoices/' + newInvoiceKey] = this.invoice;
     updates['/companies/'+ this.companyId + '/invoices/' + newInvoiceKey] = this.invoice;
     this.db.app.database().ref().update(updates);
-    
-    this.router.navigate(['invoice-pre-pdf/' + newInvoiceKey ]);
+
+    this.router.navigate(['/invoice-pre-pdf/' + newInvoiceKey ]);
   }
 }
