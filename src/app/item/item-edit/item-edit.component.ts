@@ -107,9 +107,21 @@ export class ItemEditComponent implements OnInit {
   onSubmit() {
     this.myform.value.companyKey = this.companyId;
     if(!this.company.items) this.company.items = [];
-    this.company.items.push(this.myform.value);
-    this.db.object('/companies/'+ this.companyId).update({items:this.company.items});
+    // this.company.items.push(this.myform.value);
+    // this.db.object('/companies/'+ this.companyId).update({items:this.company.items});
+    
+
+    // Get a key for a new Invoice
+    let newItemKey = this.db.app.database().ref().child('companies').child('items').push().key;
+    this.db.app.database().ref().child('items').push().key = newItemKey; 
+    // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
+    let updates = {};
+    updates['/companies/'+ this.companyId + '/items/' + newItemKey] = this.myform.value;
+    updates['/items/' + newItemKey] = this.myform.value;
+    this.db.app.database().ref().update(updates);
+
     this.goToCompanies();
+
   }
   
   goToCompanyDetails() {

@@ -168,8 +168,8 @@ export class InvoiceEditComponent implements OnInit {
     let updates = {};
     updates['/invoices/' + newInvoiceKey] = this.invoice;
     updates['/companies/'+ this.companyId + '/invoices/' + newInvoiceKey] = this.invoice;
-  
     this.db.app.database().ref().update(updates);
+    
     this.router.navigate(['invoice-pre-pdf/' + newInvoiceKey ]);
   }
 }
