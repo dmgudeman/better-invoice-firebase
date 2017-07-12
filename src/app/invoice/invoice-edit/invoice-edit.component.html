@@ -1,3 +1,107 @@
-<p>
-  invoice-edit works!
-</p>
+<!-- NAVIGATION -->
+<div class="container-fluid">
+    <div class="row">
+        <div class=" col-sm-12 col-md-6 iv-nav">
+            <div>
+                <a 
+                    (click)="goBack()"
+                    class="glyphicon glyphicon-chevron-left" 
+                    aria-hidden="true"
+                ></a>
+                <span>Export Invoice</span>
+            </div>
+        </div>
+    </div>
+       <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
+    <!-- HEADER -->
+    <div class="row">
+        <div class="col-xs-12 col-md-5 col-md-offset-1">
+            <!--  FORM -->
+                <form [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate>
+                    <div class="row"  >
+                        <div class=" form-group col-xs-12 col-md-6 ">
+                          <md-input-container>
+                            <input 
+                              class="iv-date"
+                              name="beginDate" 
+                              formControlName="beginDate"
+                              id="beginDateate" 
+                              mdInput 
+                              [mdDatepicker]="picker" 
+                              placeholder="Start Date"
+                             >
+                            <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                          </md-input-container>
+                          <md-datepicker #picker></md-datepicker> 
+                        </div>
+                        <div class=" form-group col-xs-12 col-md-6 ">
+                          <md-input-container>
+                            <input 
+                              class="iv-date"
+                              name="endDate" 
+                              formControlName="endDate"
+                              id="endDate" 
+                              mdInput 
+                              [mdDatepicker]="picker2" 
+                              placeholder="End Date"
+                             >
+                            <button mdSuffix [mdDatepickerToggle]="picker2"></button>
+                          </md-input-container>
+                          <md-datepicker #picker2></md-datepicker>
+                        </div>
+                   </div>
+                   <div class="row"> 
+                        <div class="form-group col-md-12 iv-discount "> 
+                              <div *ngIf="!toggle">
+                                    <label for="amount">Discount Amount </label>
+                                    <div class="input-group ">
+                                        <input class="form-control "
+                                                name="amount"
+                                                formControlName="amount"
+                                                id="amount" 
+                                                type="text" 
+                                        > 
+                                        <span class="input-group-addon iv-group-addon-1" (click)= "toggleIt()">%</span>
+                                        <span class="input-group-addon iv-group-addon-1" (click)= "toggleIt()">$</span>
+                                    </div>
+                              </div>
+                              <div *ngIf="toggle">
+                                    <label for="discount"> Discount Percentage </label>
+                                    <div class="input-group ">
+                                        <input class="form-control "
+                                                name="discount" 
+                                                formControlName="discount"
+                                                id="discount" 
+                                                type="text" 
+                                                
+                                        > 
+                                    <span class="input-group-addon iv-group-addon-2" (click)= "toggleIt()">%</span>
+                                    <span class="input-group-addon iv-group-addon-2" (click)= "toggleIt()">$</span>
+                                </div>
+                              </div>
+                         </div>
+                    </div>
+               <div class="form-group col-md-12">
+                        <label for="notes">Description/notes</label>
+                        <textarea 
+                             class="form-control iv-notes" 
+                             name="description" 
+                             formControlName="description"
+                             id="description" 
+                             type="textbox" 
+                             required
+                             placeholder="Type Here">
+                          </textarea>
+                     </div>
+                     <div>
+                         <button class="col-xs-12 col-md-4 myCol" >Submit </button>
+                     </div>
+                </form>
+          </div>
+     </div>
+<!--<br>
+      <h3>Form changes</h3>
+      <pre><code>{{ output | json }}</code></pre>
+      <h3>Subbmited form</h3>
+      <pre>{{ submittedForm | json }}</pre>-->
+</div>

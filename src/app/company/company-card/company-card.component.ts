@@ -49,28 +49,11 @@ export class CompanyCardComponent implements OnInit {
       return this.shared.setClassColor(null, this.color);
   }
   goToCompanyDetails(){
-    console.log('company.name', this.company.$key);
-    // let companyKey = company.id;
-    // let coName = company.name;
-    // let coHourly  company.hourly;
-    // let coColor= company.color
-    // let uId = 1
     this.router.navigate(['/company-details/', {id:this.company.$key}]);
-    //                                            companyKey:companyKey,
-    //                                            coColor:coColor,
-    //                                            coHourly:coHourly, 
-    //                                            coName:coName, 
-    //                                            uId:uId,
-    //                                            }]);
   }
 
-  goToInvoice(company:Company) {
-    // let uId = 1;
-    // let companyKey = company.id;
-    
-    // company.id;
-    // this.invoice = this._invoiceService.makeInvoice(uId,companyKey);
-    this.router.navigate(['/invoice-edit', {id:this.companyKey}]);
+  goToInvoice() {
+    this.router.navigate(['/invoice-edit/', {companyKey:this.companyKey}]);
   }
 
   goToEditCompany(company?:Company){

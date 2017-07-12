@@ -59,7 +59,7 @@ export class ItemEditComponent implements OnInit {
   companyItems: FirebaseListObservable<any[]>
   date:Date;
   m: moment.Moment;
-  myDatePickerOptions: IMyOptions = { dateFormat: 'yyyy-mm-dd'};
+  // myDatePickerOptions: IMyOptions = { dateFormat: 'yyyy-mm-dd'};
   title: string;
   myform : FormGroup;
 
@@ -106,38 +106,10 @@ export class ItemEditComponent implements OnInit {
 
   onSubmit() {
     this.myform.value.companyKey = this.companyId;
-    console.log('this.myform.value', this.myform.value);
-    
     if(!this.company.items) this.company.items = [];
     this.company.items.push(this.myform.value);
-    
     this.db.object('/companies/'+ this.companyId).update({items:this.company.items});
     this.goToCompanies();
-  }
-  // from github.com/kekeh/mydatepicker
-  setDate(beginDate?): void {
-    let date;
-    // date ? newDate = new Date(date) : newDate = new Date();
-    if (!beginDate) {date= new Date();} else {date = new Date(beginDate)};
-    let year = date.getFullYear();
-    let month = date.getMonth()+1;
-    let day = date.getDate();
-    this.date = date;
-    this.myform.value.date({date: {year: year, month: month, day: day}});
-  }
-
-  prepareDate(date){
-      this.m= moment(date);
-      let year = this.m.year;
-      let month = this.m.month;
-      let day = this.m.day;
-      let fdate = this.m.format('YYYY-MM-DD');
-      this.myform.value.date(fdate);
-  }
-    // from github.com/kekeh/mydatepicker
-  clearDate(): void {
-      // Clear the date using the setValue function
-    this.myform.setValue({fcDate: ''});
   }
   
   goToCompanyDetails() {
