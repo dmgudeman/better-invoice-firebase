@@ -29,7 +29,7 @@ import {
   FirebaseListObservable ,
   FirebaseObjectObservable,
 }                                from 'angularfire2/database';
-import * as Moment               from 'moment';
+import * as moment               from 'moment'
 
 // Custom Modules
 import { Company }               from '../../company/company';
@@ -64,6 +64,7 @@ export class InvoiceEditComponent implements OnInit {
   submittedForm
   invoiceRes
   invoices: Invoice[] = [];
+  m: moment.Moment;
 
   myform: FormGroup;
 
@@ -113,26 +114,24 @@ export class InvoiceEditComponent implements OnInit {
 
     canSave = true;
     onClickCanSave() {
-        this.canSave = !this.canSave;
+      this.canSave = !this.canSave;
     }
 
     goToPrePdf() {
-        let id = this.companyId;
-        this.router.navigate(['/invoice-pre-pdf', id]);
+      let id = this.companyId;
+      this.router.navigate(['/invoice-pre-pdf', id]);
     }
     
     filterByDateRange(beginDate?, endDate?) {
-      let bmDate = Moment(beginDate.formatted);
-      let emDate = Moment(endDate.formatted);
-      bmDate = bmDate.add(-1,'d');
-      emDate = emDate.add(-1,'d');
+      let bmDate = moment(beginDate).format('LL');
+      let emDate = moment(endDate).format('LL');
       let filteredItems: Item[]=[];
       console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
       console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
       console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
 
       for (let i = 0; i < this.items.length; i++) {
-        let imDate = Moment(this.items[i].date);
+        let imDate = moment(this.items[i].date);
             
         console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
         console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
@@ -140,11 +139,11 @@ export class InvoiceEditComponent implements OnInit {
         console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
 
         if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          console.log(`INVOICE_EDIT filterByDateRange this.items[i]= ${this.items[i]}`);
+          console.log(`INVOICE_EDIT filterByDateRange this.items[i]= ${JSON.stringify(this.items[i])}`);
           filteredItems.push(this.items[i])
         }
       }
-      console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${filteredItems}`);
+      console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
 
       return filteredItems;
     }
@@ -154,12 +153,9 @@ export class InvoiceEditComponent implements OnInit {
     onSubmit() {
       let bdate= this.myform.value.beginDate;
       let edate= this.myform.value.endDate;
+      console.log('edate', edate);
       this.filterByDateRange(bdate, edate);
       
-     
-
-      
       // this.router.navigate(['invoice-pre-pdf/' ]);
-                  
     }
 }
