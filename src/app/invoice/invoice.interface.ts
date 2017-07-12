@@ -8,7 +8,7 @@ export interface InvoiceInterface {
         amount: number;
         discount: number;
         url;
-        companyId: number;
+        companyId: string;
         Company: Company;
-        Items: Item[];
+        items: Item[];
 }

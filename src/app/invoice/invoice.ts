@@ -10,11 +10,11 @@ export class Invoice implements InvoiceInterface {
         amount: number;
         discount: number;
         url;
-        companyId: number;
+        companyId: string;
         Company: Company;
-        Items: Item[];
+        items: Item[];
 
-    constructor(id?, beginDate?, endDate?, description?, amount?, discount?, url?, companyId?, company?, Items?){
+    constructor(id?, beginDate?, endDate?, description?, amount?, discount?, url?, companyId?, company?, items?){
         this.beginDate   = beginDate || null;
         this.endDate     = endDate || null;
         this.description = description || null;
@@ -23,6 +23,6 @@ export class Invoice implements InvoiceInterface {
         this.url         = url || null;
         this.companyId   = companyId || 0;
         this.Company     = company || null;
-        this.Items       = Items || null;
+        this.items       = items || null;
         }
     }

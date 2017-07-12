@@ -1,7 +1,7 @@
 import { NgModule }               from '@angular/core';
 import { RouterModule, Routes }   from '@angular/router';
 // import { AddressEditComponent }   from './address/address-edit/address-edit.component';
-// import { InvoicePrePdfComponent } from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
+import { InvoicePrePdfComponent } from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 // import { ItemDetailComponent }    from './item/item-detail/item-detail.component';
 // import { ItemDetailOneComponent } from './item/item-detail-one/item-detail-one.component';
 import { ItemEditComponent }      from './item/item-edit/item-edit.component';
@@ -20,7 +20,7 @@ export const APP_ROUTES: Routes = [
   // { path: 'item-detail-one',      component: ItemDetailOneComponent }, 
   { path: 'invoice-edit',        component: InvoiceEditComponent },
   // { path: 'invoice-pre-pdf',      component: InvoicePrePdfComponent },
-  // { path: 'invoice-pre-pdf/:id',  component: InvoicePrePdfComponent },
+  { path: 'invoice-pre-pdf/:id',  component: InvoicePrePdfComponent },
  
 ];
 

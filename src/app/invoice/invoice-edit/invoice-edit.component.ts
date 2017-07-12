@@ -49,24 +49,23 @@ export class InvoiceEditComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   @HostBinding('style.display')   display = 'block';
   @HostBinding('style.position')  position = 'absolute';
-  // dateFormat = require('dateformat');
 
-  // myDatePickerOptions: IMyOptions = { dateFormat: 'mm/dd/yyyy', inline: false, selectionTxtFontSize: '15px' };
-  title: string;
   company: Company;
   companyId: string;
   errorMessage: string;
+  invoice:any;
+  invoices: FirebaseListObservable<any[]>;
+  invoiceRes: FirebaseObjectObservable<any>;
   item
-  output
-  shared: Shared;
   items: Item[] = [];
   itemIds: number[] = [];
-  submittedForm
-  invoiceRes
-  invoices: Invoice[] = [];
   m: moment.Moment;
-
   myform: FormGroup;
+  output
+  shared: Shared;
+  submittedForm
+  title: string;
+
 
   constructor(
     private db: AngularFireDatabase,
@@ -78,84 +77,99 @@ export class InvoiceEditComponent implements OnInit {
     this.shared = new Shared();
   }
 
-    ngOnInit() {
-      this.myform = this.fb.group({
-        beginDate: '',
-        endDate: '',
-        description: '',
-        amount: '',
-        discount: '',
-        companyId: '',
-      });
-      this.route.params.subscribe(params => {
-      this.companyId = params['companyKey'];
-      console.log('companyId', this.companyId);
+  ngOnInit() {
+    this.myform = this.fb.group({
+      beginDate: '',
+      endDate: '',
+      description: '',
+      amount: '',
+      discount: '',
+      companyId: '',
     });
-    
-    this.db.object('/companies/'+ this.companyId).subscribe(data => {
-      this.company = data; 
-      this.items = this.company.items;
-      console.log('data ', data)});
-    }
+    this.route.params.subscribe(params => {
+    this.companyId = params['companyKey'];
+    console.log('companyId', this.companyId);
+  });
+  this.invoices = this.db.list('/invoices')
+  this.db.object('/companies/'+ this.companyId).subscribe(data => {
+    this.company = data; 
+    this.items = this.company.items;
+    console.log('data ', data)});
+  }
+  
+  onFormChange() {
+    this.myform.valueChanges.subscribe(data => {
+      // this.filterByDateRange(data.beginDate, data.endDate)
+      // this.output = data
+    })
+  }
 
-    onFormChange() {
-      this.myform.valueChanges.subscribe(data => {
-        // this.filterByDateRange(data.beginDate, data.endDate)
-        // this.output = data
-      })
-    }
+  toggle = true;
+  toggleIt() {
+    this.toggle = !this.toggle;
+    console.log("TOGGLE = " + this.toggle)
+    return this.toggle;
+  }
 
-    toggle = true;
-    toggleIt() {
-      this.toggle = !this.toggle;
-      console.log("TOGGLE = " + this.toggle)
-      return this.toggle;
-    }
+  canSave = true;
+  onClickCanSave() {
+    this.canSave = !this.canSave;
+  }
 
-    canSave = true;
-    onClickCanSave() {
-      this.canSave = !this.canSave;
-    }
+  goToPrePdf() {
+    let id = this.companyId;
+    this.router.navigate(['/invoice-pre-pdf', id]);
+  }
+  
+  filterByDateRange(beginDate?, endDate?) {
+    let bmDate = moment(beginDate).format('LL');
+    let emDate = moment(endDate).format('LL');
+    let filteredItems: Item[]=[];
+    // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
 
-    goToPrePdf() {
-      let id = this.companyId;
-      this.router.navigate(['/invoice-pre-pdf', id]);
-    }
-    
-    filterByDateRange(beginDate?, endDate?) {
-      let bmDate = moment(beginDate).format('LL');
-      let emDate = moment(endDate).format('LL');
-      let filteredItems: Item[]=[];
-      console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
-      console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-      console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+    for (let i = 0; i < this.items.length; i++) {
+      let imDate = moment(this.items[i].date);
+          
+      // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
+      // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+      // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+      // console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
 
-      for (let i = 0; i < this.items.length; i++) {
-        let imDate = moment(this.items[i].date);
-            
-        console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
-
-        if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          console.log(`INVOICE_EDIT filterByDateRange this.items[i]= ${JSON.stringify(this.items[i])}`);
-          filteredItems.push(this.items[i])
-        }
+      if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
+        // console.log(`INVOICE_EDIT filterByDateRange this.items[i]= ${JSON.stringify(this.items[i])}`);
+        filteredItems.push(this.items[i])
       }
-      console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
-
-      return filteredItems;
     }
+    console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
+    
+    return filteredItems;
 
-    goBack() { this.location.back(); }
+  }
 
-    onSubmit() {
-      let bdate= this.myform.value.beginDate;
-      let edate= this.myform.value.endDate;
-      console.log('edate', edate);
-      this.filterByDateRange(bdate, edate);
-      
-      // this.router.navigate(['invoice-pre-pdf/' ]);
-    }
+  goBack() { this.location.back(); }
+
+  onSubmit() {
+    let bdate= this.myform.value.beginDate;
+    let edate= this.myform.value.endDate;
+
+    this.invoice = this.myform.value;
+    this.invoice.companyId = this.companyId;
+    this.invoice.items = this.filterByDateRange(bdate, edate);
+    console.log(JSON.stringify(this.invoice.items));
+    console.log(this.invoice);
+    console.log(this.company);
+    
+    // Get a key for a new Invoice
+    let newInvoiceKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
+    
+    // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
+    let updates = {};
+    updates['/invoices/' + newInvoiceKey] = this.invoice;
+    updates['/companies/'+ this.companyId + '/invoices/' + newInvoiceKey] = this.invoice;
+  
+    this.db.app.database().ref().update(updates);
+    this.router.navigate(['invoice-pre-pdf/' + newInvoiceKey ]);
+  }
 }
