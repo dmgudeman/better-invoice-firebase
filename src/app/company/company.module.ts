@@ -5,9 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule }              from '@angular/http';
 import { RouterModule, Routes }    from '@angular/router';
 // import { MaterialModule }          from '@angular/material';
+import { 
+  MaterialModule,
+  MdDatepickerModule,
+  MdInputModule,
+  MdNativeDateModule,
+  MdTabsModule,
+ }                                   from '@angular/material';
 
 // import { AddressComponent }        from '../address/address/address.component';
-// import { AddressEditComponent }    from '../address/address-edit/address-edit.component';
+import { AddressEditComponent }    from '../address/address-edit/address-edit.component';
 // import { AddressService }          from '../address/address.service';
 import { CompaniesComponent }      from './companies/companies.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
@@ -22,7 +29,7 @@ import { ItemDetailComponent } from '../item/item-detail/item-detail.component';
 @NgModule({
   declarations: [
     // AddressComponent,
-    // AddressEditComponent,
+    AddressEditComponent,
     CompaniesComponent,
     CompanyCardComponent,
     CompanyDetailsComponent,
@@ -41,6 +48,11 @@ import { ItemDetailComponent } from '../item/item-detail/item-detail.component';
     RouterModule,
     // SharedModule,
     CompanyRoutingModule,
+    MaterialModule,
+    MdDatepickerModule,
+    MdInputModule,
+    MdNativeDateModule,
+    MdTabsModule,
   ],
   providers: [
     // AddressService,

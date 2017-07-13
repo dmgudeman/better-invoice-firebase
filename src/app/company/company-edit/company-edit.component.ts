@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }     from '@angular/core';
+import { 
+  BrowserAnimationsModule,
+}                                from '@angular/platform-browser/animations';
 import { 
   FormBuilder, 
   FormControl, 
@@ -6,23 +9,32 @@ import {
   FormsModule, 
   ReactiveFormsModule,
   Validators,
-}                           from '@angular/forms';
+}                                from '@angular/forms';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable ,
   FirebaseObjectObservable,
-}                           from 'angularfire2/database';
+}                                from 'angularfire2/database';
+import { 
+  MdInputContainer,
+  MdTabsModule,
+  MdTab,
+  MdTabGroup,
+  MaterialModule,
+ }                               from '@angular/material';
 import { 
   Router, 
   ActivatedRoute, 
   Params, 
-}                           from '@angular/router';
-import { $ }                from 'jquery';
-import { Observable }       from 'rxjs/Observable';
-
-import { Company }          from '../company';
-import { CompanyService }   from '../company.service';
+}                                from '@angular/router';
+// 3rd party
+import { $ }                     from 'jquery';
+import { Observable }            from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
+
+// Custom
+import { Company }               from '../company';
+import { CompanyService }        from '../company.service';
 
 @Component({
   selector: 'app-company-edit',
@@ -68,27 +80,6 @@ export class CompanyEditComponent implements OnInit {
                 this.coName = params['coName']
             });
         this.title = this.coId ? " Edit "+ this.coName + " Details" : " New Business";
-                                  
-        // if(this.coId){
-        //     this._companyService
-        //         .getCompany(this.coId)
-        //         .subscribe(company => {this.company= company;
-        //          console.log(`000edit-company ngOnInit company= ${JSON.stringify(company)}`)
-                    
-        //             this.name.setValue(this.company.name);
-        //             this.color.setValue(this.company.color);
-        //             this.hourly.setValue(this.company.hourly);
-        //             this.paymentTerms.setValue(this.company.paymentTerms);
-        //             this.active.setValue(this.company.active)
-        //             return this.company;
-        //         },
-        //         response => {
-        //             if (response.status === 404){
-        //                 this._router.navigate(['NotFound']);
-        //         }
-        //     });
-        // }
-
   }
 
   setCompany() {
@@ -96,17 +87,6 @@ export class CompanyEditComponent implements OnInit {
   }  
 
   onSubmit() {
-    // console.log('onSubmit fired');
-    // let  id = this.coId;
-    // let stringUid = '' + this.userId;
-    // var payload = this.myform.value;
-    // payload.userId=this.userId;
-    // let modified = {"company": payload};
-    
-
-    // this._companyService
-    //     .addCompany({name: 'Sinclair', color: 'green', paymentTerms: 30})
-    //     .subscribe(data => console.log(data));
 
   let mf = this.myform.value;
     let name = mf.name;
@@ -121,32 +101,5 @@ export class CompanyEditComponent implements OnInit {
     });
     this.router.navigate(['companies']);
 
-    // var result;
-    //     if (id) {
-    //         let result = this._companyService
-    //                          .updateCompany(payload, id)
-    //                          .subscribe(result => {
-    //                                 console.log(`RESULT = ${JSON.stringify(result)}`);
-    //                          })
-    //         // this._router.navigate(['companies']);
-    //     } else {
-    //         let ID = (id) ? id : "ID NOT HERE";
-    //         console.log(`333edit-company onSubmit payload ${JSON.stringify(payload)}`);
-    //         let result = this._companyService.addCompany(payload);
-    //         console.log(`444result ${result}`);
-    //     }   
-            
-    //    this._companyService.addCompany(payload).subscribe(x => {
-    //         // Ideally, here we'd want:
-    //         // this.form.markAsPristine();
-    //         this._router.navigate(['companies']);
-    //     });
-    }
-
+  }
 }
-// this.name = name;
-//     this.color = color;
-//     this.hourly= hourly;
-//     this.paymentTerms = paymentTerms;
-//     this.active = active ? active : false;
-//     this.userId = userId;

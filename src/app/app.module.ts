@@ -24,6 +24,7 @@ import { AppComponent }              from './app.component';
 import { CompanyModule }             from './company/company.module';
 import { ItemEditComponent }         from './item/item-edit/item-edit.component';
 import { 
+  MaterialModule,
   MdDatepickerModule,
   MdInputModule,
   MdNativeDateModule,
@@ -32,7 +33,7 @@ import {
 import { InvoiceEditComponent }      from './invoice/invoice-edit/invoice-edit.component';
 import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 import { InvoiceService }            from './invoice/invoice.service';
-import { AddressEditComponent } from './address/address-edit/address-edit.component';
+// import { AddressEditComponent }      from './address/address-edit/address-edit.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { AddressEditComponent } from './address/address-edit/address-edit.compon
     ItemEditComponent,
     InvoiceEditComponent,
     InvoicePrePdfComponent,
-    AddressEditComponent,
+    // AddressEditComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -52,18 +53,19 @@ import { AddressEditComponent } from './address/address-edit/address-edit.compon
     CompanyModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
+    MaterialModule,
     MdDatepickerModule,
     MdInputModule,
     MdNativeDateModule,
     MdTabsModule,
-    ReactiveFormsModule,
   ],
   providers: [
     InvoiceService,
     RouterOutlet,
   ],
   schemas: [
-    // CUSTOM_ELEMENTS_SCHEMA,
+    CUSTOM_ELEMENTS_SCHEMA,
   ],
   bootstrap: [AppComponent]
 })
