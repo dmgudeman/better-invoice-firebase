@@ -39,6 +39,7 @@ export class CompanyDetailsComponent implements OnInit {
       .subscribe(params => {
         this.companyKey = params['id']; 
         console.log('companyKey', this.companyKey);
+        this.coId = this.companyKey;
       });
     this.db.object('/companies/'+ this.companyKey).subscribe(x=>{
       this.company = x;
@@ -60,6 +61,8 @@ export class CompanyDetailsComponent implements OnInit {
   goToItemDetail(item) {
   }
   goToEditCompany() {
+        this.router.navigate(['/company-edit/' + this.coId]);
+
   }
   goBack() {
       this.location.back();

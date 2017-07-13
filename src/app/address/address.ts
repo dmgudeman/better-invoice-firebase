@@ -1,5 +1,5 @@
 export class Address {
-  id:number;
+  id?:string;
   city:string = '';
   country:string = '';
   invalid:boolean = false;
@@ -14,7 +14,8 @@ export class Address {
   companyId:number = null;
 
   constructor(city:string, country:string, invalid:boolean, postalCode:string, 
-              state:string, street1:string, street2?:string, companyId?:number){
+              state:string, street1:string, id?:string, street2?:string, companyId?:number){
+    this.id = id;
     this.city = city;
     this.country = country;
     this.invalid = false;

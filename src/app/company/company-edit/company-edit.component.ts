@@ -64,7 +64,7 @@ export class CompanyEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.companies = this.db.list('/companies');
+    // this.companies = this.db.list('/companies');
      this.myform = this.fb.group({
             name:['', Validators.required],
             color:'',
@@ -79,7 +79,11 @@ export class CompanyEditComponent implements OnInit {
                 this.coId = params['id']
                 this.coName = params['coName']
             });
-        this.title = this.coId ? " Edit "+ this.coName + " Details" : " New Business";
+      this.db.object('/companies/' + this.coId).subscribe(x => {
+        this.company = x;
+        console.log('company.name', this.company.name);
+      })
+        this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
   }
 
   setCompany() {

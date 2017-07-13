@@ -41,9 +41,9 @@ import {
 })
 export class AddressEditComponent implements OnInit {
   @Input() coId: number;
+  @Input() company: Company;
   address:Address;
   addressId:number;
-  company:Company;
   errorMessage: string;
   myform : FormGroup;
 
@@ -59,10 +59,13 @@ export class AddressEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.coId){
-        this.getAddress(this.coId);
+    if(this.company)
+    console.log('company.name in ngOnInit', this.company.name);
+    if(this.company) {
+      let address = this.company.address;
+      let mf = this.myform.value; 
     }
-  }
+  } 
   buildForm() {
     this.myform = this.fb.group({
       city: '',
@@ -110,35 +113,8 @@ export class AddressEditComponent implements OnInit {
   }
 
   onSubmit2($event) {
-          
-      // let  id; 
-      // if (this.address) {
-      //     id=this.address.id
-      //     console.log(`address-edit onSubmit id ${this.address}`);
-      // };
-      
-      // let x = this.myform.value;
-      // if(this.coId){
-      //    x.CompanyId = this.coId 
-      // }
-
-      // let payload =x;
-      // console.log(`address-edit onSubmit payload ${JSON.stringify(payload)}`)
-
-      // var result;
-      // if (!id) {
-      //     result = this._addressService.addAddress({Address:payload});
-      // } else {
-      //     let ID = (id) ? id : "ID NOT HERE";
-  
-      // result = this._addressService.updateAddress ({Address:payload}, id);}   
-
-      // result.subscribe(x => {
-      //     event.stopPropagation();
-      //     // Ideally, here we'd want:
-      //     // this.form.markAsPristine();
-      //     this._router.navigate(['companies']);
-      // });
+     console.log('address', this.myform.value);
+     
   }
 
   goBack(): void {
