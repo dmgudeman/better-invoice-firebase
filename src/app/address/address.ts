@@ -13,8 +13,8 @@ export class Address {
   createdAt:Date;
   companyId:number = null;
 
-  constructor(city:string, country:string, invalid:boolean, postalCode:string, 
-              state:string, street1:string, id?:string, street2?:string, companyId?:number){
+  constructor(city?:string, country?:string, invalid?:boolean, postalCode?:string, 
+              state?:string, street1?:string, id?:string, street2?:string, companyId?:number){
     this.id = id;
     this.city = city;
     this.country = country;

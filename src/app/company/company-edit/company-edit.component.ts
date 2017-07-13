@@ -2,6 +2,7 @@ import {
   Component, 
   OnInit,
   ViewChild,
+  AfterViewInit,
  }                               from '@angular/core';
 import { 
   BrowserAnimationsModule,
@@ -37,6 +38,7 @@ import { Observable }            from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 
 // Custom
+import { Address }               from '../../address/address';
 import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
 import { Company }               from '../company';
 import { CompanyService }        from '../company.service';
@@ -46,9 +48,9 @@ import { CompanyService }        from '../company.service';
   templateUrl: './company-edit.component.html',
   styleUrls: ['./company-edit.component.css']
 })
-export class CompanyEditComponent implements OnInit {
+export class CompanyEditComponent implements OnInit, AfterViewInit {
   @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
-  address;
+  address: Address;
   coId;
   coName;
   // color;
@@ -83,7 +85,11 @@ export class CompanyEditComponent implements OnInit {
     this.buildForm(this.company);
       this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
   }
-  
+  ngAfterViewInit(){
+    if(this.company.address)
+    this.addressViewChild.myform.setValue(this.company.address);
+
+  }
   buildForm(company?) {
     this.myform = this.fb.group({
       name:[company.name, Validators.required],
@@ -100,15 +106,17 @@ export class CompanyEditComponent implements OnInit {
   }  
 
   onSubmit() {
-  this.address = this.addressViewChild.myform.value;
-  console.log('this.address ', this.address);
+    this.address = this.addressViewChild.myform.value;
+  
+    console.log('this.address ', this.address);
 
-  let mf = this.myform.value;
-    let name = mf.name;
-    let color = mf.color;
-    let hourly = mf.hourly;
-    let paymentTerms = mf.paymentTerms;
-    let active = mf.active;
+    let mf = this.myform.value;
+      let name = mf.name;
+      let color = mf.color;
+      let hourly = mf.hourly;
+      let paymentTerms = mf.paymentTerms;
+      let active = mf.active;
+    
     if(!mf.items) mf.items = null;
     console.log('MMMMMMMMMMFFFFFFFFF', mf);
     let payload = {
