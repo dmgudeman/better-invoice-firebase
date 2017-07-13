@@ -57,7 +57,7 @@ export class InvoiceEditComponent implements OnInit {
   invoices: FirebaseListObservable<any[]>;
   invoiceRes: FirebaseObjectObservable<any>;
   item
-  items: Item[] = [];
+  items;
   itemIds: number[] = [];
   m: moment.Moment;
   myform: FormGroup;
@@ -94,6 +94,7 @@ export class InvoiceEditComponent implements OnInit {
     this.db.object('/companies/'+ this.companyId).subscribe(data => {
       this.company = data; 
       this.items = this.company.items;
+      console.log('this.items', this.items);
       console.log('data ', this.company.name)});
     }
   
@@ -125,28 +126,31 @@ export class InvoiceEditComponent implements OnInit {
     let bmDate = moment(beginDate).format('LL');
     let emDate = moment(endDate).format('LL');
     let filteredItems: Item[]=[];
-    // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
-    // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-    // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
-
-    for (let i = 0; i < this.items.length; i++) {
-      let imDate = moment(this.items[i].date);
-          
+    console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
+    console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+    console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+    if(this.items){
+      for( this.item of this.items){
+      let imDate;
+        imDate = moment(this.item.date);
+        if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
+        console.log(`INVOICE_EDIT filterByDateRange this.items[i]= ${JSON.stringify(this.item)}`);
+        filteredItems.push(this.item)
+      }
+    }
       // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
       // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
       // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
       // console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
 
-      if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-        // console.log(`INVOICE_EDIT filterByDateRange this.items[i]= ${JSON.stringify(this.items[i])}`);
-        filteredItems.push(this.items[i])
-      }
+     
     }
     console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
     
-    return filteredItems;
+    if(filteredItems.length>0)return filteredItems;
+    return "There are no items for those dates"
 
-  }
+  } 
 
   goBack() { this.location.back(); }
 

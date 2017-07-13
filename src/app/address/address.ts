@@ -5,7 +5,7 @@ export class Address {
   invalid:boolean = false;
   latitude:number = null;
   longitude:number = null;
-  postalCode:string = '';
+  postalCode:string = null;
   street1:string = '';
   street2:string = '';
   state:string = '';

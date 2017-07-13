@@ -3,6 +3,7 @@ import {
   OnInit,
   Input
 } from '@angular/core';
+import { NgFor } from '@angular/common';
 import {
   Router,
   // ActivatedRoute,

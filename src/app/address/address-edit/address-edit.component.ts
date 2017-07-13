@@ -62,7 +62,7 @@ export class AddressEditComponent implements OnInit {
     console.log('company.name in ngOnInit', this.company.name);
     if(this.company) {
       let address = this.company.address;
-      this.buildForm(this.company.address)
+      this.buildForm(address);
     }
     this.buildForm(); 
   } 
@@ -87,7 +87,7 @@ export class AddressEditComponent implements OnInit {
         invalid: false,
         // latitude:'',
         // longitude:'',
-        postalCode: null,
+        postalCode: '',
         street1: '',
         street2: '',
         state: '',
