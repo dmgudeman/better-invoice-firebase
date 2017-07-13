@@ -1,4 +1,8 @@
-import { Component, OnInit }     from '@angular/core';
+import { 
+  Component, 
+  OnInit,
+  ViewChild,
+ }                               from '@angular/core';
 import { 
   BrowserAnimationsModule,
 }                                from '@angular/platform-browser/animations';
@@ -33,6 +37,7 @@ import { Observable }            from 'rxjs/Observable';
 import 'rxjs/add/operator/take';
 
 // Custom
+import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
 import { Company }               from '../company';
 import { CompanyService }        from '../company.service';
 
@@ -42,6 +47,8 @@ import { CompanyService }        from '../company.service';
   styleUrls: ['./company-edit.component.css']
 })
 export class CompanyEditComponent implements OnInit {
+  @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
+  address;
   coId;
   coName;
   // color;
@@ -64,26 +71,28 @@ export class CompanyEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.companies = this.db.list('/companies');
-     this.myform = this.fb.group({
-            name:['', Validators.required],
-            color:'',
-            hourly: '',
-            paymentTerms: '',
-            active: '',
-            userId: '',
-            items: '',
-          });
-          this.route.params
-            .subscribe(params => { 
-                this.coId = params['id']
-                this.coName = params['coName']
-            });
-      this.db.object('/companies/' + this.coId).subscribe(x => {
-        this.company = x;
-        console.log('company.name', this.company.name);
-      })
-        this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
+    this.companies = this.db.list('/companies');
+     
+    this.route.params
+      .subscribe(params => { 
+          this.coId = params['id']
+    });
+    this.db.object('/companies/' + this.coId).subscribe(x => {
+      this.company = x;
+    })
+    this.buildForm(this.company);
+      this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
+  }
+  
+  buildForm(company?) {
+    this.myform = this.fb.group({
+      name:[company.name, Validators.required],
+      color: company.color,
+      hourly: company.hourly,
+      paymentTerms: company.paymentTerms,
+      active: company.active,
+    });
+
   }
 
   setCompany() {
@@ -91,6 +100,8 @@ export class CompanyEditComponent implements OnInit {
   }  
 
   onSubmit() {
+  this.address = this.addressViewChild.myform.value;
+  console.log('this.address ', this.address);
 
   let mf = this.myform.value;
     let name = mf.name;
@@ -99,11 +110,18 @@ export class CompanyEditComponent implements OnInit {
     let paymentTerms = mf.paymentTerms;
     let active = mf.active;
     if(!mf.items) mf.items = null;
-    console.log(name, color, paymentTerms);
-    this.companies.push({
-      name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1
-    });
+    console.log('MMMMMMMMMMFFFFFFFFF', mf);
+    let payload = {
+      name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1, address: this.address
+    }
+    if(!this.coId){
+    this.companies.push(payload);
+    } else {
+      this.db.object('/companies/'+ this.coId).update(payload);
+    }
     this.router.navigate(['companies']);
+  }
+  goBack() {
 
   }
 }

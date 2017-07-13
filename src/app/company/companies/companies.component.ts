@@ -46,7 +46,11 @@ export class CompaniesComponent implements OnInit {
     //  console.log('companies in ngOnInit', this.companies);
     })
   }
-    
+
+  goToEditCompany() {
+    this.router.navigate(['company-edit' ]);
+  
+  }
 
 
 }

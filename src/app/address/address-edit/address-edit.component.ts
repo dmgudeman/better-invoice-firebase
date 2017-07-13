@@ -55,7 +55,6 @@ export class AddressEditComponent implements OnInit {
     private route:ActivatedRoute,
     private fb:FormBuilder,
     ) {
-      this.buildForm();
   }
 
   ngOnInit() {
@@ -63,54 +62,40 @@ export class AddressEditComponent implements OnInit {
     console.log('company.name in ngOnInit', this.company.name);
     if(this.company) {
       let address = this.company.address;
-      let mf = this.myform.value; 
+      this.buildForm(this.company.address)
     }
+    this.buildForm(); 
   } 
-  buildForm() {
-    this.myform = this.fb.group({
-      city: '',
-      country:'',
-      invalid:false,
-      // latitude:'',
-      // longitude:'',
-      postalCode:'',
-      street1:'',
-      street2:'',
-      state:'',
-      companyId:''
+  buildForm(address?) {
+    if(address){
+      this.myform = this.fb.group({
+        city: address.city || null,
+        country: address.country || null,
+        invalid: address.invalid || false,
+        // latitude:'',
+        // longitude:'',
+        postalCode: address.postalCode || null,
+        street1: address.street1 || null,
+        street2: address.street2 || null,
+        state: address.state || null,
+        companyId: address.companyId || null,
     });
+    } else{
+      this.myform = this.fb.group({
+        city: '',
+        country: '',
+        invalid: false,
+        // latitude:'',
+        // longitude:'',
+        postalCode: null,
+        street1: '',
+        street2: '',
+        state: '',
+        companyId: '',
+      });
+    }
   }
-  getAddress(coId) { 
-      // this._companyService
-      //     .getCompany(coId)
-      //     .subscribe(company => {this.address= company.Address;
-      //         console.log(`address-edit getAddress address= ${JSON.stringify(this.address)}`)
-      //             console.log(`INNNNNNNNNNNNNNNN ${coId}`);
-      //         if (this.address !==null) {
-      //             this.myform.patchValue({
-      //             city: this.address.city,
-      //             invalid: false,
-      //             country: this.address.country,
-      //             state: this.address.state,
-      //             postalCode: this.address.postalCode,
-      //             // latitude: null,
-      //             // longitude: null,
-      //             street1:this.address.street1,
-      //             street2: this.address.street2,
-      //             CompanyId: coId,
-      //         })
-      //             response => {
-      //                 if (response.status === 404){
-      //                     this._router.navigate(['NotFound']);
-      //                 }
-      //             }
-      //         } else {
-                  
-      //             console.log(`NO ADDRESS FOUND this.address= ${this.address}`);
-      //         }
-
-      // });
-  }
+  
 
   onSubmit2($event) {
      console.log('address', this.myform.value);
