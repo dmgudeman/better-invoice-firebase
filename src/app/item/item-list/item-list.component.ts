@@ -3,7 +3,6 @@ import {
   OnInit, 
   Input 
 }                            from '@angular/core';
-import { NgFor } from '@angular/common';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable ,
@@ -29,8 +28,9 @@ export class ItemListComponent implements OnInit {
 
   @Input() companyKey;
   arrayOfKeys =[];
+  coColor: string;
   company: Company;
-  items: {};
+  items=[];
   itemArray = [];
   item: ItemDetailComponent;
   
@@ -43,13 +43,12 @@ export class ItemListComponent implements OnInit {
     this.route.params
       .subscribe(params => {
         this.companyKey = params['id']; 
-        console.log('companyKey', this.companyKey);
         });
 
     this.db.object('/companies/' + this.companyKey)
       .subscribe(company => {
-        console.log('company', company);
         this.company = company;
+        this.coColor = this.company.color;
 
         try {
           if(this.company.items){

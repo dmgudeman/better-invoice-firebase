@@ -33,6 +33,8 @@ import {
 import { InvoiceEditComponent }      from './invoice/invoice-edit/invoice-edit.component';
 import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 import { InvoiceService }            from './invoice/invoice.service';
+import { RegisterComponent } from './user/register/register.component';
+import { LoginComponent } from './user/login/login.component';
 // import { AddressEditComponent }      from './address/address-edit/address-edit.component';
 
 @NgModule({
@@ -41,6 +43,8 @@ import { InvoiceService }            from './invoice/invoice.service';
     ItemEditComponent,
     InvoiceEditComponent,
     InvoicePrePdfComponent,
+    RegisterComponent,
+    LoginComponent,
     // AddressEditComponent,
   ],
   imports: [
