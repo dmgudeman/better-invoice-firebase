@@ -3,6 +3,7 @@ import {
   AngularFireDatabase,
   FirebaseListObservable
 }                        from 'angularfire2/database';
+import { FlexLayoutModule }        from '@angular/flex-layout';
 
 @Component({
   selector: 'app-root',

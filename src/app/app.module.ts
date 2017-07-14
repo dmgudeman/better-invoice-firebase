@@ -4,6 +4,7 @@ import {
   NgModule,
   CUSTOM_ELEMENTS_SCHEMA,
 }                                    from '@angular/core';
+import { FlexLayoutModule }          from '@angular/flex-layout';
 import { 
   FormsModule,
   ReactiveFormsModule,
@@ -56,6 +57,7 @@ import { LoginComponent } from './user/login/login.component';
     BrowserModule,
     BrowserAnimationsModule,
     CompanyModule,
+    FlexLayoutModule,
     FormsModule,
     HttpModule,
     ReactiveFormsModule,

@@ -7,6 +7,7 @@ import {
   ViewChild,
   CUSTOM_ELEMENTS_SCHEMA, 
   }                              from '@angular/core';
+import { FlexLayoutModule }      from '@angular/flex-layout';
 import { 
   FormBuilder, 
   FormControl, 

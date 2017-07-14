@@ -1,25 +1,25 @@
 <!--<div class="overall">-->
 <!-- NAVIGATION -->
 <div class="my-container">
-  <header id="header" (click)="goBack()">
+  <!-- <header id="header" (click)="goBack()">
     <div>
       <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
       {{title}}
     </div> 
-  </header>
+  </header> -->
   <nav id="section1" (click)="goBack()">
     <div class="column" id="col1"> <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
       {{title}}
     </div>
   </nav>
   <!--  FORM -->
-<div id="section2" class="over-form tmp-form">
+<div fxLayout="column" id="section2" class="over-form tmp-form">
   <div class="colum" id="col2"></div>
   <div class="colum" id="col3">
     <form [formGroup]="myform" (ngSubmit)="onSubmit()">
       <md-tab-group> 
         <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
-        <md-tab label="Company">
+        <md-tab label="Company" fxLayout="column">
           <div id="row1" class="row">
             <div id="input-box1" class="input-box" name="name">
               <label id="label1" class="input" for="name">Business Name</label>
@@ -45,7 +45,7 @@
           </div>
           <div class="row" id="row2">
             <div id="input-box3" class="input-box">
-              <!-- <label id="label3" class="input" for="hourly">Hourly pay</label> -->
+               <label id="label3" class="input" for="hourly">Hourly pay</label> 
               <input id="input3" class="input ec-input" formControlName="hourly" type="text">
             </div>
             <div id="input-box4" class="input-box">
@@ -61,7 +61,7 @@
           </div>
             <div id="row3" class="row">
               <div id="input-box5" class="input-box">
-                <!-- <label id="label5" class="input">Active company</label> -->
+                 <label id="label5" class="input">Active company</label> 
                 <div id="input5" class="input ec-input" contenteditable>
                   <select formControlName="active"> 
                     <option>true</option>

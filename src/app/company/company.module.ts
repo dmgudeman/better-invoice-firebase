@@ -1,7 +1,7 @@
 import { NgModule }                from '@angular/core';
 import { CommonModule }            from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { FlexLayoutModule }        from '@angular/flex-layout';
+import { FlexLayoutModule }        from '@angular/flex-layout';
 import { HttpModule }              from '@angular/http';
 import { RouterModule, Routes }    from '@angular/router';
 // import { MaterialModule }          from '@angular/material';
@@ -41,10 +41,10 @@ import { ItemDetailComponent } from '../item/item-detail/item-detail.component';
   imports: [
     CommonModule,
     FormsModule,
-    // FlexLayoutModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     HttpModule,
-    // MaterialModule,
+    MaterialModule,
     RouterModule,
     // SharedModule,
     CompanyRoutingModule,
