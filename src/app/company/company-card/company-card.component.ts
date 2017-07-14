@@ -2,17 +2,21 @@
 // input: a companyId
 
 import { Component, OnInit, Input } from '@angular/core';
-import { Company } from '../company';
-import { CompanyService } from '../company.service';
+import { MdCardModule }             from '@angular/material';
+import { 
+  ActivatedRoute, 
+  Router, 
+  Params,
+}                                   from '@angular/router';
+// 3rd Party
 import { 
   AngularFireDatabase, 
   FirebaseListObservable,
   FirebaseObjectObservable,
-}                           from 'angularfire2/database';
-// import { InvoiceService } from "../../invoice/invoice.service";
-// import { Invoice } from "../../invoice/invoice";
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Shared } from '../../shared/shared';
+}                                   from 'angularfire2/database';
+// Custom
+import { Company }                  from '../company';
+import { Shared }                   from '../../shared/shared';
 
 @Component({
   selector: 'app-company-card',
@@ -30,8 +34,6 @@ export class CompanyCardComponent implements OnInit {
 
   constructor(
     private db: AngularFireDatabase,
-    private companyService: CompanyService,
-    // private _invoiceService: InvoiceService,
     private router: Router,
     private route: ActivatedRoute,
     ) { }

@@ -1,4 +1,4 @@
-<div class="my-card">
+ <div class="my-card">
     <div [ngClass]="setClassColor()" id="my-card-top">
         <section class="top-line transparent">
             <div  id="co-name" (click)="goToCompanyDetails(company)">{{name}}</div>
@@ -6,8 +6,24 @@
     </div>
     <div [ngClass]="setClassColor()" id="my-card-bottom">
         <section class="bottom-line">
-            <div class="column" (click)="goToInvoice()">Export Invoice</div>
-            <div class="column" (click)="addItem()">Add</div>
+            <div class="column" (click)="goToInvoice()">Invoice</div>
+            <div class="column" (click)="addItem()">Item</div>
         </section>
     </div>
-</div>
+</div> 
+<!-- <div class="my-card">
+<md-card [ngClass]="setClassColor()">
+  <md-card-title  id="my-card-top">
+    <section class="top-line transparent">
+        <div  id="co-name" (click)="goToCompanyDetails(company)">{{name}}</div>
+    </section>
+  </md-card-title>
+  <md-card-actions [ngClass]="setClassColor()" id="my-card-bottom">
+    <section class="bottom-line">
+        <div class="column" (click)="goToInvoice()">Export Invoice</div>
+          <div class="column" (click)="addItem()">Add</div>
+        </section>
+  </md-card-actions>
+</md-card>
+</div> -->
+

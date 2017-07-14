@@ -25,6 +25,7 @@ import { CompanyModule }             from './company/company.module';
 import { ItemEditComponent }         from './item/item-edit/item-edit.component';
 import { 
   MaterialModule,
+  MdCardModule,
   MdDatepickerModule,
   MdInputModule,
   MdNativeDateModule,

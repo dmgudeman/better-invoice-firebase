@@ -13,14 +13,14 @@
   margin: 10px;
 }
 /*-------------regional--------------------*/
-section {
+ section {
     display: flex;
     width: 275px;
     height: 51px;
-    padding: auto;
+     padding: auto; 
     justify-content: center;
     align-items: center;
-}
+} 
 
 /*-------------top-portion-----------------*/
 #my-card-top {
@@ -28,21 +28,21 @@ section {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
-    width: 300px;
+    /* width: 300px; */
     height: 60px;
     border-radius: 12px 12px 0px 0px;
     padding: 5px;
     font-size: 125%;
 }
-.top-line {
-    align-items:center;
+ .top-line {
+     align-items:center;
     display: flex;
     justify-content: flex-start;
-    padding-left:7%;
-    flex-grow:2;
+    padding-left:7%; 
+     flex-grow:2;
     flex-shrink:2;
-    flex-basis: 0;
-}
+    flex-basis: 0; 
+} 
 #co-name {
         font-size: 115%;
 }
@@ -61,7 +61,7 @@ section {
 .bottom-line {
     flex-grow:1;
     flex-shrink:1;
-    flex-basis: 5px;
+    /* flex-basis: 5px; */
 }
 .column {
     margin: 10px;
