@@ -38,6 +38,7 @@ import { InvoiceService }            from './invoice/invoice.service';
 import { RegisterComponent } from './user/register/register.component';
 import { LoginComponent } from './user/login/login.component';
 import { TempComponent } from './temp/temp.component';
+import { ColorChooserComponent } from './color-chooser/color-chooser.component';
 // import { AddressEditComponent }      from './address/address-edit/address-edit.component';
 
 @NgModule({
@@ -49,6 +50,7 @@ import { TempComponent } from './temp/temp.component';
     RegisterComponent,
     LoginComponent,
     TempComponent,
+    ColorChooserComponent,
     // AddressEditComponent,
   ],
   imports: [

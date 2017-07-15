@@ -8,7 +8,8 @@
     </div> 
   </header> -->
   <nav id="section1" (click)="goBack()">
-    <div class="column" id="col1"> <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
+  <div class="column" id="col1"> 
+  <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
       {{title}}
     </div>
   </nav>
@@ -23,14 +24,22 @@
           <!-- ROW1 ======================================================== -->
           <div id="row1" class="row" fxLayout="row" fxLayoutAlign="center" >
 
-            <div id="input-box1" class="input-box" name="name" fxLayout="column" >
+            <div id="input-box1" class="input-box" name="name" fxLayout="colum" >
               <label id="label1" class="input unit" for="name" [ngStyle]="{color:green}">Business Name</label>
               <input id="name" class="input ec-input unit" formControlName="name" type="text">
             </div>
             <div  id="input-box2" class="input-box" fxLayout="column">
-              <label id="label2" class="input unit" for="color">Color tag</label>
+              <label id="label2" class="input unit" for="color" flexLayout ="row">Color tag</label>
               <div class="input unit" id="color" flexLayout="row">
-                <input type="radio" id="tag1" value="brown" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'brown'">
+                <input 
+                  type="radio" 
+                  id="tag1" 
+                  value="brown" 
+                  class="form-control" 
+                  formControlName="color" 
+                  name="color" 
+                  [checked]="myform.controls.color.value === 'brown'"
+                  >
                 <label class=" ec-radio brown" for="tag1"></label>
                 <input type="radio" id="tag2" value="blue" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'blue'">
                 <label class=" ec-radio blue" for="tag2"></label>
@@ -43,7 +52,7 @@
                 <input type="radio" id="tag6" value="purple" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'purple'">
                 <label class=" ec-radio purple" for="tag6"></label>
               </div>
-            </div>
+            </div> 
           </div>
           <!-- ROW2 ======================================================== -->
           <div class="row" id="row2" fxLayout="row" fxLayoutAlign="center" >
@@ -54,11 +63,12 @@
             <div id="input-box4" class="input-box" fxLayout="column" >
               <label id="label4" class="input unit">Payment terms</label>
               <div id="input4" class="input ec-input unit" contenteditable>
-                <select formControlName="paymentTerms">
-                  <option>30</option>
-                  <option>15</option>
-                  <option>7</option>
-                </select>
+                <div formControlName="paymentTerms">
+                  <md-radio-group>
+  <md-radio-button value="1">30</md-radio-button>
+  <md-radio-button value="2">15</md-radio-button>
+</md-radio-group>
+                </div>
               </div>
             </div>
           </div>

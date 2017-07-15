@@ -1,7 +1,9 @@
 import { NgModule }               from '@angular/core';
 import { RouterModule, Routes }   from '@angular/router';
+// Custom
 import { AddressEditComponent }   from './address/address-edit/address-edit.component';
 import { InvoicePrePdfComponent } from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
+import { ColorChooserComponent }  from './color-chooser/color-chooser.component';
 // import { ItemDetailComponent }    from './item/item-detail/item-detail.component';
 // import { ItemDetailOneComponent } from './item/item-detail-one/item-detail-one.component';
 import { ItemEditComponent }      from './item/item-edit/item-edit.component';
@@ -16,6 +18,7 @@ import { TempComponent }          from './temp/temp.component';
 export const APP_ROUTES: Routes = [
   { path: '',  redirectTo: '/login', pathMatch: 'full'}, 
   { path: 'address',              component: AddressEditComponent },
+  { path: 'color',                component: ColorChooserComponent },
   { path: 'item-edit/:id',        component: ItemEditComponent },
   { path: 'item-edit',            component: ItemEditComponent },
   { path: 'login',                component: LoginComponent},

@@ -40,6 +40,7 @@ import 'rxjs/add/operator/take';
 // Custom
 import { Address }               from '../../address/address';
 import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
+import { ColorChooserComponent } from '../../color-chooser/color-chooser.component';
 import { Company }               from '../company';
 import { CompanyService }        from '../company.service';
 
@@ -50,6 +51,7 @@ import { CompanyService }        from '../company.service';
 })
 export class CompanyEditComponent implements OnInit, AfterViewInit {
   @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
+  @ViewChild(ColorChooserComponent) colorChooserComponent : ColorChooserComponent
   address: Address;
   coId;
   coName;
