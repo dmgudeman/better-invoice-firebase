@@ -27,7 +27,7 @@ import { Company }          from '../company';
   styleUrls: ['./companies.component.css']
 })
 export class CompaniesComponent implements OnInit {
-  gompanies: FirebaseListObservable<any[]>;
+  companies: FirebaseListObservable<any[]>;
   companiesArray: Company[];
   constructor(
     private router: Router,
@@ -51,6 +51,8 @@ export class CompaniesComponent implements OnInit {
     this.router.navigate(['company-edit' ]);
   
   }
+onLogOut() {
 
+}
 
 }

@@ -40,7 +40,6 @@ import 'rxjs/add/operator/take';
 // Custom
 import { Address }               from '../../address/address';
 import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
-import { ColorChooserComponent } from '../../color-chooser/color-chooser.component';
 import { Company }               from '../company';
 import { CompanyService }        from '../company.service';
 
@@ -51,7 +50,6 @@ import { CompanyService }        from '../company.service';
 })
 export class CompanyEditComponent implements OnInit, AfterViewInit {
   @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
-  @ViewChild(ColorChooserComponent) colorChooserComponent : ColorChooserComponent
   address: Address;
   coId;
   coName;
@@ -106,6 +104,9 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
   setCompany() {
     
   }  
+  toggleActive() {
+     this.myform.value.active = !this.myform.value.active;
+  }
 
   onSubmit() {
     this.address = this.addressViewChild.myform.value;
@@ -120,7 +121,6 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       let active = mf.active;
     
     if(!mf.items) mf.items = null;
-    console.log('MMMMMMMMMMFFFFFFFFF', mf);
     let payload = {
       name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1, address: this.address
     }

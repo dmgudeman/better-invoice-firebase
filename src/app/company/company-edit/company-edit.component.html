@@ -20,26 +20,17 @@
     <form [formGroup]="myform" (ngSubmit)="onSubmit()">
       <md-tab-group> 
         <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
-        <md-tab label="Company" fxLayout="column" >
+        <md-tab label="General" fxLayout="column" >
           <!-- ROW1 ======================================================== -->
           <div id="row1" class="row" fxLayout="row" fxLayoutAlign="center" >
-
             <div id="input-box1" class="input-box" name="name" fxLayout="colum" >
-              <label id="label1" class="input unit" for="name" [ngStyle]="{color:green}">Business Name</label>
+              <label id="label1" class="input unit" for="name">Business Name</label>
               <input id="name" class="input ec-input unit" formControlName="name" type="text">
             </div>
             <div  id="input-box2" class="input-box" fxLayout="column">
-              <label id="label2" class="input unit" for="color" flexLayout ="row">Color tag</label>
-              <div class="input unit" id="color" flexLayout="row">
-                <input 
-                  type="radio" 
-                  id="tag1" 
-                  value="brown" 
-                  class="form-control" 
-                  formControlName="color" 
-                  name="color" 
-                  [checked]="myform.controls.color.value === 'brown'"
-                  >
+              <label id="label2" class="input unit" for="color" >Color tag</label>
+              <div class="input unit" id="color" >
+                <input type="radio" id="tag1" value="brown" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'brown'" >
                 <label class=" ec-radio brown" for="tag1"></label>
                 <input type="radio" id="tag2" value="blue" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'blue'">
                 <label class=" ec-radio blue" for="tag2"></label>
@@ -57,7 +48,7 @@
           <!-- ROW2 ======================================================== -->
           <div class="row" id="row2" fxLayout="row" fxLayoutAlign="center" >
             <div id="input-box3" class="input-box" fxLayout="column">
-               <label id="label3" class="input unit" for="hourly">Hourly pay</label> 
+              <label id="label3" class="input unit" for="hourly">Hourly pay</label> 
               <input id="input3" class="input ec-input unit" formControlName="hourly" type="text">
             </div>
             <div id="input-box4" class="input-box" fxLayout="column" >
@@ -65,22 +56,25 @@
               <div id="input4" class="input ec-input unit" contenteditable>
                 <div formControlName="paymentTerms">
                   <md-radio-group>
-  <md-radio-button value="1">30</md-radio-button>
-  <md-radio-button value="2">15</md-radio-button>
-</md-radio-group>
+                    <md-radio-button value="30">30</md-radio-button>
+                    <md-radio-button value="15">15</md-radio-button>
+                    <md-radio-button value="15">7</md-radio-button>
+                  </md-radio-group>
                 </div>
               </div>
             </div>
           </div>
-          <!-- ROW3 ======================================================== -->
-            <div id="row3" class="row" fxLayout="row" fxLayoutAlign="center">
-              <div id="input-box5" class="input-box" fxLayout="column">
-                 <label id="label5" class="input unit">Active company</label> 
-                <div id="input5" class="input ec-input unit" contenteditable>
-                  <select formControlName="active"> 
-                    <option>true</option>
-                    <option>false</option>
-                  </select>
+              <!-- ROW3 ======================================================== -->
+                <div id="row3" class="row" fxLayout="row" fxLayoutAlign="center">
+                <div id="input-box5" class="input-box" fxLayout="column">
+                  <label id="label5" class="input unit">Active company</label> 
+                  <div id="input5" class="input ec-input unit" contenteditable>
+                  <div formControlName="active"> 
+                    <md-button-toggle-group #group="mdButtonToggleGroup">
+                      <md-button-toggle change="toggleActive()" value="true">Active</md-button-toggle>
+                    </md-button-toggle-group>
+                  </div>
+                    <div class="example-selected-value">Selected value: {{group.value}}</div>
                 </div>
               </div>
               <div id="input-box6" class="input-box" fxLayout="column"></div>

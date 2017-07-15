@@ -15,7 +15,7 @@
 }
 /*------------ COLOR RADIO BUTTONS --------------*/
  .ec-radio {
-    display:flex;
+    // display:flex;
     margin-right: 20px;
     padding: 12px; 
     border-radius: 100%; 
@@ -51,4 +51,9 @@ input[type=radio]:checked+label {
   display: flex;
   margin: 5px;
   height: 30px !important;
+}
+
+/*-------------MD-RADIO-BUTTONS-----------------------*/
+md-radio-button {
+  margin-left: 20px;
 }

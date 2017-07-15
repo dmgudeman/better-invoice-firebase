@@ -58,14 +58,14 @@ export class CompanyCardComponent implements OnInit {
     this.router.navigate(['/invoice-edit/', {companyKey:this.companyKey}]);
   }
 
-  goToEditCompany(company?:Company){
-      if (company){
-          let companyKey = company.id;
-          let coName = company.name;
-          let color = company.color;
-          let hourly = company.hourly;
-          let paymentTerms = company.paymentTerms;
-          let active = company.active;
+  goToEditCompany(){
+      if (this.company){
+          let companyKey = this.company.id;
+          let coName = this.company.name;
+          let color = this.company.color;
+          // let hourly = company.hourly;
+          // let paymentTerms = company.paymentTerms;
+          // let active = company.active;
           this.router.navigate(['/edit-company/' + companyKey, {id:companyKey, name:coName, color:color}]);
       } else {
           this.router.navigate(['/edit-company']);
