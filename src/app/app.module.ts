@@ -37,6 +37,7 @@ import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre
 import { InvoiceService }            from './invoice/invoice.service';
 import { RegisterComponent } from './user/register/register.component';
 import { LoginComponent } from './user/login/login.component';
+import { TempComponent } from './temp/temp.component';
 // import { AddressEditComponent }      from './address/address-edit/address-edit.component';
 
 @NgModule({
@@ -47,6 +48,7 @@ import { LoginComponent } from './user/login/login.component';
     InvoicePrePdfComponent,
     RegisterComponent,
     LoginComponent,
+    TempComponent,
     // AddressEditComponent,
   ],
   imports: [

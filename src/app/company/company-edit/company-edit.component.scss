@@ -1,0 +1,55 @@
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
+@import '../../../_variables.scss';
+* {
+    font-size: 20px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 300;
+}
+#label1 {
+   color: $primary-color;
+}
+
+/*------------ INPUT BOXES ----------------------*/
+
+.input-box {
+  margin: 10px;
+  min-width:30%;
+  max-width:95%;
+}
+/*------------ COLOR RADIO BUTTONS --------------*/
+ .ec-radio {
+    margin-right: 10px;
+    padding: 15px; 
+    /* border-radius: 35px; */
+    color: white;
+    border: transparent 0px;
+    width: 10px;
+    height: 10px;
+} 
+
+.ec-radio:first-of-type {
+    margin-left: 20px
+}
+
+input[type=radio] {
+    display: none;
+}
+
+input[type=radio]:checked+label {
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+}
+
+/*--------------COLORS---------------------------------*/
+.brown  { background-color: #8D6E63; }
+.blue   { background-color: #3498db; }
+.green  { background-color: #00C853; }
+.yellow { background-color: #f1c40f; }
+.red    { background-color: #e74c3c; }
+.purple { background-color: #9b59b6; }
+
+.unit {
+  margin: 5px;
+  height: 30px !important;
+}
