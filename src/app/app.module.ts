@@ -31,7 +31,8 @@ import {
   MdInputModule,
   MdNativeDateModule,
   MdTabsModule,
- }                                   from '@angular/material';
+ }                                   from '@angular/material'
+
 import { InvoiceEditComponent }      from './invoice/invoice-edit/invoice-edit.component';
 import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 import { InvoiceService }            from './invoice/invoice.service';

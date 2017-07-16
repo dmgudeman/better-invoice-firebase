@@ -7,6 +7,7 @@ import {
 import { 
   BrowserAnimationsModule,
 }                                from '@angular/platform-browser/animations';
+import { DomSanitizer }          from '@angular/platform-browser';
 import { 
   FormBuilder, 
   FormControl, 
@@ -20,7 +21,10 @@ import {
   FirebaseListObservable ,
   FirebaseObjectObservable,
 }                                from 'angularfire2/database';
+import { Location }              from '@angular/common';
 import { 
+  MdIconModule,
+  MdIconRegistry,
   MdInputContainer,
   MdTabsModule,
   MdTab,
@@ -41,7 +45,6 @@ import 'rxjs/add/operator/take';
 import { Address }               from '../../address/address';
 import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
 import { Company }               from '../company';
-import { CompanyService }        from '../company.service';
 
 @Component({
   selector: 'app-company-edit',
@@ -53,31 +56,35 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
   address: Address;
   coId;
   coName;
-  // color;
   company:Company;
   setCompanyObs: FirebaseObjectObservable<any[]>;
   companies: FirebaseListObservable<any[]>
-  // hourly;
-  // paymentTerms;
-  // active;
   userId;
   title;
   myform : FormGroup;
 
   constructor(
-    private companyService: CompanyService,
-    private router:Router,
-    private route:ActivatedRoute,
-    private fb:FormBuilder,
     private db: AngularFireDatabase,
-  ) { }
+    private fb: FormBuilder,
+    private iconRegistry: MdIconRegistry,
+    private location: Location,
+    private route: ActivatedRoute,
+    private router: Router,
+    private sanitizer: DomSanitizer,
+  ) {
+    iconRegistry.addSvgIcon(
+      'thumbs-up',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_thumb_up_black_24px.svg')
+    );
+    
+  };
 
   ngOnInit() {
     this.companies = this.db.list('/companies');
      
     this.route.params
       .subscribe(params => { 
-          this.coId = params['id']
+        this.coId = params['id']
     });
     this.db.object('/companies/' + this.coId).subscribe(x => {
       this.company = x;
@@ -102,13 +109,13 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       });
       return this.myform;
     }
-     this.myform = this.fb.group({
-        name: '',
-        color: '',
-        hourly:'',
-        paymentTerms: '',
-        active: '',
-     });
+    this.myform = this.fb.group({
+      name: '',
+      color: '',
+      hourly:'',
+      paymentTerms: '',
+      active: '',
+    });
   }
 
   setCompany() {
@@ -142,6 +149,6 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     this.router.navigate(['companies']);
   }
   goBack() {
-
+     this.location.back();
   }
 }
