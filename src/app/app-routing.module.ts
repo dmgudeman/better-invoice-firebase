@@ -2,6 +2,10 @@ import { NgModule }               from '@angular/core';
 import { RouterModule, Routes }   from '@angular/router';
 // Custom
 import { AddressEditComponent }   from './address/address-edit/address-edit.component';
+import { CompaniesComponent }       from './company/companies/companies.component';
+import { CompanyCardComponent }     from './company/company-card/company-card.component';
+import { CompanyDetailsComponent }  from './company/company-details/company-details.component';
+import { CompanyEditComponent }     from './company/company-edit/company-edit.component';
 import { InvoicePrePdfComponent } from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 // import { ItemDetailComponent }    from './item/item-detail/item-detail.component';
 // import { ItemDetailOneComponent } from './item/item-detail-one/item-detail-one.component';
@@ -26,6 +30,11 @@ export const APP_ROUTES: Routes = [
   // { path: 'invoice-pre-pdf',      component: InvoicePrePdfComponent },
   { path: 'invoice-pre-pdf/:id',  component: InvoicePrePdfComponent },
   { path: 'temp',                 component: TempComponent },
+  { path: 'companies',            component: CompaniesComponent}, //canActivate : [AuthGuard]}, 
+  { path: 'company-card/:id',     component: CompanyCardComponent},  //, canActivate : [AuthGuard] },
+  { path: 'company-edit',         component: CompanyEditComponent}, //, canActivate : [AuthGuard] },
+  { path: 'company-edit/:id',     component: CompanyEditComponent}, //, canActivate : [AuthGuard] },
+  { path: 'company-details',      component: CompanyDetailsComponent}, //, canActivate : [AuthGuard] },
  
 ];
 

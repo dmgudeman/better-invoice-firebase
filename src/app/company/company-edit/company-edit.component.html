@@ -53,14 +53,12 @@
             </div>
             <div id="input-box4" class="input-box" fxLayout="column" >
               <label id="label4" class="input unit">Payment terms</label>
-              <div id="input4" class="input ec-input unit" contenteditable>
-                <div formControlName="paymentTerms">
-                  <md-radio-group>
-                    <md-radio-button value="30">30</md-radio-button>
-                    <md-radio-button value="15">15</md-radio-button>
-                    <md-radio-button value="15">7</md-radio-button>
-                  </md-radio-group>
-                </div>
+              <div id="input4" class="input ec-input unit">
+                <md-radio-group formControlName="paymentTerms">
+                  <md-radio-button  value="30">30</md-radio-button>
+                  <md-radio-button value="15">15</md-radio-button>
+                  <md-radio-button value="15">7</md-radio-button>
+                </md-radio-group>
               </div>
             </div>
           </div>
@@ -68,23 +66,20 @@
                 <div id="row3" class="row" fxLayout="row" fxLayoutAlign="center">
                 <div id="input-box5" class="input-box" fxLayout="column">
                   <label id="label5" class="input unit">Active company</label> 
-                  <div id="input5" class="input ec-input unit" contenteditable>
-                  <div formControlName="active"> 
+                  <!-- <div id="input5" class="input ec-input unit" contenteditable>
                     <md-button-toggle-group #group="mdButtonToggleGroup">
-                      <md-button-toggle change="toggleActive()" value="true">Active</md-button-toggle>
+                      <md-button-toggle formControlName="active" change="toggleActive()" value="true">Active</md-button-toggle>
                     </md-button-toggle-group>
-                  </div>
-                    <div class="example-selected-value">Selected value: {{group.value}}</div>
+                  </div> -->
                 </div>
+                <div id="input-box6" class="input-box" fxLayout="column"></div>
               </div>
-              <div id="input-box6" class="input-box" fxLayout="column"></div>
-            </div>
-          </md-tab>
-          <md-tab label="Address">
-            <app-address-edit [coId]="coId"></app-address-edit>
-          </md-tab>
-        </md-tab-group>
-      </form>
+            </md-tab>
+            <md-tab label="Address">
+              <app-address-edit [coId]="coId"></app-address-edit>
+            </md-tab>
+          </md-tab-group>
+        </form>
       
       <!-- ROW4 ======================================================== -->
           <!-- FOOTER -->

@@ -82,7 +82,7 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     this.db.object('/companies/' + this.coId).subscribe(x => {
       this.company = x;
     })
-    this.buildForm(this.company);
+    this.buildForm();
       this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
   }
   ngAfterViewInit(){
@@ -90,15 +90,24 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     this.addressViewChild.myform.setValue(this.company.address);
 
   }
-  buildForm(company?) {
-    this.myform = this.fb.group({
-      name:[company.name, Validators.required],
-      color: company.color,
-      hourly: company.hourly,
-      paymentTerms: company.paymentTerms,
-      active: company.active,
-    });
-
+  buildForm() {
+    if(this.company) {
+      this.myform = this.fb.group({
+        name:this.company.name,
+        color: this.company.color,
+        hourly: this.company.hourly,
+        paymentTerms: this.company.paymentTerms,
+        active: this.company.active,
+      });
+      return this.myform;
+    }
+     this.myform = this.fb.group({
+        name: '',
+        color: '',
+        hourly:'',
+        paymentTerms: '',
+        active: '',
+     });
   }
 
   setCompany() {
