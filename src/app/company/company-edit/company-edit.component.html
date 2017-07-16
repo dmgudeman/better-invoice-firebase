@@ -9,7 +9,8 @@
   </header> -->
   <nav id="section1" (click)="goBack()">
   <div class="column" id="col1"> 
-  <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
+    <md-icon svgIcon="chevron-left"></md-icon> 
+  <!-- <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a> -->
       {{title}}
     </div>
   </nav>
@@ -62,25 +63,32 @@
               </div>
             </div>
           </div>
-              <!-- ROW3 ======================================================== -->
+              <!-- ROW3 - ACTIVE================================================ -->
                 <div id="row3" class="row" fxLayout="row" fxLayoutAlign="center">
                 <div id="input-box5" class="input-box" fxLayout="column">
                   <label id="label5" class="input unit">Active company</label> 
-                   <md-icon svgIcon="thumbs-up"></md-icon> 
-                  <!-- <div id="input5" class="input ec-input unit" contenteditable>
-                    <md-button-toggle-group #group="mdButtonToggleGroup">
-                      <md-button-toggle formControlName="active" change="toggleActive()" value="true">Active</md-button-toggle>
-                    </md-button-toggle-group>
-                  </div> -->
+                  <div id="input4" class="input ec-input unit">
+                    <md-slide-toggle
+                        formControlName="active"
+                        class="example-margin"
+                        [color]="color"
+                        (change) = "onChange($event)"
+                        [checked]="checked"
+                        #active
+                        >
+                      Yes
+                    </md-slide-toggle>
                 </div>
-                <div id="input-box6" class="input-box" fxLayout="column"></div>
               </div>
-            </md-tab>
-            <md-tab label="Address">
-              <app-address-edit [coId]="coId"></app-address-edit>
-            </md-tab>
-          </md-tab-group>
-        </form>
+              <div id="input-box6" class="input-box" fxLayout="column"></div>
+            </div>
+            <!-- END ROW3 ============= -->
+          </md-tab>
+          <md-tab label="Address">
+            <app-address-edit [coId]="coId"></app-address-edit>
+          </md-tab>
+        </md-tab-group>
+      </form>
       
       <!-- ROW4 ======================================================== -->
           <!-- FOOTER -->
@@ -88,7 +96,7 @@
           <div id="input-box7" class="input-box" fxLayout="column">
             <label id="label7" class="input unit"></label>
             <div class="footer-row">
-              <button class="footer-col unit" (click)="onSubmit()" type="submit"> 
+              <button md-button class="footer-col unit" (click)="onSubmit()" type="submit"> 
                 Submit
               </button>
             </div>

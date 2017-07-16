@@ -45,6 +45,7 @@ import 'rxjs/add/operator/take';
 import { Address }               from '../../address/address';
 import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
 import { Company }               from '../company';
+import { Icons }                 from '../../shared/icons';
 
 @Component({
   selector: 'app-company-edit',
@@ -62,6 +63,9 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
   userId;
   title;
   myform : FormGroup;
+  icons=['thumbs-up', 'chevron-left']
+  thumbsUp;
+  chevronLeft;
 
   constructor(
     private db: AngularFireDatabase,
@@ -72,11 +76,12 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     private router: Router,
     private sanitizer: DomSanitizer,
   ) {
+    this.icons.forEach((icon) =>{
     iconRegistry.addSvgIcon(
-      'thumbs-up',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/ic_thumb_up_black_24px.svg')
+      icon,
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
     );
-    
+    });
   };
 
   ngOnInit() {
@@ -110,7 +115,7 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       return this.myform;
     }
     this.myform = this.fb.group({
-      name: '',
+      name: ['', Validators.required],
       color: '',
       hourly:'',
       paymentTerms: '',
@@ -124,6 +129,13 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
   toggleActive() {
      this.myform.value.active = !this.myform.value.active;
   }
+    onChange(e){
+
+      console.log(e.checked)
+    console.log('this.myform.value.active', this.myform.value.active);
+
+
+    }
 
   onSubmit() {
     this.address = this.addressViewChild.myform.value;
