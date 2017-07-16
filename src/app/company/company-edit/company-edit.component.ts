@@ -97,8 +97,8 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
   }
   ngAfterViewInit(){
-    if(this.company){
-    this.addressViewChild.myform.setValue(this.company.address);
+    if(this.company && this.company.address){
+      this.addressViewChild.myform.setValue(this.company.address);
     }
 
   }
