@@ -70,16 +70,16 @@ export class AddressEditComponent implements OnInit {
   buildForm(address?) {
     if(address){
       this.myform = this.fb.group({
-        city: address.city || null,
-        country: address.country || null,
-        invalid: address.invalid || false,
+        city: address.city,
+        country: address.country,
+        invalid: address.invalid,
         // latitude:'',
         // longitude:'',
-        postalCode: address.postalCode || null,
-        street1: address.street1 || null,
-        street2: address.street2 || null,
-        state: address.state || null,
-        companyId: address.companyId || null,
+        postalCode: address.postalCode ,
+        street1: address.street1,
+        street2: address.street2,
+        state: address.state,
+        companyId: address.companyId,
     });
     } else{
       this.myform = this.fb.group({
@@ -98,13 +98,13 @@ export class AddressEditComponent implements OnInit {
   }
   
 
-  onSubmit2($event) {
-     console.log('address', this.myform.value);
+  // onSubmit2($event) {
+  //    console.log('address', this.myform.value);
      
-  }
+  // }
 
-  goBack(): void {
-    this.location.back();
-  }
+  // goBack(): void {
+  //   this.location.back();
+  // }
 }
 

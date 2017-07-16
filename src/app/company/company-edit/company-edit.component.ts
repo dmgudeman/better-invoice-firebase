@@ -45,7 +45,6 @@ import 'rxjs/add/operator/take';
 import { Address }               from '../../address/address';
 import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
 import { Company }               from '../company';
-import { Icons }                 from '../../shared/icons';
 
 @Component({
   selector: 'app-company-edit',
@@ -141,6 +140,10 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     this.address = this.addressViewChild.myform.value;
   
     console.log('this.address ', this.address);
+    if (!this.myform.value.name){
+      this.router.navigate(['companies']);
+      return;
+    }
 
     let mf = this.myform.value;
       let name = mf.name;
@@ -151,14 +154,20 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     
     if(!mf.items) mf.items = null;
     let payload = {
-      name:name, color:color,  paymentTerms:paymentTerms, hourly:hourly, active:true, userId:1, address: this.address
+        name:name, 
+        color:color,  
+        paymentTerms:paymentTerms, 
+        hourly:hourly, 
+        active:true, 
+        userId:1, 
+        address: this.address
     }
     if(!this.coId){
-    this.companies.push(payload);
+      this.companies.push(payload);
     } else {
       this.db.object('/companies/'+ this.coId).update(payload);
     }
-    this.router.navigate(['companies']);
+      this.router.navigate(['companies']);
   }
   goBack() {
      this.location.back();
