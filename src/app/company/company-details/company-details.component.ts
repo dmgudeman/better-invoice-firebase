@@ -1,5 +1,9 @@
-import { Component, OnInit }   from '@angular/core';
-import { Location }             from '@angular/common';
+import { 
+  Component, 
+  OnInit,
+  ViewChild
+ }                             from '@angular/core';
+import { Location }            from '@angular/common';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable,
@@ -10,14 +14,16 @@ import {
   ActivatedRoute,
   Params 
 }                              from '@angular/router';
+import { AddressComponent }    from '../../address/address/address.component';
 import { ItemListComponent }   from '../../item/item-list/item-list.component';
 
 @Component({
   selector: 'app-company-details',
   templateUrl: './company-details.component.html',
-  styleUrls: ['./company-details.component.css']
+  styleUrls: ['./company-details.component.scss']
 })
 export class CompanyDetailsComponent implements OnInit {
+  @ViewChild(AddressComponent) addressViewChild: AddressComponent;
   companyKey;
   company;
   coId: string;
@@ -45,9 +51,20 @@ export class CompanyDetailsComponent implements OnInit {
       this.company = x;
       this.coId = x.$key;
       this.coName = x.name
-      console.log('company.name', this.company.name);
+      this.coColor = x.color;
+      if(this.company && this.company.address){
+      this.addressViewChild.address = this.company.address;
+      console.log('XXXXXXXXXXXXXXXcompany', this.company);
+    }
     })
-  }
+  };
+  
+  // ngAfterViewInit(){
+  //   console.log('THHHHHHHHHISSSSSS this.company', this.company);
+  //   if(this.company && this.company.address){
+  //     this.addressViewChild.address = this.company.address;
+  //   }
+  // }
   
   // goToEditItem(item?: Item, company?: Company) {
   goToEditItem() {

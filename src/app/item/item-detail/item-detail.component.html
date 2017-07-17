@@ -2,22 +2,22 @@
     <section id="section1" class="section">
         <div id="col2" class="column">
             <div id="row1" class="row" [ngClass]="setColor(itemColor)">
-                <div id="input-box1" class="input-box">
+                <div id="input-box1" class="input-box" fxLayoutAlign="center center"  fxLayoutGap="10px">
                     <label for="date" id="date-label" class="label">Date: </label>
                     <div id="date-text" name="date" class="input" type="text" >{{item.date | date:'M/d/yy'}}</div>
                 </div>
-                <div id="input-box2" class="input-box">
+                <div id="input-box2" class="input-box" fxLayoutAlign="center center"  fxLayoutGap="10px">
                     <label for="amount" id="amount-label" class="label">Amount: </label>
                     <div id="amount-text" name="amount" class="input" type="text" >$ {{item.amount}}</div>
                 </div>
-                <div id="input-box3" class="input-box">
+                <div id="input-box3" class="input-box" fxLayoutAlign="center center"  fxLayoutGap="10px">
                     <label for="hours" id="hours-label" class="label">Hours: </label>
                     <div id="hours-text" name="hours" class="input" type="text" >{{item.hours}}</div>
                 </div>
             </div>
             <div id="row2" class="row">
-                <div id="input-box21" class="input-box"></div>
-                <div id="input-box22" class="input-box">
+                <div id="input-box21" class="input-box" fxLayoutAlign="center center"  fxLayoutGap="10px"></div>
+                <div id="input-box22" class="input-box" fxLayoutAlign="start center"  fxLayoutGap="10px">
                     <div id="description-text" 
                          name="description" 
                          class="input" 

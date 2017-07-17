@@ -33,15 +33,17 @@ import {
   MdTabsModule,
  }                                   from '@angular/material'
 
+// import { AddressComponent }          from './address/address/address.component';
 import { InvoiceEditComponent }      from './invoice/invoice-edit/invoice-edit.component';
 import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 import { InvoiceService }            from './invoice/invoice.service';
-import { RegisterComponent } from './user/register/register.component';
-import { LoginComponent } from './user/login/login.component';
-import { TempComponent } from './temp/temp.component';
+import { RegisterComponent }         from './user/register/register.component';
+import { LoginComponent }            from './user/login/login.component';
+import { TempComponent }             from './temp/temp.component';
 
 @NgModule({
   declarations: [
+    // AddressComponent,
     AppComponent,
     ItemEditComponent,
     InvoiceEditComponent,

@@ -1,3 +1,5 @@
+@import '../../../_variables.scss';
+
 * {
         font-size: 20px;
 }
@@ -80,12 +82,12 @@ label {
 }
 
 /*--------------COLORS-----------------------*/
-.brown  { background-color: rgba(141,110,99, 0.3) }
-.blue   { background-color: rgba(52,152,219,0.3) }
-.green  { background-color: rgba(0, 200,83,0.3) }
-.yellow { background-color: rgba(241,196,15,0.3) }
-.red    { background-color: rgba(231,76,60, 0.3) }
-.purple { background-color: rgba(155,89,182, 0.3)}
+.brown  { background-color: $brownAccent;}
+.blue   { background-color: $blueAccent;}
+.green  { background-color: $greenAccent;}
+.yellow { background-color: $yellowAccent;}
+.red    { background-color: $redAccent;}
+.purple { background-color: $purpleAccent;}
 
 /*===============SMALL SCREENS===================*/
 /*---------screen-xs--------------------*/

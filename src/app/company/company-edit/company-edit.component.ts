@@ -1,8 +1,8 @@
 import { 
+  AfterViewInit,
   Component, 
   OnInit,
   ViewChild,
-  AfterViewInit,
  }                               from '@angular/core';
 import { 
   BrowserAnimationsModule,

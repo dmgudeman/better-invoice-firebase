@@ -37,7 +37,7 @@ import {
 @Component({
   selector: 'app-address-edit',
   templateUrl: './address-edit.component.html',
-  styleUrls: ['./address-edit.component.css'],
+  styleUrls: ['./address-edit.component.scss'],
   providers:[]
 })
 export class AddressEditComponent implements OnInit {
@@ -60,7 +60,7 @@ export class AddressEditComponent implements OnInit {
 
   ngOnInit() {
     if(this.company)
-    console.log('company.name in ngOnInit', this.company.name);
+      console.log('company.name in ngOnInit', this.company.name);
     if(this.company) {
       let address = this.company.address;
       this.buildForm(address);

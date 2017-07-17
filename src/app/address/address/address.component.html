@@ -1,0 +1,16 @@
+  <div class="container" fxLayout="column" fxLayoutAlign="center center" >
+    <div class="address-block" fxFlexLayout="space-around space-around">
+      <div id="line1" class="unit" fxLayoutAlign="center center" >  
+        {{street1}} 
+      </div>
+      <div class="unit test" *ngIf="street2" fxLayoutAlign="center start">
+        {{street2}}
+      </div>
+      <div class="unit" fxLayoutAlign="center start">
+        {{line3}}
+      </div>
+      <div class="unit" fxLayoutAlign="center start">
+        {{country}}
+      </div>
+    </div>
+</div>

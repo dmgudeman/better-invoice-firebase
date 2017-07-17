@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  min-height: 125px;
+  min-width: 150px;
+  max-width: 150px;
+}
+.unit {
+  display: flex;
+  min-height: 30px;
+  width: 450px;
+}
+
+.test {
+  background-color: green;
+}

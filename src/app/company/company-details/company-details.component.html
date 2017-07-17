@@ -15,43 +15,41 @@
                     <a id="plus-link" (click)="goToEditCompany()" aria-hidden="true">edit</a></div>
             </div>
         </div>
-        <div id="sec1row2" class="row">
+        <!-- <div id="sec1row2" class="row">
             <div id="sec1row2col1"></div>
-            <div id="sec1row2col2">
-                <!--<app-address class="spacer" (click)="goToEditCompany()" [coId]="coId">
-    
-                </app-address>-->
+            <div id="sec1row2col2"> -->
+                <app-address (click)="goToEditCompany()"> </app-address>
 
-            </div>
+            <!-- </div>
             <div id="sec1row2col3"></div>
             
-        </div>
+        </div> -->
         <div id="sec1row3" class="row">
             <div class="column cd-midbar" [ngClass]="setColor(coColor)"></div>
         </div>
     </div>
      <!-- SECTION 2 the Body -->
-     <div id="section2" class="section">
-        <div id="sec2row1" class="row">
-            <div id="sec2row1col1" class="column"></div>
+      <div id="section2" class="section"  fxLayoutAlign="center center">
+        <!-- <div id="sec2row1" class="row"> -->
+            <!-- <div id="sec2row1col1" class="column"></div> -->
             <div id="sec2row1col2" class="column">
-                <div id="detail-wrapper">
+                <!-- <div id="detail-wrapper">  -->
                     <app-item-list></app-item-list>
-                </div>
-            </div>
-            <div id="sec2row1col3" class="column"></div>
+                 <!-- </div> -->
+            <!-- </div> -->
+            <!-- <div id="sec2row1col3" class="column"></div> -->
         </div>
-    </div>
+    </div> 
     <!-- SECTION 3 the Footer -->
-    <div id="section3" class="section">
-        <div id="sec3row1" class="row">
-            <div id="sec3row1col1" class="column"></div>
-            <div id="sec3row1col2" class="column">
+    <div id="section3" class="section" fxLayoutAlign="center center">
+        <!-- <div id="sec3row1" class="row"> -->
+            <!-- <div id="sec3row1col1" class="column"></div> -->
+            <!-- <div id="sec3row1col2" class="column"> -->
                 <button id="cd-submit" class=" item" (click)=" getNothing()">
                 Submit
             </button>
-            </div>
-            <div id="sec3row1col3" class="column"></div>
-        </div>
+            <!-- </div> -->
+            <!-- <div id="sec3row1col3" class="column"></div> -->
+        <!-- </div> -->
     </div>
 </div>

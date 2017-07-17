@@ -1,0 +1,31 @@
+/*------------ INPUT BOXES ----------------------*/
+.test{
+  background-color: green;
+}
+#main-column{
+  display: flex;
+}
+// .row {
+//   width: 100%;
+// }
+.input-box {
+  display: flex;
+    margin: 10px;
+    min-width: 20%;
+    max-width: 70%;
+}
+
+
+
+
+.input {
+    display: flex;
+    margin: 5px;
+    height: 30px !important;
+    width:100%;
+}
+
+
+
+
+
