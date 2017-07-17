@@ -31,7 +31,9 @@
             <div  id="input-box2" class="input-box" fxLayout="column">
               <label id="label2" class="input unit" for="color" >Color tag</label>
               <div class="input unit" id="color" >
-                <input type="radio" id="tag1" value="brown" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'brown'" >
+                <input type="radio" id="tag1" value="brown" class="form-control" 
+                  formControlName="color" name="color" [checked]="myform.controls.color.value === 'brown'"
+                  >
                 <label class=" ec-radio brown" for="tag1"></label>
                 <input type="radio" id="tag2" value="blue" class="form-control" formControlName="color" name="color" [checked]="myform.controls.color.value === 'blue'">
                 <label class=" ec-radio blue" for="tag2"></label>
@@ -70,7 +72,7 @@
                   <div id="input4" class="input ec-input unit">
                     <md-slide-toggle
                         formControlName="active"
-                        class="example-margin"
+                        class="example-margin "
                         [color]="color"
                         (change) = "onChange($event)"
                         [checked]="checked"
@@ -84,7 +86,7 @@
             </div>
             <!-- END ROW3 ============= -->
           </md-tab>
-          <md-tab label="Address">
+          <md-tab label="Address" fxLayout="column" >
             <app-address-edit [coId]="coId"></app-address-edit>
           </md-tab>
         </md-tab-group>
@@ -96,7 +98,8 @@
           <div id="input-box7" class="input-box" fxLayout="column">
             <label id="label7" class="input unit"></label>
             <div class="footer-row">
-              <button md-button class="footer-col unit" (click)="onSubmit()" type="submit"> 
+               <!-- <button md-raised-button color="accent" class="footer-col unit ce-submit" (click)="onSubmit()" type="submit">   -->
+               <button class="unit ce-submit" (click)="onSubmit()" type="submit">  
                 Submit
               </button>
             </div>

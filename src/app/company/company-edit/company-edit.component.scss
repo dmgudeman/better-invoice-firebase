@@ -59,3 +59,22 @@ input[type=radio]:checked+label {
 md-radio-button {
   margin-left: 20px;
 }
+
+/*-----------SLIDER-----------------------------------*/
+md-slide-toggle {
+  margin-left: 20px;
+}
+/*-----------SUBMIT BUTTON----------------------------*/
+.ce-submit {
+  display: block;
+  font-size: 90%;
+  border-radius: 4px;
+  border: transparent 0px;
+  background-color: $grayBackground;
+  color: $whiteFont;
+  max-width: 25%;
+  min-width: 25%;
+  max-height:100%;
+  min-height: 50px;
+  margin: auto 0;
+}
