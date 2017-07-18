@@ -10,7 +10,7 @@
 
         <!--  <div class="zzz" id="col3" fxLayout="column"> -->
             <!--  FORM -->
-            <form [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate fxFlex="100%">
+            <form [formGroup]="myform" (ngSubmit)="onSubmit()" fxLayoutWrap novalidate fxFlex="100%">
                 <md-tab-group fxFlex="100%">
                     <md-tab label="Hours">
                       <div class="form-group col-xs-12 col-md-6">
@@ -38,29 +38,22 @@
                         </div>
                     </md-tab>
                 </md-tab-group>
-                        <div class="form-group col-xs-12 col-md-6">
-                            <label for="date">Date</label><br>
-                            <!--<input 
-                              name="date" 
-                              formControlName="date"
-                              id="date" 
-                              [mdDatepicker]="myDatepicker"
-                            >-->
-                          <md-input-container>
-                            <input 
-                              name="date" 
-                              formControlName="date"
-                              id="date" 
-                              mdInput 
-                              [mdDatepicker]="picker" 
-                              placeholder="Choose a date"
-                             >
-                            <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                          </md-input-container>
-                          <md-datepicker #picker></md-datepicker>
-                            
-                        </div>
-                        <div fxFlex="50%">
+                <div fxFlex="100%">
+                  <md-input-container>
+                    <input 
+                      name="date" 
+                      formControlName="date"
+                      id="date" 
+                      mdInput 
+                      [mdDatepicker]="picker" 
+                      placeholder="Choose a date"
+                      >
+                    <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                  </md-input-container>
+                  <md-datepicker #picker></md-datepicker>
+                    
+                </div>
+                        <div >
                             <label for="description">Description/notes</label>
                             <textarea 
                                 formControlName="description"
