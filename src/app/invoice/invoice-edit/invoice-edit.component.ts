@@ -42,13 +42,13 @@ import { customTransitionRight } from '../../shared/custom-transition-right.comp
 @Component({
   selector: 'invoice-edit',
   templateUrl: './invoice-edit.component.html',
-  styleUrls: ['./invoice-edit.component.css'],
-  animations: [ customTransitionRight ]
+  styleUrls: ['./invoice-edit.component.scss'],
+  // animations: [ customTransitionRight ]
 })
 export class InvoiceEditComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display')   display = 'block';
-  @HostBinding('style.position')  position = 'absolute';
+  // @HostBinding('@routeAnimation') routeAnimation = true;
+  // @HostBinding('style.display')   display = 'block';
+  // @HostBinding('style.position')  position = 'absolute';
 
   company: Company;
   companyId: string;
@@ -56,7 +56,7 @@ export class InvoiceEditComponent implements OnInit {
   invoice:any;
   invoices: FirebaseListObservable<any[]>;
   invoiceRes: FirebaseObjectObservable<any>;
-  item
+  item;
   items;
   itemIds: number[] = [];
   m: moment.Moment;

@@ -3,7 +3,13 @@ import {
   OnInit,
   ViewChild
  }                             from '@angular/core';
+import { DomSanitizer }          from '@angular/platform-browser';
 import { Location }            from '@angular/common';
+import { 
+  MdIconModule,
+  MdIconRegistry,
+  MaterialModule,
+ }                               from '@angular/material';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable,
@@ -29,15 +35,25 @@ export class CompanyDetailsComponent implements OnInit {
   coId: string;
   coName: string;
   coColor: string;
+  icons=['thumbs-up', 'chevron-left']
   constructor(
     // private _companyService: CompanyService,
     // private _invoiceService: InvoiceService,
     private location: Location,
     private db: AngularFireDatabase,
-    private router: Router,
     private route: ActivatedRoute,
+    private iconRegistry: MdIconRegistry,
+    private router: Router,
+    private sanitizer: DomSanitizer,
     ) {
-      };
+      this.icons.forEach((icon) =>{
+        iconRegistry.addSvgIcon(
+          icon,
+          sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
+        );
+      });
+    };
+      
 
 
   ngOnInit() {

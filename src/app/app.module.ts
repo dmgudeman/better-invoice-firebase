@@ -39,7 +39,8 @@ import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre
 import { InvoiceService }            from './invoice/invoice.service';
 import { RegisterComponent }         from './user/register/register.component';
 import { LoginComponent }            from './user/login/login.component';
-import { TempComponent }             from './temp/temp.component';
+import { TempComponent }             from './temp/temp/temp.component';
+import { Temp2Component } from './temp/temp2/temp2.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { TempComponent }             from './temp/temp.component';
     RegisterComponent,
     LoginComponent,
     TempComponent,
+    Temp2Component,
   ],
   imports: [
     AppRoutingModule,

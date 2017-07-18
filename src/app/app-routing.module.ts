@@ -13,7 +13,8 @@ import { ItemEditComponent }      from './item/item-edit/item-edit.component';
 import { InvoiceEditComponent }   from './invoice/invoice-edit/invoice-edit.component';
 import { LoginComponent }         from './user/login/login.component';
 // import { NotFoundComponent }      from './not-found/not-found.component'o;
-import { TempComponent }          from './temp/temp.component';
+import { TempComponent }          from './temp/temp/temp.component';
+import { Temp2Component }          from './temp/temp2/temp2.component';
 // import { LoginComponent }         from './users/login/login.component';
 // import { UserComponent }          from './users/user/user.component';
 
@@ -30,6 +31,7 @@ export const APP_ROUTES: Routes = [
   // { path: 'invoice-pre-pdf',      component: InvoicePrePdfComponent },
   { path: 'invoice-pre-pdf/:id',  component: InvoicePrePdfComponent },
   { path: 'temp',                 component: TempComponent },
+  { path: 'temp2',                component: Temp2Component },
   { path: 'companies',            component: CompaniesComponent}, //canActivate : [AuthGuard]}, 
   { path: 'company-card/:id',     component: CompanyCardComponent},  //, canActivate : [AuthGuard] },
   { path: 'company-edit',         component: CompanyEditComponent}, //, canActivate : [AuthGuard] },

@@ -74,7 +74,7 @@ html, body {
     /*background-color: magenta;*/
 }
 
-.glyphicon, #plus-link  {
+#left-arrow, #plus-link  {
     color: white;
 } 
 
@@ -216,7 +216,6 @@ html, body {
 }
 /*-----------SUBMIT BUTTON----------------------------*/
 #cd-submit {
-  display: flex;
   font-size: 90%;
   border-radius: 4px;
   border: transparent 0px;
@@ -230,12 +229,16 @@ html, body {
 }
 
 /*-------------- COMPANY COLORS ----------------------*/
-.blue   { background-color: #3498db; }
-.green  { background-color: #00C853; }
-.yellow { background-color: #f1c40f; }
-.red    { background-color: #e74c3c; }
-.purple { background-color: #9b59b6; }
-.brown  { background-color: #8D6E63; }
+.blue   { background-color: $blue; }
+.green  { background-color: $green; }
+.yellow { background-color: $yellow; }
+.red    { background-color: $red; }
+.purple { background-color: $purple; }
+.brown  { background-color: $brown; }
+
+/*-------------- OTHER COLORS ----------------------*/
+.whiteFont  { color: $whiteFont!important; }
+.grayBackground { background-color: $grayBackground; }
 
 /*==============SMALL SCREENS==================*/
 /*screen-xs*/

@@ -3,8 +3,9 @@
     <div id="section1" class="section  header">
         <div id="sec1row1" class="row" [ngClass]="setColor(coColor)">
             <div id="sec1row1col1" class="column">
-                <div id="left-arrow" class="item">
-                    <a (click)="goBack()" class="glyphicon glyphicon-chevron-left"></a>
+                <div  class="item">
+                   <md-icon id="left-arrow" color="warn" (click)="goBack()" svgIcon="chevron-left"></md-icon> 
+                    <!-- <a (click)="goBack()" class="glyphicon glyphicon-chevron-left"></a> -->
                 </div>
             </div>
             <div id="sec1row1col2" class="column">
@@ -41,11 +42,11 @@
         </div>
     </div> 
     <!-- SECTION 3 the Footer -->
-    <div id="section3" class="section" fxLayoutAlign="center center">
+    <div id="section3" class="section" fxLayoutAlign="start center">
         <!-- <div id="sec3row1" class="row"> -->
             <!-- <div id="sec3row1col1" class="column"></div> -->
             <!-- <div id="sec3row1col2" class="column"> -->
-                <button id="cd-submit" class=" item" (click)=" getNothing()">
+                <button id="cd-submit" fxLayoutAlign="start center" fxFlexOffset="23%" class=" item" (click)=" getNothing()">
                 Submit
             </button>
             <!-- </div> -->
