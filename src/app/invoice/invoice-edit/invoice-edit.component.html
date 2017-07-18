@@ -18,8 +18,8 @@
         <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
             <!--  FORM -->
                 <form [formGroup]="myform"  (ngSubmit)="onSubmit()" novalidate  fxLayoutWrap fxFlex="100%">
-                  <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center" >
-                    <div  fxFlex="50%">
+                  <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" >
+                    <div  fxFlex="35%" >
                         <md-input-container >
                           <input 
                             name="beginDate" 
@@ -33,7 +33,7 @@
                         </md-input-container >
                         <md-datepicker #picker></md-datepicker> 
                     </div>
-                        <div >
+                        <div fxFlex="50%">
                           <md-input-container>
                             <input 
                               name="endDate" 
@@ -48,52 +48,25 @@
                           <md-datepicker #picker2></md-datepicker>
                           </div>
                     </div>
-                   <div  fxLayout="column" fxFlex=100%  > 
-                        <div class='x' fxFlex="100%" >
-                          <div *ngIf="!toggle" >
-                                    <label for="amount">Discount Amount </label>
-                                    <div class="input-group ">
-                                        <input class="form-control "
-                                                name="amount"
-                                                formControlName="amount"
-                                                id="amount" 
-                                                type="text" 
-                                        > 
-                                        <span class="input-group-addon iv-group-addon-1" (click)= "toggleIt()">%</span>
-                                        <span class="input-group-addon iv-group-addon-1" (click)= "toggleIt()">$</span>
-                                    </div>
-                              </div>
-                              <div *ngIf="toggle"fxFlex="100%">
-                                    <label for="discount"> Discount Percentage </label>
-                                    <div class="input-group ">
-                                        <input class="form-control "
-                                                name="discount" 
-                                                formControlName="discount"
-                                                id="discount" 
-                                                type="text" 
-                                                
-                                        > 
-                                    <span class="input-group-addon iv-group-addon-2" (click)= "toggleIt()">%</span>
-                                    <span class="input-group-addon iv-group-addon-2" (click)= "toggleIt()">$</span>
-                                </div>
-                              </div>
-                         </div>
-                    </div>
-               <div fxLayout="column" fxFlex="100%">
-                        <label for="notes">Description/notes</label>
-                        <textarea 
-                             class="form-control iv-notes" 
-                             name="description" 
-                             formControlName="description"
-                             id="description" 
-                             type="textbox" 
-                             required
-                             placeholder="Type Here">
-                          </textarea>
+                      <div fxLayout="column" fxFlex="100%">
+                        <md-input-container class="example-full-width">
+                          <input mdInput formControlName="discount" placeholder="Discount Percentage">
+                        </md-input-container>
+                     </div>
+                      <div fxLayout="column" fxFlex="100%">
+                        <md-input-container class="example-full-width">
+                          <input mdInput formControlName="amount" placeholder="Discount Amount">
+                        </md-input-container>
+                     </div>
+                   
+                      <div fxLayout="column" fxFlex="100%">
+                        <md-input-container class="example-full-width">
+                          <textarea mdInput formControlName="description" placeholder="Description"></textarea>
+                        </md-input-container>
                      </div>
                         <div fxFlex="10%">
                      <div fxLayout="column" >
-                         <button >Submit </button>
+                         <button md-raised-button >Submit </button>
                      </div>
                         </div>
                 </form>
