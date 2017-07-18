@@ -63,8 +63,6 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
   title;
   myform : FormGroup;
   icons=['thumbs-up', 'chevron-left']
-  thumbsUp;
-  chevronLeft;
 
   constructor(
     private db: AngularFireDatabase,

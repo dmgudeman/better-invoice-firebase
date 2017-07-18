@@ -3,6 +3,7 @@ import {
   HostBinding,
   OnInit,
 }                                from '@angular/core';
+import { DomSanitizer }          from '@angular/platform-browser';
 import {
   FormBuilder,
   FormControl,
@@ -14,6 +15,7 @@ import {
 import { Location }              from '@angular/common';
 import { 
   MdDatepickerModule,
+  MdIconRegistry,
   MdInputModule,
   MdNativeDateModule,
   MdTabsModule,
@@ -31,9 +33,10 @@ import {
 }                                from 'angularfire2/database';
 import * as moment               from 'moment'
 
-// Custom Modules
+// Custom 
 import { Company }               from '../../company/company';
 import { Item }                  from '../../item/item';
+import { MyIcons }               from '../../shared/my-icons';
 import { Shared }                from '../../shared/shared';
 // import { InvoiceService }        from '../invoice.service';
 import { Invoice }               from '../invoice';
@@ -62,19 +65,27 @@ export class InvoiceEditComponent implements OnInit {
   m: moment.Moment;
   myform: FormGroup;
   output
-  shared: Shared;
   submittedForm
   title: string;
-
+  icons=["chevron-left"]
 
   constructor(
     private db: AngularFireDatabase,
     private fb: FormBuilder,
+    private iconRegistry:MdIconRegistry,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
+    private sanitizer:DomSanitizer,
   ) {
-    this.shared = new Shared();
+    // this.icons.forEach((icon) =>{
+    // iconRegistry.addSvgIcon(
+    //   icon,
+    //   sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
+    // );
+    // });
+    let myIcons = new MyIcons(iconRegistry, sanitizer);
+    myIcons.makeIcon("chevron-left");
   }
 
   ngOnInit() {

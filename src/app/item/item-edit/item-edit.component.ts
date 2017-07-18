@@ -4,6 +4,7 @@ import {
   OnInit,
   ViewChild
 }                                         from '@angular/core';
+import { DomSanitizer }          from '@angular/platform-browser';
 import { Location }                       from '@angular/common';
 import { 
   FormBuilder, 
@@ -15,6 +16,7 @@ import {
 }                                         from '@angular/forms';
 import { 
   MdDatepickerModule,
+  MdIconRegistry,
   MdInputModule,
   MdNativeDateModule,
   MdTabsModule,
@@ -43,13 +45,9 @@ import { customTransitionRight }          from '../../shared/custom-transition-r
 @Component({
   selector: 'app-item-edit',
   templateUrl: './item-edit.component.html',
-  styleUrls: ['./item-edit.component.css'],
-  animations: [customTransitionRight]
+  styleUrls: ['./item-edit.component.scss'],
 })
 export class ItemEditComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display')   display = 'block';
-  @HostBinding('style.position')  position = 'absolute';
    
   hoursArrayLimit = 25;
   hoursArray:number[] = [];
@@ -59,18 +57,27 @@ export class ItemEditComponent implements OnInit {
   companyItems: FirebaseListObservable<any[]>
   date:Date;
   m: moment.Moment;
-  // myDatePickerOptions: IMyOptions = { dateFormat: 'yyyy-mm-dd'};
   title: string;
   myform : FormGroup;
+  icons= ['chevron-left'];
 
   constructor(
+    private db: AngularFireDatabase,
+    private fb:FormBuilder,
+    private iconRegistry:MdIconRegistry,
     private location: Location,
+    private MdDatepicker: MdDatepickerModule,
+    private sanitizer:DomSanitizer,
     private router:Router,
     private route:ActivatedRoute,
-    private fb:FormBuilder,
-    private db: AngularFireDatabase,
-    private MdDatepicker: MdDatepickerModule,
-    ) { }
+    ) {
+      this.icons.forEach((icon) =>{
+        iconRegistry.addSvgIcon(
+        icon,
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
+    );
+    });
+     }
 
   ngOnInit() {
     this.myform = this.fb.group({

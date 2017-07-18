@@ -1,25 +1,17 @@
 <!-- NAVIGATION -->
-<div class="container">
-     <header id="header"  (click)="goBack()">
-       <div>
-            <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
-            {{title}}
-        </div> 
-    </header>
-    <div id="section1"  (click)="goBack()">
-        <div id="col1" class="ni-nav">
-            <a class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></a>
-            <span>{{title}}</span>
-        </div>
-    </div>
-       <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
-    <div id="section2" class="row">
-        <div id="col2" class="column">
-        </div>
-        <div id="col3" class="column">
+<div class="container" fxLayout="column">
+  <md-toolbar color="primary">
+    <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
+    <span class="spacer"></span>
+    <span class="tb-text">{{title}}Edit Item</span>
+  </md-toolbar>
+   
+  <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
+
+        <!--  <div class="zzz" id="col3" fxLayout="column"> -->
             <!--  FORM -->
-            <form [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate>
-                <md-tab-group>
+            <form [formGroup]="myform" (ngSubmit)="onSubmit()" novalidate fxFlex="100%">
+                <md-tab-group fxFlex="100%">
                     <md-tab label="Hours">
                       <div class="form-group col-xs-12 col-md-6">
                         <label for="hours">Hours</label>
@@ -68,7 +60,7 @@
                           <md-datepicker #picker></md-datepicker>
                             
                         </div>
-                        <div class="form-group col-xs-12">
+                        <div fxFlex="50%">
                             <label for="description">Description/notes</label>
                             <textarea 
                                 formControlName="description"
@@ -86,6 +78,5 @@
             </form>
         </div>
         <div id="col4" class="column"></div>
-    </div>
      <footer id="footer" (click)="onSubmit()">Submit</footer>
 </div>

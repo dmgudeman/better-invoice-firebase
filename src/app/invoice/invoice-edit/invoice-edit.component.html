@@ -1,77 +1,65 @@
 <!-- NAVIGATION -->
 <div class="container" fxLayout='column' >
-    <div >
-        <div >
-            <div>
-                <a 
-                    (click)="goBack()"
-                    class="glyphicon glyphicon-chevron-left" 
-                    aria-hidden="true"
-                ></a>
-                <span>Export Invoice</span>
-            </div>
+  <md-toolbar color="primary">
+    <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
+    <span class="spacer"></span>
+    <span class="tb-text">Edit Invoice</span>
+  </md-toolbar>
+  <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
+    <!--  FORM -->
+    <form [formGroup]="myform"  (ngSubmit)="onSubmit()" novalidate  fxLayoutWrap fxFlex="100%">
+      <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" >
+        <div  fxFlex="35%" >
+            <md-input-container >
+              <input 
+                name="beginDate" 
+                formControlName="beginDate"
+                id="beginDateate" 
+                mdInput 
+                [mdDatepicker]="picker" 
+                placeholder="Start Date"
+                >
+              <button mdSuffix [mdDatepickerToggle]="picker"></button>
+            </md-input-container >
+            <md-datepicker #picker></md-datepicker> 
         </div>
-    </div>
-       <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
-    <!-- HEADER -->
-    <div >
-        <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
-            <!--  FORM -->
-                <form [formGroup]="myform"  (ngSubmit)="onSubmit()" novalidate  fxLayoutWrap fxFlex="100%">
-                  <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" >
-                    <div  fxFlex="35%" >
-                        <md-input-container >
-                          <input 
-                            name="beginDate" 
-                            formControlName="beginDate"
-                            id="beginDateate" 
-                            mdInput 
-                            [mdDatepicker]="picker" 
-                            placeholder="Start Date"
-                            >
-                          <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                        </md-input-container >
-                        <md-datepicker #picker></md-datepicker> 
-                    </div>
-                        <div fxFlex="50%">
-                          <md-input-container>
-                            <input 
-                              name="endDate" 
-                              formControlName="endDate"
-                              id="endDate" 
-                              mdInput 
-                              [mdDatepicker]="picker2" 
-                              placeholder="End Date"
-                             >
-                            <button mdSuffix [mdDatepickerToggle]="picker2"></button>
-                          </md-input-container>
-                          <md-datepicker #picker2></md-datepicker>
-                          </div>
-                    </div>
-                      <div fxLayout="column" fxFlex="100%">
-                        <md-input-container class="example-full-width">
-                          <input mdInput formControlName="discount" placeholder="Discount Percentage">
-                        </md-input-container>
-                     </div>
-                      <div fxLayout="column" fxFlex="100%">
-                        <md-input-container class="example-full-width">
-                          <input mdInput formControlName="amount" placeholder="Discount Amount">
-                        </md-input-container>
-                     </div>
-                   
-                      <div fxLayout="column" fxFlex="100%">
-                        <md-input-container class="example-full-width">
-                          <textarea mdInput formControlName="description" placeholder="Description"></textarea>
-                        </md-input-container>
-                     </div>
-                        <div fxFlex="10%">
-                     <div fxLayout="column" >
-                         <button md-raised-button >Submit </button>
-                     </div>
-                        </div>
-                </form>
+            <div fxFlex="50%">
+              <md-input-container>
+                <input 
+                  name="endDate" 
+                  formControlName="endDate"
+                  id="endDate" 
+                  mdInput 
+                  [mdDatepicker]="picker2" 
+                  placeholder="End Date"
+                  >
+                <button mdSuffix [mdDatepickerToggle]="picker2"></button>
+              </md-input-container>
+              <md-datepicker #picker2></md-datepicker>
+              </div>
+        </div>
+        <div fxLayout="column" fxFlex="100%">
+          <md-input-container class="example-full-width">
+            <input mdInput formControlName="discount" placeholder="Discount Percentage">
+          </md-input-container>
+        </div>
+        <div fxLayout="column" fxFlex="100%">
+          <md-input-container class="example-full-width">
+            <input mdInput formControlName="amount" placeholder="Discount Amount">
+          </md-input-container>
+        </div>
+        <div fxLayout="column" fxFlex="100%">
+          <md-input-container class="example-full-width">
+            <textarea mdInput formControlName="description" placeholder="Description"></textarea>
+          </md-input-container>
+        </div>
+          <div fxFlex="10%">
+          <div fxLayout="column" >
+            <button md-raised-button >Submit </button>
           </div>
-     </div>
+        </div>
+    </form>
+  </div>
 <!--<br>
       <h3>Form changes</h3>
       <pre><code>{{ output | json }}</code></pre>
