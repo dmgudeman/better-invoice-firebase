@@ -1,36 +1,21 @@
-<div class="my-container">
-    <nav id="section1" class="section">
-        <div class="column" id="sec1col1">
-            <input type="image" src='../../assets/images/logo/large-press.png_48x48.png' (click)='onLogOut()' alt="logo">
-        </div>
-        <div class="column" id="sec1col2">
-            Current Companies
-        </div>
-        <div class="column" id="sec1col3">
-            <div id="plus" class="nav-wrapper" (click)="goToEditCompany()">
-                +
-            </div>
-        </div>
-    </nav>
-    <div id="section2" class="section">
-        <div class="column" id="sec2col1"></div>
-        <div class="column" id="sec2col2">
-     <!--<button type="button" class="btn btn-success btn-lg" (click)="localStorage_consoleInfo()" >Sign In</button>-->
-            
-            <div id="card-wrapper">
-                <!--COMPANY CARDS -->
-                <div id="co-card">
-                    <app-company-card *ngFor="let company of companiesArray" [company]="company">
-                      
-                    </app-company-card>
-                </div>
-            </div>
-        </div>
-        <div id="sec2col3" class="column"></div>
+<!-- NAVIGATION -->
+<div class="container" fxLayout='column'  >
+  <md-toolbar color="primary">
+    <input  type="image" src='../../assets/images/logo/large-press.png_48x48.png' (click)='onLogOut()' alt="logo">
+    <span class="binv-spacer"></span>
+    <span>Current Companies</span>
+    <span class="binv-spacer"></span>
+    <md-icon class="binv-icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
+  </md-toolbar>
+    
+  <!--COMPANY CARDS -->
+  <div fxFlex="1 1 10px"></div>
+  <div fxLayoutWrap fxLayout="row">
+    <div class="binv-spacer-card"></div> 
+    <div id="binv-card" fxLayoutWrap fxLayout="row" fxLayoutAlign="space-around center" fxFlex="1 1 50%">
+      <app-company-card *ngFor="let company of companiesArray" [company]="company"> </app-company-card>
     </div>
+    <span class="binv-spacer-card"></span>  
+  </div>
+
 </div>
-
-
-<ul>
-  <li *ngFor= "let c of companies" > {{c.$key}}</li>
-</ul>

@@ -7,35 +7,22 @@
   </md-toolbar>
    
   <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
-
-        <!--  <div class="zzz" id="col3" fxLayout="column"> -->
             <!--  FORM -->
             <form [formGroup]="myform" (ngSubmit)="onSubmit()" fxLayoutWrap novalidate fxFlex="100%">
                 <md-tab-group fxFlex="100%">
                     <md-tab label="Hours">
-                      <div class="form-group col-xs-12 col-md-6">
-                        <label for="hours">Hours</label>
-                        <select
-                          class="form-control ni-input "
-                          formControlName="hours"
-                          id="hours" 
-                          type="text"
-                        >
-                        <option *ngFor="let h of hoursArray" [value]="h">{{h}}</option>
-                        </select>
-                      </div>
+                       <div fxLayout="column" fxFlex="100%">
+                        <md-input-container class="example-full-width">
+                          <input mdInput formControlName="hours" placeholder="Hours">
+                        </md-input-container>
+                     </div>
                     </md-tab>
                     <md-tab label="$Amount">
-                        <div class="form-group col-xs-12 col-md-6">
-                            <label for="amount">$Amount</label>
-                            <input 
-                              formControlName="amount"
-                              id="amount" 
-                              type="text" 
-                              class="form-control"
-                              placeholder="0"
-                            >
-                        </div>
+                      <div fxLayout="column" fxFlex="100%">
+                        <md-input-container class="example-full-width">
+                          <input mdInput formControlName="amount" placeholder="Amount">
+                        </md-input-container>
+                     </div>
                     </md-tab>
                 </md-tab-group>
                 <div fxFlex="100%">
@@ -51,25 +38,17 @@
                     <button mdSuffix [mdDatepickerToggle]="picker"></button>
                   </md-input-container>
                   <md-datepicker #picker></md-datepicker>
-                    
                 </div>
-                        <div >
-                            <label for="description">Description/notes</label>
-                            <textarea 
-                                formControlName="description"
-                                id="description" 
-                                type="textbox" 
-                                class="form-control ni-description" 
-                                placeholder="Type Here">
-                            </textarea>
-                        </div>
-                <div>
-                    <button class="col-xs-12 col-md-6 myCol"  >
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div id="col4" class="column"></div>
-     <footer id="footer" (click)="onSubmit()">Submit</footer>
+          <div fxLayout="column" fxFlex="100%">
+            <md-input-container class="example-full-width">
+              <textarea mdInput formControlName="description" placeholder="Description"></textarea>
+            </md-input-container>
+          </div>
+          <div fxFlex="10%">
+            <div fxLayout="column" >
+              <button md-raised-button >Submit </button>
+            </div>
+          </div>
+        </form>
+    </div>
 </div>

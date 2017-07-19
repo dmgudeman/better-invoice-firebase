@@ -19,6 +19,7 @@ import {
   MdInputModule,
   MdNativeDateModule,
   MdTabsModule,
+  MdButton,
  }                               from '@angular/material';
 import {
   ActivatedRoute,

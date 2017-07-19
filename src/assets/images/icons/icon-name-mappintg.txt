@@ -1,2 +1,3 @@
 chevron-left = ic_chevron_left_black_24px.svg
 thumbs-up    = ic_thumb_up_black_24px.svg
+add          = ic_add_black_24px.svg

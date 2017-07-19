@@ -1,35 +1,27 @@
-<!--<div class="overall">-->
 <!-- NAVIGATION -->
-<div class="my-container">
-  <!-- <header id="header" (click)="goBack()">
-    <div>
-      <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a>
-      {{title}}
-    </div> 
-  </header> -->
-  <nav id="section1" (click)="goBack()">
-  <div class="column" id="col1"> 
-   <md-icon class="icon" svgIcon="chevron-left"></md-icon> 
-  <!-- <a  class="glyphicon glyphicon-chevron-left" aria-hidden="true"></a> -->
-      {{title}}
-    </div>
-  </nav>
+<div class="container" fxLayout='column' >
+  <md-toolbar color="primary">
+    <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
+    <span class="spacer"></span>
+    <span class="tb-text">{{title}}</span>
+  </md-toolbar>
+ 
   <!--  FORM -->
-<div fxLayout="column" id="section2" class="over-form tmp-form">
-  <div class="colum" id="col2"></div>
-  <div class="colum" id="col3">
-    <form [formGroup]="myform" (ngSubmit)="onSubmit()">
-      <md-tab-group> 
-        <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
-        <md-tab label="General" fxLayout="column" >
-          <!-- ROW1 ======================================================== -->
-          <div id="row1" class="row" fxLayout="row" fxLayoutAlign="center" >
-            <div id="input-box1" class="input-box" name="name" fxLayout="column" >
-              <label id="label1" class="input unit" for="name">Business Name</label>
-              <input id="name" class="input ec-input unit" formControlName="name" type="text">
-            </div>
-            <div  id="input-box2" class="input-box" fxLayout="column">
-              <label id="label2" class="input unit" for="color" >Color tag</label>
+  <div fxLayout="row" fxFlex="100%" flexLayoutWrap fxLayoutAlign="space-around center"  >
+    <form [formGroup]="myform"  (ngSubmit)="onSubmit()" novalidate  fxLayoutWrap fxFlex="100%">
+      <md-tab-group fxFlex="100%">
+        <md-tab label="General" >
+         
+          <!-- ================ ROW1 =============================== -->
+          <div class="row"fxLayout="row"  fxLayoutAlign="space-around center" fxGap="10px" >
+           <div fxLayout="column" fxFlex="20%"></div> 
+          <div fxLayout="column" fxFlex="35%">
+            <md-input-container class="example-full-width">
+              <input mdInput formControlName="name" placeholder="Business Name">
+            </md-input-container>
+          </div>
+            <div  id="input-box2" class="input-box" fxLayout="column" fxFlex="50%">
+              <label id="label2" class="input unit" for="color" >Business Color</label>
               <div class="input unit" id="color" >
                 <input type="radio" id="tag1" value="brown" class="form-control" 
                   formControlName="color" name="color" [checked]="myform.controls.color.value === 'brown'"
@@ -47,14 +39,16 @@
                 <label class=" ec-radio purple" for="tag6"></label>
               </div>
             </div> 
-          </div>
-          <!-- ROW2 ======================================================== -->
-          <div class="row" id="row2" fxLayout="row" fxLayoutAlign="center" >
-            <div id="input-box3" class="input-box" fxLayout="column">
-              <label id="label3" class="input unit" for="hourly">Hourly pay</label> 
-              <input id="input3" class="input ec-input unit" formControlName="hourly" type="text">
             </div>
-            <div id="input-box4" class="input-box" fxLayout="column" >
+          <!-- ================ ROW2 =============================== -->
+          <div class="row" fxLayout="row" fxLayoutAlign="space-around center" >
+            <div fxLayout="column" fxFlex="20%"></div>
+            <div fxLayout="column" fxFlex="35%" >
+            <md-input-container class="example-full-width">
+              <input mdInput formControlName="hourly" placeholder="Hourly">
+            </md-input-container>
+          </div>
+            <div id="input-box4" class="input-box" fxLayout="column" fxFlex="50%" >
               <label id="label4" class="input unit">Payment terms</label>
               <div id="input4" class="input ec-input unit">
                 <md-radio-group formControlName="paymentTerms">
@@ -65,9 +59,10 @@
               </div>
             </div>
           </div>
-              <!-- ROW3 - ACTIVE================================================ -->
-                <div id="row3" class="row" fxLayout="row" fxLayoutAlign="center">
-                <div id="input-box5" class="input-box" fxLayout="column">
+          <!-- ================ ROW3 =============================== -->
+          <div class="row" fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxLayout="column" fxFlex="20%"></div>
+                <div   fxLayout="column" fxFlex=35%>
                   <label id="label5" class="input unit">Active company</label> 
                   <div id="input4" class="input ec-input unit">
                     <md-slide-toggle
@@ -82,32 +77,26 @@
                     </md-slide-toggle>
                 </div>
               </div>
-              <div id="input-box6" class="input-box" fxLayout="column"></div>
+              <div  fxFlex="50%"fxLayout="column"></div>
             </div>
-            <!-- END ROW3 ============= -->
+            
+
+          
           </md-tab>
           <md-tab label="Address" fxLayout="column" >
             <app-address-edit [coId]="coId"></app-address-edit>
           </md-tab>
+          
         </md-tab-group>
-      </form>
-      
-      <!-- ROW4 ======================================================== -->
-          <!-- FOOTER -->
-      <footer id="row4" class="row" fxLayoutAlign="center">
-          <div id="input-box7" class="input-box" fxLayout="column">
-            <label id="label7" class="input unit"></label>
-            <div class="footer-row">
-               <!-- <button md-raised-button color="accent" class="footer-col unit ce-submit" (click)="onSubmit()" type="submit">   -->
-               <button class="unit ce-submit" (click)="onSubmit()" type="submit">  
-                Submit
-              </button>
-            </div>
+             <div fxLayout="row" class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+              <div fxLayout="column" fxFlex="350px"></div> 
+              <div fxLayout="column" fxFlex=5%>
+                <button md-raised-button >Submit </button>
+              </div>
+             <div fxLayout="column" fxFlex="75%"></div>
           </div>
-          <div id="input-box8" class="input-box" fxLayout="column"></div>
-      </footer>
-    </div>
-      <div class="colum" id="col4"></div>
+          
+        
+      </form>
   </div>
-    <!-- <footer id="footer" (click)="onSubmit()">Submit</footer> -->
 </div>

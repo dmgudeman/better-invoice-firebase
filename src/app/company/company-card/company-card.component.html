@@ -1,29 +1,13 @@
- <div class="my-card">
-    <div [ngClass]="setClassColor()" id="my-card-top">
-        <section class="top-line transparent">
-            <div  id="co-name" (click)="goToCompanyDetails()">{{name}}</div>
-        </section>
-    </div>
-    <div [ngClass]="setClassColor()" id="my-card-bottom">
-        <section class="bottom-line">
-            <div class="column" (click)="goToInvoice()">Invoice</div>
-            <div class="column" (click)="addItem()">Item</div>
-        </section>
-    </div>
-</div> 
-<!-- <div class="my-card">
-<md-card [ngClass]="setClassColor()">
-  <md-card-title  id="my-card-top">
-    <section class="top-line transparent">
-        <div  id="co-name" (click)="goToCompanyDetails(company)">{{name}}</div>
-    </section>
-  </md-card-title>
-  <md-card-actions [ngClass]="setClassColor()" id="my-card-bottom">
-    <section class="bottom-line">
-        <div class="column" (click)="goToInvoice()">Export Invoice</div>
-          <div class="column" (click)="addItem()">Add</div>
-        </section>
+
+<md-card class="example-card"  [ngClass]="setClassColor()" >
+  <md-card-header>
+    <md-card-title  class="title" (click)="goToCompanyDetails()">{{name}}</md-card-title>
+  </md-card-header>
+  <md-card-actions [ngClass]="setClassColor()" >
+    <button md-button  (click)="goToCompanyDetails()">Details</button>
+    <button md-button  (click)="goToInvoice()">Invoice</button>
+    <button md-button (click)="addItem()">Item</button>
   </md-card-actions>
 </md-card>
-</div> -->
+
 
