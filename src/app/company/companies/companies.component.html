@@ -2,20 +2,20 @@
 <div class="container" fxLayout='column'  >
   <md-toolbar color="primary">
     <input  type="image" src='../../assets/images/logo/large-press.png_48x48.png' (click)='onLogOut()' alt="logo">
-    <span class="binv-spacer"></span>
+    <span class="bi-spacer"></span>
     <span>Current Companies</span>
-    <span class="binv-spacer"></span>
-    <md-icon class="binv-icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
+    <span class="bi-spacer"></span>
+    <md-icon class="bi-icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
   </md-toolbar>
     
   <!--COMPANY CARDS -->
   <div fxFlex="1 1 10px"></div>
   <div fxLayoutWrap fxLayout="row">
-    <div class="binv-spacer-card"></div> 
-    <div id="binv-card" fxLayoutWrap fxLayout="row" fxLayoutAlign="space-around center" fxFlex="1 1 50%">
+    <div class="bi-spacer-card"></div> 
+    <div id="bi-card" fxLayoutWrap fxLayout="row" fxLayoutAlign="space-around center" fxFlex="1 1 50%">
       <app-company-card *ngFor="let company of companiesArray" [company]="company"> </app-company-card>
     </div>
-    <span class="binv-spacer-card"></span>  
+    <span class="bi-spacer-card"></span>  
   </div>
 
 </div>

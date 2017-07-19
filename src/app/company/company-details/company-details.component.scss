@@ -2,13 +2,20 @@
 
 @import '../../../_variables.scss';
 @import url("//fonts.googleapis.com/icon?family=Material+Icons");
-* {
-    font-size: 20px;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-weight: 300;
+
+.bi-icon {
+  padding: 0 14px;
 }
-html, body {
-    height: 100%;
+
+.bi-spacer {
+  flex: 1 1 auto;
+}
+.bi-spacer-card {
+  flex: 1 1 25%;
+  // background-color: yellowgreen;
+}
+.bi-card {
+  margin: 10px 0 0 0;
 }
 
 .my-container {

@@ -1,34 +1,15 @@
-<div class="my-container">
-     <!-- SECTION 1 the Header -->
-    <div id="section1" class="section  header">
-        <div id="sec1row1" class="row" [ngClass]="setColor(coColor)">
-            <div id="sec1row1col1" class="column">
-                <div  class="item">
-                   <md-icon id="left-arrow" color="warn" (click)="goBack()" svgIcon="chevron-left"></md-icon> 
-                    <!-- <a (click)="goBack()" class="glyphicon glyphicon-chevron-left"></a> -->
-                </div>
-            </div>
-            <div id="sec1row1col2" class="column">
-                <div id="title" class="item">{{coName + " Details"}}</div>
-            </div>
-            <div id="sec1row1col3" class="column">
-                <div id="plus" class="item">
-                    <a id="plus-link" (click)="goToEditCompany()" aria-hidden="true">edit</a></div>
-            </div>
-        </div>
-        <!-- <div id="sec1row2" class="row">
-            <div id="sec1row2col1"></div>
-            <div id="sec1row2col2"> -->
-                <app-address (click)="goToEditCompany()"> </app-address>
+<div class="container" fxLayout='column'  >
+  <md-toolbar color="primary">
+    <input  type="image" src='../../assets/images/logo/large-press.png_48x48.png' (click)='onLogOut()' alt="logo">
+    <span class="bi-spacer"></span>
+    <span>{{coName + " Details"}}</span>
+    <span class="bi-spacer"></span>
+    <md-icon class="bi-icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
+  </md-toolbar>
 
-            <!-- </div>
-            <div id="sec1row2col3"></div>
-            
-        </div> -->
         <div id="sec1row3" class="row">
             <div class="column cd-midbar" [ngClass]="setColor(coColor)"></div>
         </div>
-    </div>
      <!-- SECTION 2 the Body -->
       <div id="section2" class="section"  fxLayoutAlign="center center">
         <!-- <div id="sec2row1" class="row"> -->
