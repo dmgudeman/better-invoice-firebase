@@ -3,6 +3,14 @@
 @import '../../../_variables.scss';
 @import url("//fonts.googleapis.com/icon?family=Material+Icons");
 
+* {
+    box-sizing: border-box;
+    font-size: 18px;
+    max-width: 100%;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 300;
+}
+
 .bi-icon {
   padding: 0 14px;
 }
@@ -12,12 +20,19 @@ test {
 .bi-spacer {
   flex: 1 1 auto;
 }
-.bi-spacer-card {
-  flex: 1 1 25%;
-  background-color: yellowgreen;
+// .bi-spacer-card {
+//   flex: 1 1 25%;
+//   background-color: yellowgreen;
+// }
+// .bi-card {
+//   margin: 10px 0 10px 0;
+// }
+.bi-spacer-button {
+  flex: 1 1 auto;
+  // background-color: orange;
 }
-.bi-card {
-  margin: 10px 0 0 0;
+button {
+  margin: 10px;
 }
 
 

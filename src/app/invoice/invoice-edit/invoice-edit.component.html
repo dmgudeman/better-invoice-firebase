@@ -10,54 +10,54 @@
     <form [formGroup]="myform"  (ngSubmit)="onSubmit()" novalidate  fxLayoutWrap fxFlex="100%">
       <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" >
         <div  fxFlex="35%" >
-            <md-input-container >
+          <md-input-container >
+            <input 
+              name="beginDate" 
+              formControlName="beginDate"
+              id="beginDateate" 
+              mdInput 
+              [mdDatepicker]="picker" 
+              placeholder="Start Date"
+              >
+            <button mdSuffix [mdDatepickerToggle]="picker"></button>
+          </md-input-container >
+          <md-datepicker #picker></md-datepicker> 
+        </div>
+          <div fxFlex="50%">
+            <md-input-container>
               <input 
-                name="beginDate" 
-                formControlName="beginDate"
-                id="beginDateate" 
+                name="endDate" 
+                formControlName="endDate"
+                id="endDate" 
                 mdInput 
-                [mdDatepicker]="picker" 
-                placeholder="Start Date"
+                [mdDatepicker]="picker2" 
+                placeholder="End Date"
                 >
-              <button mdSuffix [mdDatepickerToggle]="picker"></button>
-            </md-input-container >
-            <md-datepicker #picker></md-datepicker> 
+              <button mdSuffix [mdDatepickerToggle]="picker2"></button>
+            </md-input-container>
+            <md-datepicker #picker2></md-datepicker>
+          </div>
         </div>
-            <div fxFlex="50%">
-              <md-input-container>
-                <input 
-                  name="endDate" 
-                  formControlName="endDate"
-                  id="endDate" 
-                  mdInput 
-                  [mdDatepicker]="picker2" 
-                  placeholder="End Date"
-                  >
-                <button mdSuffix [mdDatepickerToggle]="picker2"></button>
-              </md-input-container>
-              <md-datepicker #picker2></md-datepicker>
-              </div>
+        <div fxLayout="column" fxFlex="100%">
+          <md-input-container class="example-full-width">
+            <input mdInput formControlName="discount" placeholder="Discount Percentage">
+          </md-input-container>
         </div>
-          <div fxLayout="column" fxFlex="100%">
-            <md-input-container class="example-full-width">
-              <input mdInput formControlName="discount" placeholder="Discount Percentage">
-            </md-input-container>
+        <div fxLayout="column" fxFlex="100%">
+          <md-input-container class="example-full-width">
+            <input mdInput formControlName="amount" placeholder="Discount Amount">
+          </md-input-container>
+        </div>
+        <div fxLayout="column" fxFlex="100%">
+          <md-input-container class="example-full-width">
+            <textarea mdInput formControlName="description" placeholder="Description"></textarea>
+          </md-input-container>
+        </div>
+        <div fxFlex="10%">
+          <div fxLayout="column" >
+            <button md-raised-button >Submit </button>
           </div>
-          <div fxLayout="column" fxFlex="100%">
-            <md-input-container class="example-full-width">
-              <input mdInput formControlName="amount" placeholder="Discount Amount">
-            </md-input-container>
-          </div>
-          <div fxLayout="column" fxFlex="100%">
-            <md-input-container class="example-full-width">
-              <textarea mdInput formControlName="description" placeholder="Description"></textarea>
-            </md-input-container>
-          </div>
-            <div fxFlex="10%">
-              <div fxLayout="column" >
-                <button md-raised-button >Submit </button>
-              </div>
-          </div>
+        </div>
     </form>
   </div>
 <!--<br>

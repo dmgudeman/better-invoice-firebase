@@ -1,23 +1,19 @@
-<div class="container" fxLayout='column'  >
+
+<div class="container" fxLayout='column'>
   <md-toolbar color="primary">
-       <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
+    <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
     <span class="bi-spacer"></span>
     <span>{{coName + " Details"}}</span>
     <span class="bi-spacer"></span>
-    <md-icon class="bi-icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
+    <md-icon (click)="goToEditCompany()" svgIcon="add"></md-icon>
   </md-toolbar>
-  <app-address class="test"></app-address>
-  <app-item-list ></app-item-list>
-      
-    <div id="section3" class="section" fxLayoutAlign="start center">
-        <!-- <div id="sec3row1" class="row"> -->
-            <!-- <div id="sec3row1col1" class="column"></div> -->
-            <!-- <div id="sec3row1col2" class="column"> -->
-                <button id="cd-submit" fxLayoutAlign="start center" fxFlexOffset="23%" class=" item" (click)=" getNothing()">
-                Submit
-            </button>
-            <!-- </div> -->
-            <!-- <div id="sec3row1col3" class="column"></div> -->
-        <!-- </div> -->
-    </div>
+  <app-address></app-address>
+  <app-item-list></app-item-list>
+  <div fxLayout="row" fxFlex="1 1 auto">
+    <span class="bi-spacer-button"></span>
+    <button md-raised-button (click)="goToInvoice()"  >Invoice</button>
+    <span class="bi-spacer-button"></span>
+    <span class="bi-spacer-button"></span>
+    <span class="bi-spacer-button"></span>
+  </div>
 </div>

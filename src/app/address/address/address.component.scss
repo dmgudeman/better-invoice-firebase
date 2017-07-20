@@ -1,9 +1,10 @@
+@import '../../../_variables.scss';
+
 .container {
   display: flex;
   min-height: 125px;
   min-width: 150px;
   max-width: 150px;
-  background-color: primary;
 }
 .unit {
   display: flex;
@@ -13,7 +14,7 @@
 .unit:first-of-type {
   margin: 20px 0 0 0;
 }
-
-.test {
-  background-color: green;
+.unit:last-of-type {
+  margin: 0 0 20px 0;
 }
+

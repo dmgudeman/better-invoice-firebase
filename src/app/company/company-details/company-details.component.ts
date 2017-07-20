@@ -101,6 +101,9 @@ export class CompanyDetailsComponent implements OnInit {
   goBack() {
       this.location.back();
   }
+  goToInvoice() {
+    this.router.navigate(['/invoice-edit/', {companyKey:this.companyKey}]);
+  }
 
   getNothing() {
 

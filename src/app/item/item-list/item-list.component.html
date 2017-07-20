@@ -1,13 +1,13 @@
   
- <!-- <app-item-detail *ngFor="let key of arrayOfKeys" [item]="items[key]" [itemColor]="coColor"></app-item-detail>  -->
  
- <table mdSort (mdSortChange)="sortData($event)" fxLayout="column" fxFlex="100%" fxLayoutAlign="center space-between" id="green">
+ <table mdSort (mdSortChange)="sortData($event)" fxLayout="column" fxFlex="100%" fxLayoutAlign="center space-between" >
   <tr id="red" fxLayoutAlign="center center"  >
     <th md-sort-header="date"  fxFlex="15%" id="blue" >Date</th>
     <th md-sort-header="amount" fxFlex="15%">Amount</th>
     <th md-sort-header="hours" fxFlex="15%">Hours</th>
     <th md-sort-header="description" fxFlex="15%">Description</th>
   </tr>
+  <hr>
 
   <tr *ngFor="let item of sortedData" fxLayoutAlign="center center" >
     <td fxFlex="15%">{{item.date}}</td>
@@ -15,4 +15,5 @@
     <td fxFlex="15%">{{item.hours}}</td>
     <td fxFlex="15%">{{item.description}}</td>
   </tr>
+  <hr>
 </table>
