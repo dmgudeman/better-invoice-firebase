@@ -1,31 +1,22 @@
-/*------------ INPUT BOXES ----------------------*/
-.test{
-  background-color: green;
+
+
+
+.spacer{
+  display:flex;
+  flex: 1 1 auto;
+  background-color: orange;
 }
-#main-column{
-  display: flex;
+
+.full-width {
+  width: 100%;
 }
-// .row {
-//   width: 100%;
+
+// .blue {
+//   background-color: blue;
 // }
-.input-box {
-  display: flex;
-    margin: 10px;
-    min-width: 20%;
-    max-width: 70%;
-}
 
-
-
-
-.input {
-    display: flex;
-    margin: 5px;
-    height: 30px !important;
-    width:100%;
-}
-
-
-
+// .red {
+//   background-color: red;
+// }
 
 

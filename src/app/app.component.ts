@@ -11,9 +11,8 @@ import { FlexLayoutModule }        from '@angular/flex-layout';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
-
+ 
   constructor (db: AngularFireDatabase){
-
+    console.log('AppComponent constructor');
   }
 }

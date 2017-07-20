@@ -1,78 +1,36 @@
-<!-- <div class="my-container"> -->
-    <!--  FORM -->
-    <!-- <div id="section2" class="over-form tmp-form">
-        <div class="colum" id="col3">
-            <form [formGroup]="myform" (ngSubmit)="onSubmit2($event)" fxLayout="column" fxLayoutAlign="center"> -->
-                <!--<div> <pre>{{ myform.value | json}}</pre></div>-->
 
-              <!-- <div id="main-column" fxLayout="column"> -->
-                <!--street1-->
-                <!-- <div id="row1" class="row " fxLayout="row" fxLayoutAlign="center">
-                  <div id="input-box1" class="input-box" name="street1" fxLayout="column">
-                      <label id="label1" class="input" for="name">Street</label>
-                      <input id="street1" class="input ec-input" formControlName="street1" type="text">
-                  </div> -->
-              <!--street2-->
-                  <!-- <div id="input-box2" class="input-box" street2="street2" fxLayout="column" >                   
-                   <label id="label2" class="input" for="street2">Suite or Apt</label>
-                      <input id="street2" class="input ec-input" formControlName="street2" type="text">
-                  </div>
-                </div> -->
-
-                <!--city-->
-                <!-- <div id="row2" class="row" fxLayout="row" fxLayoutAlign="center">
-                    <div id="input-box3" class="input-box" city="city" fxLayout="column">
-                        <label id="label3" class="input" for="city">City</label>
-                        <input id="city" class="input ec-input" formControlName="city" type="text">
-                    </div> -->
-                   
-                <!--state-->
-                <!-- <div id="row4" class="row"> -->
-                    <!-- <div id="input-box4" class="input-box" state="state" fxLayout="column">
-                        <label id="label4" class="input" for="state">State</label>
-                        <input id="state" class="input ec-input" formControlName="state" type="text">
-                    </div>
-                  </div> -->
-               
-                <!--postalCode-->
-                <!-- <div id="row3" class="row" fxLayout="row" fxLayoutAlign="center">
-                    <div id="input-box5" class="input-box" postal-code="postal-code" fxLayout="column">
-                        <label id="label5" class="input" for="postal-code">Postal Code</label>
-                        <input id="postal-code" class="input ec-input" formControlName="postalCode" type="text">
-                    </div>
-                    -->
-                    <!-- </div> -->
-
-                <!--country-->
-                <!-- <div id="row6" class="row"> -->
- <form [formGroup]="myform" (ngSubmit)="onSubmit2($event)" fxLayout="column" fxLayoutAlign="center"> 
-               <div id="main-column" fxLayout="column"> 
-  <table class="example-full-width" cellspacing="0">
-    <tr>
-      <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="Street" formControlName="street1" >
-      </md-input-container></td>
-      <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="Suite or Apt" formControlName="street2" >
+ <form [formGroup]="myform"  fxLayoutWrap fxLayout="row" fxLayoutAlign="center center" class="red">
+   <div class="spacer" fxFlex="20%"></div> 
+   <div id="main-column" fxLayout="column" fxFlex="60%"  class="blue"> 
+    <table class="full-width"  cellspacing="0" fxFlex="100%" Flayout="row">
+    <tr >
+      <td>
+        <md-input-container class="full-width" >
+          <input mdInput placeholder="Street" formControlName="street1" >
+        </md-input-container>
+      </td>
+      <td>
+        <md-input-container class="full-width">
+        <input mdInput placeholder="Suite or Apt" formControlName="street2">
       </md-input-container></td>
     </tr>
     <tr>
-      <td><md-input-container class="example-full-width">
+      <td><md-input-container class="full-width">
         <input mdInput placeholder="City" formControlName="city" >
       </md-input-container></td>
-      <td><md-input-container class="example-full-width">
+      <td><md-input-container class="full-width">
         <input mdInput placeholder="State" formControlName="state" >
       </md-input-container></td>
     </tr>
     <tr>
-      <td><md-input-container class="example-full-width">
+      <td><md-input-container class="full-width">
         <input mdInput placeholder="Postal Code" formControlName="postalCode">
       </md-input-container></td>
-      <td><md-input-container class="example-full-width">
+      <td><md-input-container class="full-width">
         <input mdInput placeholder="Country" formControlName="country">
       </md-input-container></td>
     </tr>
   </table>
-               </div>
-  
+  </div>
+  <div class="spacer" fxFlex="20%"></div> 
 </form>          

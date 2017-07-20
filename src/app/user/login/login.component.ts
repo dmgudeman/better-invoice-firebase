@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public afAuth: AngularFireAuth,
   ) {
+    console.log('Login constructor');
     this.user = afAuth.authState;
    }
 
