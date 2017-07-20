@@ -45,33 +45,34 @@
 
                 <!--country-->
                 <!-- <div id="row6" class="row"> -->
-<form class="example-form">
+ <form [formGroup]="myform" (ngSubmit)="onSubmit2($event)" fxLayout="column" fxLayoutAlign="center"> 
+               <div id="main-column" fxLayout="column"> 
   <table class="example-full-width" cellspacing="0">
     <tr>
       <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="Street">
+        <input mdInput placeholder="Street" formControlName="street1" >
       </md-input-container></td>
       <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="Suite or Apt">
-      </md-input-container></td>
-    </tr>
-    <tr>
-      <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="City">
-      </md-input-container></td>
-      <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="State">
+        <input mdInput placeholder="Suite or Apt" formControlName="street2" >
       </md-input-container></td>
     </tr>
     <tr>
       <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="Postal Code">
+        <input mdInput placeholder="City" formControlName="city" >
       </md-input-container></td>
       <td><md-input-container class="example-full-width">
-        <input mdInput placeholder="Country">
+        <input mdInput placeholder="State" formControlName="state" >
+      </md-input-container></td>
+    </tr>
+    <tr>
+      <td><md-input-container class="example-full-width">
+        <input mdInput placeholder="Postal Code" formControlName="postalCode">
+      </md-input-container></td>
+      <td><md-input-container class="example-full-width">
+        <input mdInput placeholder="Country" formControlName="country">
       </md-input-container></td>
     </tr>
   </table>
-
+               </div>
   
 </form>          
