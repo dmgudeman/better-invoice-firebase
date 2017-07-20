@@ -36,6 +36,7 @@ export class CompanyDetailsComponent implements OnInit {
   coName: string;
   coColor: string;
   icons=['thumbs-up', 'chevron-left']
+  
   constructor(
     // private _companyService: CompanyService,
     // private _invoiceService: InvoiceService,

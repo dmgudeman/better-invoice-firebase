@@ -1,28 +1,14 @@
 <div class="container" fxLayout='column'  >
   <md-toolbar color="primary">
-    <input  type="image" src='../../assets/images/logo/large-press.png_48x48.png' (click)='onLogOut()' alt="logo">
+       <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
     <span class="bi-spacer"></span>
     <span>{{coName + " Details"}}</span>
     <span class="bi-spacer"></span>
     <md-icon class="bi-icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
   </md-toolbar>
-
-        <div id="sec1row3" class="row">
-            <div class="column cd-midbar" [ngClass]="setColor(coColor)"></div>
-        </div>
-     <!-- SECTION 2 the Body -->
-      <div id="section2" class="section"  fxLayoutAlign="center center">
-        <!-- <div id="sec2row1" class="row"> -->
-            <!-- <div id="sec2row1col1" class="column"></div> -->
-            <div id="sec2row1col2" class="column">
-                <!-- <div id="detail-wrapper">  -->
-                    <app-item-list></app-item-list>
-                 <!-- </div> -->
-            <!-- </div> -->
-            <!-- <div id="sec2row1col3" class="column"></div> -->
-        </div>
-    </div> 
-    <!-- SECTION 3 the Footer -->
+  <app-address class="test"></app-address>
+  <app-item-list ></app-item-list>
+      
     <div id="section3" class="section" fxLayoutAlign="start center">
         <!-- <div id="sec3row1" class="row"> -->
             <!-- <div id="sec3row1col1" class="column"></div> -->
