@@ -99,7 +99,7 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       this.userId = user.uid;
       console.log('this.userId', this.userId)
       // this.companies = this.db.list('/companies');
-      this.companiesByUser = this.db.list('/companies-by-user/' + this.userId);
+      this.companiesByUser = this.db.list('/companiesByUser/' + this.userId);
       }
     });
     
@@ -108,8 +108,10 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       .subscribe(params => { 
         this.coId = params['id']
     });
+    
     this.db.object('/companies/' + this.coId).subscribe(x => {
       this.company = x;
+      console.log('this.companyyyyyyyy', this.company);
     })
     this.buildForm();
       this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";

@@ -87,38 +87,20 @@ export class CompanyDetailsComponent implements OnInit {
         if (user) {
           this.userId = user.uid;
           console.log('this.userId', this.userId)
-          this.db.object('/companies-by-user/' + this.userId + '/' + this.companyKey).subscribe(x=>{
+          this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).subscribe(x=>{
             this.company = x;
+            console.log('this.company in ngInit co details', this.company);
             this.coId = x.$key;
             this.coName = x.name
             this.coColor = x.color;
             if (this.company && this.company.address){
               this.addressViewChild.address = this.company.address;
-              console.log('XXXXXXXXXXXXXXXcompany', this.company);
             }
         });
       }
     });  
-    // this.db.object('/companies/'+ this.companyKey).subscribe(x=>{
-    //   this.company = x;
-    //   this.coId = x.$key;
-    //   this.coName = x.name
-    //   this.coColor = x.color;
-    //   if(this.company && this.company.address){
-    //   this.addressViewChild.address = this.company.address;
-    //   console.log('XXXXXXXXXXXXXXXcompany', this.company);
-    // }
-    // })
   };
   
-  // ngAfterViewInit(){
-  //   console.log('THHHHHHHHHISSSSSS this.company', this.company);
-  //   if(this.company && this.company.address){
-  //     this.addressViewChild.address = this.company.address;
-  //   }
-  // }
-  
-  // goToEditItem(item?: Item, company?: Company) {
   goToEditItem() {
         // let id = item.id;
         // let coId = item.companyId;

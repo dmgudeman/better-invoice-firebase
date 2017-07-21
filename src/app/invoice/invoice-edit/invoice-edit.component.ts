@@ -178,7 +178,7 @@ export class InvoiceEditComponent implements OnInit {
     // console.log(this.company);
     
     // Get a key for a new Invoice
-    let newInvoiceKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
+    let newInvoiceKey = this.db.app.database().ref().child('/companies/' + this.companyId).child('invoices').push().key;
     
     // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
     let updates = {};
