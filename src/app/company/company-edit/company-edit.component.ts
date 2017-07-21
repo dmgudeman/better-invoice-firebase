@@ -180,11 +180,11 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       //   {
       //     this.companiesByUser.push(this.userId);
       //   }
-      this.companies.push(payload);
-      this.companiesByUser.push(payload);
+      this.db.list('/companies').push(payload);
+      this.db.list('/companiesByUser/' + this.userId).push(payload);
     } else {
       this.db.object('/companies/'+ this.coId).update(payload);
-      this.db.object('/companiesByUser/' + this.userId).update(payload);
+      this.db.object('/companiesByUser/' + this.userId + '/' + this.coId).update(payload);
     }
       this.router.navigate(['companies']);
   }

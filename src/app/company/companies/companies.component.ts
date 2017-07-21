@@ -71,14 +71,14 @@ export class CompaniesComponent implements OnInit {
       if (user) {
       this.userId = user.uid;
       console.log('this.userId', this.userId)
-       this.db.list('/companies-by-user/' + this.userId, {
+       this.db.list('/companiesByUser/' + this.userId, {
       query: {
         orderByChild: 'name'
       }
     }).subscribe(x=>{
       
      this.companiesArray = x;
-    //  console.log('companies in ngOnInit', this.companies);
+     console.log('companies in ngOnInit', this.companies);
     })
       
       }
