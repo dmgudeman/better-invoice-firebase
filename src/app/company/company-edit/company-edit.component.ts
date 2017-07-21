@@ -108,7 +108,7 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       .subscribe(params => { 
         this.coId = params['id']
     });
-    this.db.object('/coId/' + this.coId).subscribe(x => {
+    this.db.object('/companies/' + this.coId).subscribe(x => {
       this.company = x;
     })
     this.buildForm();
