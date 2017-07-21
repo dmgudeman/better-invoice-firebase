@@ -10,9 +10,9 @@
     
   <!--COMPANY CARDS -->
   <div fxFlex="1 1 10px"></div>
-  <div fxLayoutWrap fxLayout="row">
+  <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center center">
     <div class="bi-spacer-card"></div> 
-    <div id="bi-card" fxLayoutWrap fxLayout="row" fxLayoutAlign="space-around center" fxFlex="1 1 50%">
+    <div id="bi-card" fxLayoutWrap fxLayout="row" fxLayoutAlign="center center" fxFlex="1 1 60%">
       <app-company-card *ngFor="let company of companiesArray" [company]="company"> </app-company-card>
     </div>
     <span class="bi-spacer-card"></span>  
