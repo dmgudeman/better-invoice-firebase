@@ -71,17 +71,19 @@ export class CompaniesComponent implements OnInit {
       if (user) {
       this.userId = user.uid;
       console.log('this.userId', this.userId)
-    this.router.navigate(['/companies']);
-      }
-    });
-    this.db.list('/companies-by-user', {
+       this.db.list('/companies-by-user/' + this.userId, {
       query: {
         orderByChild: 'name'
       }
     }).subscribe(x=>{
+      
      this.companiesArray = x;
     //  console.log('companies in ngOnInit', this.companies);
     })
+      
+      }
+    });
+   
   }
 
   goToEditCompany() {

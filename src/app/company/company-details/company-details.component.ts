@@ -20,7 +20,13 @@ import {
   ActivatedRoute,
   Params 
 }                              from '@angular/router';
+// 3rd party
+import { AngularFireAuth }     from 'angularfire2/auth';
+import { Observable }            from 'rxjs/Observable';
+//Custom
+import * as firebase from 'firebase/app';
 import { AddressComponent }    from '../../address/address/address.component';
+import { CompanyService }      from '../company.service';
 import { ItemListComponent }   from '../../item/item-list/item-list.component';
 
 @Component({
@@ -32,15 +38,20 @@ export class CompanyDetailsComponent implements OnInit {
   @ViewChild(AddressComponent) addressViewChild: AddressComponent;
   companyKey;
   company;
+  companiesArray;
   coId: string;
   coName: string;
   coColor: string;
-  icons=['thumbs-up', 'chevron-left']
+  icons=['add', 'chevron-left'];
+  user: Observable<firebase.User>
+  userId: string;
   
   constructor(
     // private _companyService: CompanyService,
     // private _invoiceService: InvoiceService,
+    public afAuth: AngularFireAuth,
     private location: Location,
+    private companyService:CompanyService,
     private db: AngularFireDatabase,
     private route: ActivatedRoute,
     private iconRegistry: MdIconRegistry,
@@ -53,7 +64,8 @@ export class CompanyDetailsComponent implements OnInit {
           sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
         );
       });
-    };
+      this.user = afAuth.authState;
+    }
       
 
 
@@ -64,16 +76,39 @@ export class CompanyDetailsComponent implements OnInit {
         console.log('companyKey', this.companyKey);
         this.coId = this.companyKey;
       });
-    this.db.object('/companies/'+ this.companyKey).subscribe(x=>{
-      this.company = x;
-      this.coId = x.$key;
-      this.coName = x.name
-      this.coColor = x.color;
-      if(this.company && this.company.address){
-      this.addressViewChild.address = this.company.address;
-      console.log('XXXXXXXXXXXXXXXcompany', this.company);
+
+    if(!this.user){ 
+      console.log('NOT LOGGED IN')
+      return;
     }
-    })
+    console.log("LOGGED IN", this.user);
+
+      this.afAuth.authState.subscribe ( user => {
+        if (user) {
+          this.userId = user.uid;
+          console.log('this.userId', this.userId)
+          this.db.object('/companies-by-user/' + this.userId + '/' + this.companyKey).subscribe(x=>{
+            this.company = x;
+            this.coId = x.$key;
+            this.coName = x.name
+            this.coColor = x.color;
+            if (this.company && this.company.address){
+              this.addressViewChild.address = this.company.address;
+              console.log('XXXXXXXXXXXXXXXcompany', this.company);
+            }
+        });
+      }
+    });  
+    // this.db.object('/companies/'+ this.companyKey).subscribe(x=>{
+    //   this.company = x;
+    //   this.coId = x.$key;
+    //   this.coName = x.name
+    //   this.coColor = x.color;
+    //   if(this.company && this.company.address){
+    //   this.addressViewChild.address = this.company.address;
+    //   console.log('XXXXXXXXXXXXXXXcompany', this.company);
+    // }
+    // })
   };
   
   // ngAfterViewInit(){

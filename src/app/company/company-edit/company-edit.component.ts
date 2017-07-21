@@ -98,10 +98,11 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       if (user){
       this.userId = user.uid;
       console.log('this.userId', this.userId)
+      // this.companies = this.db.list('/companies');
+      this.companiesByUser = this.db.list('/companies-by-user/' + this.userId);
       }
     });
-    this.companies = this.db.list('/companies');
-    this.companiesByUser = this.db.list('/companies-by-user')
+    
      
     this.route.params
       .subscribe(params => { 
@@ -139,18 +140,12 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     });
   }
 
-  setCompany() {
-    
-  }  
   toggleActive() {
      this.myform.value.active = !this.myform.value.active;
   }
     onChange(e){
-
       console.log(e.checked)
-    console.log('this.myform.value.active', this.myform.value.active);
-
-
+      console.log('this.myform.value.active', this.myform.value.active);
     }
 
   onSubmit() {
@@ -178,13 +173,18 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
         active:true, 
         userId: this.userId, 
         address: this.address
+        
     }
     if(!this.coId){
+      // if(!this.companiesByUser) 
+      //   {
+      //     this.companiesByUser.push(this.userId);
+      //   }
       this.companies.push(payload);
-      this.companiesByUser.push(payload)
+      this.companiesByUser.push(payload);
     } else {
       this.db.object('/companies/'+ this.coId).update(payload);
-      this.db.object('/companies-by-user/' + this.coId).update(payload);
+      this.db.object('/companiesByUser/' + this.userId).update(payload);
     }
       this.router.navigate(['companies']);
   }
