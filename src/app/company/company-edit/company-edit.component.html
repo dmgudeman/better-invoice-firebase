@@ -59,6 +59,10 @@
               </div>
             </div>
           </div>
+          <!-- add these back to md-slie-toggle: 
+               [color]="color" 
+                [checked]="checked"
+          -->
           <!-- ================ ROW3 =============================== -->
           <div class="row" fxLayout="row" fxLayoutAlign="space-around center">
             <div fxLayout="column" fxFlex="20%"></div>
@@ -68,9 +72,9 @@
                     <md-slide-toggle
                         formControlName="active"
                         class="example-margin "
-                        [color]="color"
+                        
                         (change) = "onChange($event)"
-                        [checked]="checked"
+                       
                         #active
                         >
                       Yes

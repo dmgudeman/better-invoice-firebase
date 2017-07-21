@@ -23,8 +23,13 @@ import {
   Router, 
   ActivatedRoute, 
   Params, 
-}                           from '@angular/router';
-import { Company }          from '../company';
+}                          from '@angular/router';
+// 3rd party
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase       from 'firebase/app';
+import { Observable }      from 'rxjs/Observable';
+// custom
+import { Company }         from '../company';
 
 @Component({
   selector: 'app-companies',
@@ -35,6 +40,9 @@ export class CompaniesComponent implements OnInit {
   companies: FirebaseListObservable<any[]>;
   companiesArray: Company[];
   icons=['add']
+
+  user: Observable<firebase.User>
+  userId: string;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -42,6 +50,7 @@ export class CompaniesComponent implements OnInit {
     private fb: FormBuilder,
     private iconRegistry: MdIconRegistry,
     private sanitizer: DomSanitizer,
+    public afAuth: AngularFireAuth,
     ) {
       this.icons.forEach((icon) =>{
       iconRegistry.addSvgIcon(
@@ -49,10 +58,23 @@ export class CompaniesComponent implements OnInit {
         sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
       );
       });
+    this.user = afAuth.authState;
   };
 
   ngOnInit() {
-    this.db.list('/companies', {
+     if(!this.user){ 
+      console.log('NOT LOGGED IN')
+      return;
+    }
+    console.log("LOGGED IN", this.user)
+    this.afAuth.authState.subscribe ( user => {
+      if (user) {
+      this.userId = user.uid;
+      console.log('this.userId', this.userId)
+    this.router.navigate(['/companies']);
+      }
+    });
+    this.db.list('/companies-by-user', {
       query: {
         orderByChild: 'name'
       }

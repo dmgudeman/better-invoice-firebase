@@ -39,7 +39,9 @@ import {
 // 3rd party
 import { $ }                     from 'jquery';
 import { Observable }            from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/take'; 
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
 
 // Custom
 import { Address }               from '../../address/address';
@@ -59,10 +61,12 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
   company:Company;
   setCompanyObs: FirebaseObjectObservable<any[]>;
   companies: FirebaseListObservable<any[]>
-  userId;
   title;
   myform : FormGroup;
   icons=['thumbs-up', 'chevron-left']
+  companiesByUser: FirebaseListObservable<any[]>
+  user: Observable<firebase.User>
+  userId: string;
 
   constructor(
     private db: AngularFireDatabase,
@@ -70,8 +74,9 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     private iconRegistry: MdIconRegistry,
     private location: Location,
     private route: ActivatedRoute,
-    private router: Router,
     private sanitizer: DomSanitizer,
+    public afAuth: AngularFireAuth,
+    private router:Router,
   ) {
     this.icons.forEach((icon) =>{
     iconRegistry.addSvgIcon(
@@ -79,16 +84,30 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
     );
     });
+  console.log('Login constructor');
+    this.user = afAuth.authState;
   };
 
   ngOnInit() {
+    if(!this.user){ 
+      console.log('NOT LOGGED IN')
+      return;
+    }
+    console.log("LOGGED IN", this.user)
+    this.afAuth.authState.subscribe ( user => {
+      if (user){
+      this.userId = user.uid;
+      console.log('this.userId', this.userId)
+      }
+    });
     this.companies = this.db.list('/companies');
+    this.companiesByUser = this.db.list('/companies-by-user')
      
     this.route.params
       .subscribe(params => { 
         this.coId = params['id']
     });
-    this.db.object('/companies/' + this.coId).subscribe(x => {
+    this.db.object('/coId/' + this.coId).subscribe(x => {
       this.company = x;
     })
     this.buildForm();
@@ -157,13 +176,15 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
         paymentTerms:paymentTerms, 
         hourly:hourly, 
         active:true, 
-        userId:1, 
+        userId: this.userId, 
         address: this.address
     }
     if(!this.coId){
       this.companies.push(payload);
+      this.companiesByUser.push(payload)
     } else {
       this.db.object('/companies/'+ this.coId).update(payload);
+      this.db.object('/companies-by-user/' + this.coId).update(payload);
     }
       this.router.navigate(['companies']);
   }
