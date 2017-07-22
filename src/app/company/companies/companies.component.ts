@@ -39,8 +39,10 @@ import { Company }         from '../company';
 })
 export class CompaniesComponent implements OnInit {
   companies: FirebaseListObservable<any[]>;
-  companiesArray: Company[]
+  companiesArray = [];
   icons=['add']
+  x;
+  sanpshot
 
   user: Observable<firebase.User>
   userId: string;
@@ -63,6 +65,8 @@ export class CompaniesComponent implements OnInit {
   };
 
   ngOnInit() {
+  this.companiesArray.push(5);
+  console.log(this.companiesArray);
      if(!this.user){ 
       console.log('NOT LOGGED IN')
       return;
@@ -72,26 +76,13 @@ export class CompaniesComponent implements OnInit {
       if (user) {
       this.userId = user.uid;
       console.log('this.userId', this.userId)
-    //    this.db.list('/companiesByUser/' + this.userId , {
-    //   query: {
-    //     orderByChild: 'name'
-    //   }
-    // }).subscribe(x=>{
-      
-    //  this.companiesArray = x;
-    //  console.log('companies in ngOnInit', this.companies);
-    // })
-    let array;
-    let companiesRef = firebase.database().ref('/companiesByUserId/' + this.userId);
-       companiesRef.on('value', function(snapshot) {
-       console.log('snapshot', snapshot.val());
-        let obj = snapshot.val();
-        if(snapshot.val()){
-          console.log('obj', obj);
-         array = $.makeArray(obj);
-          console.log(array);
-        }
-      console.log('this fired');
+   
+    this.x = firebase.database().ref('/companies').once('value').then(function(snapshot){
+      console.log('sanpshot', snapshot.val());
+      return snapshot;
+      // this.companiesArray = snapshot.val();
+    }).then(data =>{
+      this.companiesArray = (<any>Object).values(data);
     });
       
       }
@@ -99,6 +90,9 @@ export class CompaniesComponent implements OnInit {
    
   }
 
+  getCompanies(){
+
+  }
   goToEditCompany() {
     this.router.navigate(['company-edit' ]);
   
@@ -108,3 +102,23 @@ onLogOut() {
 }
 
 }
+
+
+
+
+
+
+
+/*
+ console.log('snapshot', snapshot.val());
+        let obj = snapshot.val();
+        let x= "hi"
+        if(obj){
+           for (let item in obj){
+             console.log('item', item);
+             let array
+            array.push(item);
+           }
+        }
+      console.log('this fired');
+      */
