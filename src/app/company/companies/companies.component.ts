@@ -27,6 +27,7 @@ import {
 // 3rd party
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase       from 'firebase/app';
+import * as $ from 'jquery';
 import { Observable }      from 'rxjs/Observable';
 // custom
 import { Company }         from '../company';
@@ -38,7 +39,7 @@ import { Company }         from '../company';
 })
 export class CompaniesComponent implements OnInit {
   companies: FirebaseListObservable<any[]>;
-  companiesArray: Company[];
+  array
   icons=['add']
 
   user: Observable<firebase.User>
@@ -71,15 +72,29 @@ export class CompaniesComponent implements OnInit {
       if (user) {
       this.userId = user.uid;
       console.log('this.userId', this.userId)
-       this.db.list('/companiesByUser/' + this.userId, {
-      query: {
-        orderByChild: 'name'
-      }
-    }).subscribe(x=>{
+    //    this.db.list('/companiesByUser/' + this.userId , {
+    //   query: {
+    //     orderByChild: 'name'
+    //   }
+    // }).subscribe(x=>{
       
-     this.companiesArray = x;
-     console.log('companies in ngOnInit', this.companies);
-    })
+    //  this.companiesArray = x;
+    //  console.log('companies in ngOnInit', this.companies);
+    // })
+    let array;
+    let companiesRef = firebase.database().ref('/companiesByUserId/' + this.userId);
+       companiesRef.on('value', function(snapshot) {
+       console.log('snapshot', snapshot.val());
+        let obj = snapshot.val();
+        if(snapshot.val()){
+          console.log('obj', obj);
+           array = $.makeArray(obj);
+          console.log(array);
+        }
+      console.log('this fired', array);
+      this.array  = array;
+    
+    });
       
       }
     });

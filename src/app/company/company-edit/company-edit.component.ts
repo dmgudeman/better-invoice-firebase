@@ -100,6 +100,7 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       console.log('this.userId', this.userId)
       // this.companies = this.db.list('/companies');
       this.companiesByUser = this.db.list('/companiesByUser/' + this.userId);
+      console.log('companiesByUser', this.companiesByUser);
       }
     });
     
@@ -175,15 +176,27 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
         active:true, 
         userId: this.userId, 
         address: this.address
-        
     }
+
+
+    
+    // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
+    
+
+    let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
+    console.log('newCompanyKey', newCompanyKey);
+
     if(!this.coId){
+      let updates = {};
+      updates['/companies/' + newCompanyKey] = payload;
+      updates['/companiesByUserId/'+ this.userId + '/' + newCompanyKey] = payload;
+      this.db.app.database().ref().update(updates);
       // if(!this.companiesByUser) 
       //   {
       //     this.companiesByUser.push(this.userId);
       //   }
-      this.db.list('/companies').push(payload);
-      this.db.list('/companiesByUser/' + this.userId).push(payload);
+      // this.db.list('/companies').push(payload);
+      // this.db.list('/companiesByUser/' + this.userId).push(payload);
     } else {
       this.db.object('/companies/'+ this.coId).update(payload);
       this.db.object('/companiesByUser/' + this.userId + '/' + this.coId).update(payload);
