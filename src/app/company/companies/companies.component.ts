@@ -39,7 +39,7 @@ import { Company }         from '../company';
 })
 export class CompaniesComponent implements OnInit {
   companies: FirebaseListObservable<any[]>;
-  array
+  companiesArray: Company[]
   icons=['add']
 
   user: Observable<firebase.User>
@@ -88,12 +88,10 @@ export class CompaniesComponent implements OnInit {
         let obj = snapshot.val();
         if(snapshot.val()){
           console.log('obj', obj);
-           array = $.makeArray(obj);
+         array = $.makeArray(obj);
           console.log(array);
         }
-      console.log('this fired', array);
-      this.array  = array;
-    
+      console.log('this fired');
     });
       
       }
