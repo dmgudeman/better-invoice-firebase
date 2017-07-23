@@ -5,7 +5,7 @@
     <span class="bi-spacer"></span>
     <span>{{coName + " Details"}}</span>
     <span class="bi-spacer"></span>
-    <md-icon (click)="goToEditCompany()" svgIcon="add"></md-icon>
+    <md-icon class="icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
   </md-toolbar>
   <div *ngIf="address">
     <app-address [address]='address'></app-address>

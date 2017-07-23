@@ -1,36 +1,25 @@
-/*@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");*/
-
 @import '../../../_variables.scss';
-@import url("//fonts.googleapis.com/icon?family=Material+Icons");
 
 * {
-    box-sizing: border-box;
-    font-size: 18px;
-    max-width: 100%;
-    font-family: 'Open Sans', Arial, sans-serif;
-    font-weight: 300;
+  font-size: 20px;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 300;
 }
 
-.bi-icon {
+.icon {
   padding: 0 14px;
+  font-size: 25px;
+  cursor:pointer;
 }
-test {
-  background-color: greenyellow;
-}
+
 .bi-spacer {
   flex: 1 1 auto;
 }
-// .bi-spacer-card {
-//   flex: 1 1 25%;
-//   background-color: yellowgreen;
-// }
-// .bi-card {
-//   margin: 10px 0 10px 0;
-// }
+
 .bi-spacer-button {
   flex: 1 1 auto;
-  // background-color: orange;
 }
+
 button {
   margin: 10px;
 }
