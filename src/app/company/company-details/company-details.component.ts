@@ -1,4 +1,5 @@
 import { 
+  AfterViewInit,
   Component, 
   OnInit,
   ViewChild
@@ -34,8 +35,9 @@ import { ItemListComponent }   from '../../item/item-list/item-list.component';
   templateUrl: './company-details.component.html',
   styleUrls: ['./company-details.component.scss']
 })
-export class CompanyDetailsComponent implements OnInit {
-  @ViewChild(AddressComponent) addressViewChild: AddressComponent;
+export class CompanyDetailsComponent implements OnInit{
+  // @ViewChild(AddressComponent) addressViewChild: AddressComponent;
+  address;
   companyKey;
   company;
   companiesArray;
@@ -66,14 +68,11 @@ export class CompanyDetailsComponent implements OnInit {
       });
       this.user = afAuth.authState;
     }
-      
-
 
   ngOnInit() {
     this.route.params
       .subscribe(params => {
         this.companyKey = params['id']; 
-        console.log('companyKey', this.companyKey);
         this.coId = this.companyKey;
       });
 
@@ -87,22 +86,16 @@ export class CompanyDetailsComponent implements OnInit {
         if (user) {
           this.userId = user.uid;
         firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
-          console.log('snapshot', snapshot.val());
-        // this.companiesArray =  (<any>Object).values(snapshot.val());
-          // console.log('this.userId', this.userId)
-          this.db.object('/companies/' + this.companyKey).subscribe(x=>{
-            this.company = x;
-            console.log('this.company in ngInit co details', this.company);
-            this.coName = x.name
-            this.coColor = x.color;
-            if (this.company && this.company.address){
-              this.addressViewChild.address = this.company.address;
-            }
-        });
+          // console.log('snapshot', snapshot.val());
+          this.company = snapshot.val();
+          this.coName = this.company.name
+          this.coColor = this.company.color;
+          this.address = this.company.address
       });
     }
       });  
   };
+  
   
   goToEditItem() {
         // let id = item.id;

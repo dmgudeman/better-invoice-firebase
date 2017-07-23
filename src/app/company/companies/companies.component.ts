@@ -71,7 +71,7 @@ export class CompaniesComponent implements OnInit {
       if (!user) return;
       this.userId = user.uid;
       
-      firebase.database().ref('/companiesByUserId/' + this.userId).once('value', (snapshot)=> {
+      firebase.database().ref('/companiesByUser/' + this.userId).once('value', (snapshot)=> {
         this.keysArray = (<any>Object).keys(snapshot.val()); 
         this.companiesArray =  (<any>Object).values(snapshot.val());
         this.attachKeys(this.keysArray, this.companiesArray);

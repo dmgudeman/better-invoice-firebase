@@ -1,4 +1,5 @@
 import { 
+  AfterContentInit,
   Component,
   Input, 
   OnInit,
@@ -10,7 +11,7 @@ import { Address }        from '../address';
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss']
 })
-export class AddressComponent implements OnInit {
+export class AddressComponent implements OnInit, AfterContentInit {
   @Input() address:Address;
   street1:string;
   street2:string;
@@ -22,8 +23,8 @@ export class AddressComponent implements OnInit {
 
 
   constructor() { }
-
-  ngOnInit() {
+  ngOnInit() {}
+  ngAfterContentInit() {
     if(this.address){
       this.street1 = this.address.street1;
       this.street2 = this.address.street2;

@@ -7,7 +7,9 @@
     <span class="bi-spacer"></span>
     <md-icon (click)="goToEditCompany()" svgIcon="add"></md-icon>
   </md-toolbar>
-  <app-address></app-address>
+  <div *ngIf="address">
+    <app-address [address]='address'></app-address>
+  </div>
   <app-item-list></app-item-list>
   <div fxLayout="row" fxFlex="1 1 auto">
     <span class="bi-spacer-button"></span>

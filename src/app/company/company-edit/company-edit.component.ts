@@ -184,7 +184,7 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     if(!this.coId){
       let updates = {};
       updates['/companies/' + newCompanyKey] = payload;
-      updates['/companiesByUserId/'+ this.userId + '/' + newCompanyKey] = payload;
+      updates['/companiesByUser/'+ this.userId + '/' + newCompanyKey] = payload;
       this.db.app.database().ref().update(updates);
     } else {
       this.db.object('/companies/'+ this.coId).update(payload);

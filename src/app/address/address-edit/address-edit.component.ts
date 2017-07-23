@@ -43,7 +43,7 @@ import {
 export class AddressEditComponent implements OnInit {
   @Input() coId: number;
   @Input() company: Company;
-  address:Address;
+  @Input() address:Address;
   addressId:number;
   errorMessage: string;
   myform : FormGroup;
@@ -61,9 +61,8 @@ export class AddressEditComponent implements OnInit {
   ngOnInit() {
     if(this.company)
       console.log('company.name in ngOnInit', this.company.name);
-    if(this.company) {
-      let address = this.company.address;
-      this.buildForm(address);
+    if(this.address) {
+      this.buildForm(this.address);
     }
     this.buildForm(); 
   } 
