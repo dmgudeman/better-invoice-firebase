@@ -39,6 +39,7 @@ export class CompanyCardComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    console.log('company', this.company);
     console.log('this.company.$key', this.company.$key);
     this.name = this.company.name;
     this.color = this.company.color;
@@ -51,7 +52,8 @@ export class CompanyCardComponent implements OnInit {
       return this.shared.setClassColor(null, this.color);
   }
   goToCompanyDetails(){
-    this.router.navigate(['/company-details/', {id:this.company.$key}]);
+
+    this.router.navigate(['/company-details/', {id:this.companyKey}]);
   }
 
   goToInvoice() {

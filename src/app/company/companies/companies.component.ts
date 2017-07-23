@@ -40,9 +40,9 @@ import { Company }         from '../company';
 export class CompaniesComponent implements OnInit {
   companies: FirebaseListObservable<any[]>;
   companiesArray = [];
-  icons=['add']
-  x;
-  sanpshot
+  icons=['add'];
+  keysArray=[];
+  sanpshot;
 
   user: Observable<firebase.User>
   userId: string;
@@ -72,7 +72,10 @@ export class CompaniesComponent implements OnInit {
       
       firebase.database().ref('/companiesByUserId/' + this.userId).once('value', (snapshot)=> {
         this.companiesArray =  (<any>Object).values(snapshot.val());
+        this.keysArray = (<any>Object).keys(snapshot.val()); 
+        console.log(this.keysArray);
       })
+      
     })
   }
 

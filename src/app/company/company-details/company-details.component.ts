@@ -86,16 +86,19 @@ export class CompanyDetailsComponent implements OnInit {
       this.afAuth.authState.subscribe ( user => {
         if (user) {
           this.userId = user.uid;
-          console.log('this.userId', this.userId)
-          this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).subscribe(x=>{
-            this.company = x;
-            console.log('this.company in ngInit co details', this.company);
-            this.coId = x.$key;
-            this.coName = x.name
-            this.coColor = x.color;
-            if (this.company && this.company.address){
-              this.addressViewChild.address = this.company.address;
-            }
+        firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
+          console.log('snapshot', snapshot.val());
+        // this.companiesArray =  (<any>Object).values(snapshot.val());
+          // console.log('this.userId', this.userId)
+          // this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).subscribe(x=>{
+          //   this.company = x;
+          //   console.log('this.company in ngInit co details', this.company);
+          //   this.coId = x.$key;
+          //   this.coName = x.name
+          //   this.coColor = x.color;
+          //   if (this.company && this.company.address){
+          //     this.addressViewChild.address = this.company.address;
+          //   }
         });
       }
     });  
