@@ -72,10 +72,8 @@
                     <md-slide-toggle
                         formControlName="active"
                         class="example-margin "
-                        
+                        [(ngModel)]="setactive"
                         (change) = "onChange($event)"
-                       
-                        #active
                         >
                       Yes
                     </md-slide-toggle>

@@ -55,6 +55,7 @@ import { Company }               from '../company';
 })
 export class CompanyEditComponent implements OnInit, AfterViewInit {
   @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
+  setactive: boolean;
   address: Address;
   coId;
   coName;
@@ -100,10 +101,8 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       console.log('this.userId', this.userId)
       // this.companies = this.db.list('/companies');
       this.companiesByUser = this.db.list('/companiesByUser/' + this.userId);
-      console.log('companiesByUser', this.companiesByUser);
       }
     });
-    
      
     this.route.params
       .subscribe(params => { 
@@ -112,10 +111,10 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     
     this.db.object('/companies/' + this.coId).subscribe(x => {
       this.company = x;
-      console.log('this.companyyyyyyyy', this.company);
     })
     this.buildForm();
-      this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
+    if(!this.company) this.setactive = true;
+    this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
   }
   ngAfterViewInit(){
     if(this.company && this.company.address){
