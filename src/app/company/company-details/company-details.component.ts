@@ -90,18 +90,18 @@ export class CompanyDetailsComponent implements OnInit {
           console.log('snapshot', snapshot.val());
         // this.companiesArray =  (<any>Object).values(snapshot.val());
           // console.log('this.userId', this.userId)
-          // this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).subscribe(x=>{
-          //   this.company = x;
-          //   console.log('this.company in ngInit co details', this.company);
-          //   this.coId = x.$key;
-          //   this.coName = x.name
-          //   this.coColor = x.color;
-          //   if (this.company && this.company.address){
-          //     this.addressViewChild.address = this.company.address;
-          //   }
+          this.db.object('/companies/' + this.companyKey).subscribe(x=>{
+            this.company = x;
+            console.log('this.company in ngInit co details', this.company);
+            this.coName = x.name
+            this.coColor = x.color;
+            if (this.company && this.company.address){
+              this.addressViewChild.address = this.company.address;
+            }
         });
-      }
-    });  
+      });
+    }
+      });  
   };
   
   goToEditItem() {

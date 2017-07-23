@@ -178,11 +178,6 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
         address: this.address
     }
 
-
-    
-    // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
-    
-
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
     console.log('newCompanyKey', newCompanyKey);
 
@@ -191,12 +186,6 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       updates['/companies/' + newCompanyKey] = payload;
       updates['/companiesByUserId/'+ this.userId + '/' + newCompanyKey] = payload;
       this.db.app.database().ref().update(updates);
-      // if(!this.companiesByUser) 
-      //   {
-      //     this.companiesByUser.push(this.userId);
-      //   }
-      // this.db.list('/companies').push(payload);
-      // this.db.list('/companiesByUser/' + this.userId).push(payload);
     } else {
       this.db.object('/companies/'+ this.coId).update(payload);
       this.db.object('/companiesByUser/' + this.userId + '/' + this.coId).update(payload);

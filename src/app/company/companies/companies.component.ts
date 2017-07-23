@@ -39,6 +39,7 @@ import { Company }         from '../company';
 })
 export class CompaniesComponent implements OnInit {
   companies: FirebaseListObservable<any[]>;
+  company: FirebaseObjectObservable<any>;
   companiesArray = [];
   icons=['add'];
   keysArray=[];
@@ -71,9 +72,10 @@ export class CompaniesComponent implements OnInit {
       this.userId = user.uid;
       
       firebase.database().ref('/companiesByUserId/' + this.userId).once('value', (snapshot)=> {
-        this.companiesArray =  (<any>Object).values(snapshot.val());
         this.keysArray = (<any>Object).keys(snapshot.val()); 
-        console.log(this.keysArray);
+        this.companiesArray =  (<any>Object).values(snapshot.val());
+        this.attachKeys(this.keysArray, this.companiesArray);
+        console.log('this.companiesArray', this.companiesArray);
       })
       
     })
@@ -86,7 +88,12 @@ export class CompaniesComponent implements OnInit {
   onLogOut() {
 
   }
+  attachKeys(keys, data){
+    for(let i =0; i<data.length; i++){
+      data[i].companyKey = keys[i];
+    }
 
+  } 
 }
 
 

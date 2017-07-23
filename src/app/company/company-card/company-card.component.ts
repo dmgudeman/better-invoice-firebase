@@ -28,6 +28,7 @@ export class CompanyCardComponent implements OnInit {
   shared:Shared = new Shared();
   companyKey: string;
   @Input() company;
+  @Input() companiesArray;
   name:string;
   color:string;
   // invoice: Invoice;
@@ -40,10 +41,16 @@ export class CompanyCardComponent implements OnInit {
 
   ngOnInit() {
     console.log('company', this.company);
-    console.log('this.company.$key', this.company.$key);
+    console.log('this.company', this.company);
+    console.log('NNNN')
+    console.log('HHHHHHHHHHHHHHhis.company.companyKey', this.companyKey);
+    console.log('LLLLLLLLL name', this.company.name);
+    console.log('LLLLLLLLL color', this.company.color );
+    console.log('LLLLLLLLL companyKey', this.company.companyKey );
+
     this.name = this.company.name;
     this.color = this.company.color;
-    this.companyKey = this.company.$key
+    this.companyKey = this.company.companyKey
   
   }
   
@@ -52,7 +59,9 @@ export class CompanyCardComponent implements OnInit {
       return this.shared.setClassColor(null, this.color);
   }
   goToCompanyDetails(){
-
+    console.log('FFFFFFFFFFFFFthis.company.companyKey', this.company.companyKey);
+    
+    
     this.router.navigate(['/company-details/', {id:this.companyKey}]);
   }
 
@@ -62,7 +71,8 @@ export class CompanyCardComponent implements OnInit {
 
   goToEditCompany(){
       if (this.company){
-          let companyKey = this.company.id;
+          let companyKey = this.company.companyKey;
+          console.log('KKKKKKKKKKKKKKKK',this.company.companyKey);
           let coName = this.company.name;
           let color = this.company.color;
           // let hourly = company.hourly;
