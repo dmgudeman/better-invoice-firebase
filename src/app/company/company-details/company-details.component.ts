@@ -45,6 +45,7 @@ export class CompanyDetailsComponent implements OnInit{
   coName: string;
   coColor: string;
   icons=['add', 'chevron-left'];
+  items;
   user: Observable<firebase.User>
   userId: string;
   
@@ -90,7 +91,10 @@ export class CompanyDetailsComponent implements OnInit{
           this.company = snapshot.val();
           this.coName = this.company.name
           this.coColor = this.company.color;
-          this.address = this.company.address
+          this.address = this.company.address;
+          console.log('thiEEEEEEEEE', this.company.items);
+          this.items = (<any>Object).values(this.company.items);
+          console.log(this.items);
       });
     }
       });  

@@ -1,4 +1,5 @@
 import { 
+  AfterContentInit,
   Component, 
   OnInit, 
   Input 
@@ -33,8 +34,8 @@ export class ItemListComponent implements OnInit {
   arrayOfKeys =[];
   coColor: string;
   company: Company;
-  items=[];
-  itemArray = [];
+  @Input()items=[];
+  itemsArray = [];
   item: Item;
   sortedData
   shared = new Shared();
@@ -43,44 +44,22 @@ export class ItemListComponent implements OnInit {
   constructor(
     private db:AngularFireDatabase,
     private route: ActivatedRoute,
-  ) {
-     
-   }
+  ) { }
 
   ngOnInit() {
-    this.route.params
-      .subscribe(params => {
-        this.companyKey = params['id']; 
-        });
-
-    this.db.object('/companies/' + this.companyKey)
-      .subscribe(company => {
-        this.company = company;
-        this.coColor = this.company.color;
-        
-
-        try {
-          let date;
-          if(this.company.items){
-            this.items = this.company.items
-            this.itemArray = (<any>Object).values(this.items);
-            console.log(this.itemArray[0]);
-            this.itemArray.forEach( (item) => { 
-            item.date = moment(item.date).format('MM/DD/YYYY');
-            console.log(date);
-            }
-            )
-            this.sortedData = this.itemArray.slice();
-
-          }
-        } 
-        catch( error ){console.log('Error in ngOnInit ItemList', error)}
-        }
-      )
+  }
+  ngAfterContentInit() {
+    this.itemsArray = (<any>Object).values(this.items);
+    let date;
+    this.itemsArray.forEach( (item) => { 
+      item.date = moment(item.date).format('MM/DD/YYYY');
+      console.log(date);
+    });
+    this.sortedData = this.itemsArray.slice();
 
   }
     sortData(sort: Sort) {
-    const data = this.itemArray.slice();
+    const data = this.itemsArray.slice();
     if (!sort.active || sort.direction == '') {
       this.sortedData = data;
       return;
