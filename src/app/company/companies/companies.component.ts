@@ -56,14 +56,13 @@ export class CompaniesComponent implements OnInit {
     private sanitizer: DomSanitizer,
     public afAuth: AngularFireAuth,
     ) {
-      
       this.icons.forEach((icon) =>{
       iconRegistry.addSvgIcon(
         icon,
         sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
       );
       });
-    this.user = afAuth.authState;
+      this.user = afAuth.authState;
   };
 
   ngOnInit() {
@@ -79,13 +78,11 @@ export class CompaniesComponent implements OnInit {
           console.log('this.companiesArray', this.companiesArray);
         }
       })
-      
     })
   }
 
   goToEditCompany() {
     this.router.navigate(['company-edit' ]);
-  
   }
   onLogOut() {
 
@@ -94,26 +91,7 @@ export class CompaniesComponent implements OnInit {
     for(let i =0; i<data.length; i++){
       data[i].companyKey = keys[i];
     }
-
   } 
 }
 
 
-
-
-
-
-
-/*
- console.log('snapshot', snapshot.val());
-        let obj = snapshot.val();
-        let x= "hi"
-        if(obj){
-           for (let item in obj){
-             console.log('item', item);
-             let array
-            array.push(item);
-           }
-        }
-      console.log('this fired');
-      */

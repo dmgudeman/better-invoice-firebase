@@ -1,12 +1,19 @@
 <div class="my-container">
-     <header id="header"  class="row0" (click)="goBack()">
+   <md-toolbar color="primary">
+    <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
+    <span class="bi-spacer"></span>
+    <span>InvoicePreview</span>
+    <span class="bi-spacer"></span>
+    <md-icon class="icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
+  </md-toolbar>
+     <!-- <header id="header"  class="row0" (click)="goBack()">
         <div>
             <a  class="glyphicon glyphicon-chevron-left left-arrow col0" aria-hidden="true"></a>
         </div> 
         <div class="col0-mid">Invoice Preview</div>
         <div class="col0"></div>
      
-    </header>
+    </header> -->
     <!--<div id="section1"  (click)="goBack()">
         <div id="col1" class="ni-nav">
             <a class="glyphicon glyphicon-chevron-left" aria-hidden="true" ></a>
@@ -21,11 +28,13 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <div>{{coName}}</div>
-                                <!--<img src="logo.png" style="width:100%; max-width:300px;">-->
+                                <div>
+                                  <img  src='../../assets/images/logo/large-press.png_48x48.png'>
+                                  My Company Name
+                                </div>
                             </td>
                             <td>
-                                Invoice #: {{invoiceId}}<br> Created: {{createdDate| date:'yMd'}}<br> Due: {{dueDate| date:'yMd' }}
+                              Invoice #: {{invoiceId}}<br> Created: {{createdDate| date:'yMd'}}<br> Due: {{dueDate| date:'yMd' }}
                             </td>
                         </tr>
                     </table>
@@ -37,7 +46,7 @@
                     <table>
                         <tr>
                             <td>
-                                Next Step Webs, Inc.<br> 12345 Sunny Road<br> Sunnyville, TX 12345
+                                {{coName}}<br> {{street1}}<br> {{city}}, {{state}} {{postalCode}}
                             </td>
                             <td>
                                 {{coName}}<br> John Doe<br> john@example.com

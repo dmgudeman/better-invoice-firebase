@@ -28,6 +28,7 @@ export const APP_ROUTES: Routes = [
   // { path: 'app-item-detail',      component: ItemDetailComponent }, 
   // { path: 'item-detail-one',      component: ItemDetailOneComponent }, 
   { path: 'invoice-edit',         component: InvoiceEditComponent },
+  { path: 'invoice-edit/:id',     component: InvoiceEditComponent },
   // { path: 'invoice-pre-pdf',      component: InvoicePrePdfComponent },
   { path: 'invoice-pre-pdf/:id',  component: InvoicePrePdfComponent },
   { path: 'temp',                 component: TempComponent },
