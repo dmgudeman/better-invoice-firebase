@@ -21,9 +21,10 @@ export class AddressComponent implements OnInit, AfterContentInit {
   country:string;
   line3:string;
 
-
   constructor() { }
+
   ngOnInit() {}
+  
   ngAfterContentInit() {
     if(this.address){
       this.street1 = this.address.street1;

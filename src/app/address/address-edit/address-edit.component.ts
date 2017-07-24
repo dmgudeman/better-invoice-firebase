@@ -59,6 +59,7 @@ export class AddressEditComponent implements OnInit {
   }
 
   ngOnInit() {
+
     if(this.company)
       console.log('company.name in ngOnInit', this.company.name);
     if(this.address) {
@@ -66,6 +67,7 @@ export class AddressEditComponent implements OnInit {
     }
     this.buildForm(); 
   } 
+
   buildForm(address?) {
     if(address){
       this.myform = this.fb.group({
@@ -95,15 +97,5 @@ export class AddressEditComponent implements OnInit {
       });
     }
   }
-  
-
-  // onSubmit2($event) {
-  //    console.log('address', this.myform.value);
-     
-  // }
-
-  // goBack(): void {
-  //   this.location.back();
-  // }
 }
 
