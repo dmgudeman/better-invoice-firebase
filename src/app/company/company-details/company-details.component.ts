@@ -93,7 +93,8 @@ export class CompanyDetailsComponent implements OnInit{
           this.coColor = this.company.color;
           this.address = this.company.address;
           console.log('thiEEEEEEEEE', this.company.items);
-          this.items = (<any>Object).values(this.company.items);
+          if(this.company.items)
+            this.items = (<any>Object).values(this.company.items);
           console.log(this.items);
       });
     }

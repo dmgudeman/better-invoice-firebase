@@ -56,10 +56,10 @@ import { Company }               from '../company';
 export class CompanyEditComponent implements OnInit, AfterViewInit {
   @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
   setactive: boolean;
-  address: Address;
-  coId;
+  address;
   coName;
   company:Company;
+  companyKey:string;
   setCompanyObs: FirebaseObjectObservable<any[]>;
   companies: FirebaseListObservable<any[]>
   title;
@@ -95,51 +95,58 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
       return;
     }
     console.log("LOGGED IN", this.user)
-    this.afAuth.authState.subscribe ( user => {
-      if (user){
-      this.userId = user.uid;
-      console.log('this.userId', this.userId)
-      // this.companies = this.db.list('/companies');
-      this.companiesByUser = this.db.list('/companiesByUser/' + this.userId);
-      }
-    });
-     
     this.route.params
       .subscribe(params => { 
-        this.coId = params['id']
+        this.companyKey = params['id']
     });
-    
-    this.db.object('/companies/' + this.coId).subscribe(x => {
-      this.company = x;
-    })
-    this.buildForm();
-    if(!this.company) this.setactive = true;
-    this.title = this.coId ? " Edit "+ this.company.name + " Details" : " New Business";
+    this.afAuth.authState.subscribe ( user => {
+      if (user){
+        this.userId = user.uid;
+        firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
+          this.company = snapshot.val();
+          this.address = this.company.address;
+          console.log('this.address', this.address);
+         
+          this.buildForm(); 
+          
+          if(!this.company) this.setactive = true;
+          this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
+          });
+      }
+    });
+      this.buildForm(); 
   }
   ngAfterViewInit(){
     if(this.company && this.company.address){
+      console.log('this.addres2222222', this.address);
       this.addressViewChild.myform.setValue(this.company.address);
     }
 
   }
   buildForm() {
-    if(this.company) {
+    console.log('buildFormmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+    if(!this.myform){
+      this.setactive = true;
       this.myform = this.fb.group({
-        name:this.company.name,
-        color: this.company.color,
-        hourly: this.company.hourly,
-        paymentTerms: this.company.paymentTerms,
-        active: this.company.active,
-      });
-      return this.myform;
-    }
-    this.myform = this.fb.group({
       name: ['', Validators.required],
       color: '',
       hourly:'',
       paymentTerms: '',
       active: '',
     });
+    }
+    if(this.company) {
+      this.setactive = this.company.active;
+      this.myform = this.fb.group({
+        name:this.company.name,
+        color: this.company.color,
+        hourly: this.company.hourly,
+        paymentTerms: this.company.paymentTerms,
+        active: this.setactive,
+      });
+      return this.myform;
+    }
+    
   }
 
   toggleActive() {
@@ -180,14 +187,14 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
     console.log('newCompanyKey', newCompanyKey);
 
-    if(!this.coId){
+    if(!this.companyKey){
       let updates = {};
       updates['/companies/' + newCompanyKey] = payload;
       updates['/companiesByUser/'+ this.userId + '/' + newCompanyKey] = payload;
       this.db.app.database().ref().update(updates);
     } else {
-      this.db.object('/companies/'+ this.coId).update(payload);
-      this.db.object('/companiesByUser/' + this.userId + '/' + this.coId).update(payload);
+      this.db.object('/companies/'+ this.companyKey).update(payload);
+      this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).update(payload);
     }
       this.router.navigate(['companies']);
   }
