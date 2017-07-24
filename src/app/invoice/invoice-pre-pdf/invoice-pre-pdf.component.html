@@ -40,34 +40,39 @@
               </table>
             </td>
           </tr>
-          <tr class="heading row1">
+          <!-- <tr class="heading row1">
             <td class="col1"> Payment Method </td>
             <td class="col1 col1-mid"> </td>
-            <td class="col1"> Check # </td>
+            <td class="col1 line-total"> Check # </td>
+             <td class="col1-spacer"> </td> 
           </tr>
 
           <tr class="details row1">
             <td class="col1"> Check </td>
             <td class="col1 col1-mid"> </td>
-            <td class="col1"> 1000 </td>
-          </tr>
+            <td class="col1 line-total"> 1000 </td>
+             <td class="col1-spacer"> </td> 
+          </tr> -->
 
           <tr class="heading item row1">
             <td class="col1"> Item </td>
             <td class="col1 col1-mid"> Description </td>
-            <td class="col1"> Price </td>
+            <td class="col1 line-total"> Price </td>
+             <td class="col1-spacer"> </td> 
           </tr>
 
           <tr class="item row1"  *ngFor="let i of items">
             <td class="col1"> {{i.date| date:'yMd'}} </td>
             <td class="col1 col1-mid"> {{i.description}} </td>
-            <td class="col1"> {{i.total}} </td>
+            <td class="col1 line-total"> {{i.total}} </td>
+            <td class="col1-spacer"> </td>
           </tr>
           
           <tr class="total row1">
             <td class="col1"></td>
             <td class="col1"></td>
-            <td class="col1"> Total: ${{total}} </td>
+            <td class="col1 line-total"> Total: ${{total}} </td>
+             <td class="col1-spacer-small"> </td>  
           </tr>
         </table>
       </div>

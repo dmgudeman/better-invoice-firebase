@@ -5,6 +5,9 @@
   font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 300;
 }
+.test {
+  background-color: yellow;
+}
 
 .icon {
   padding: 0 14px;
@@ -144,6 +147,25 @@ button {
     }
     .col1.col1-mid {
         flex: 3 3 0;
+    }
+    .col1-spacer {
+      flex: 0.5 0.5 0;
+    }
+    
+    .col1-spacer-small {
+      flex: 0.25 0.25 0;
+    }
+    .heading.col1 {
+      display: flex;
+      flex: 1 1 0;
+      justify-content: center;
+      flex-direction: column;
+      text-align: end;
+    }
+
+    .line-total {
+      display: block;
+      text-align: end;
     }
    /*----------------FOOTER--------------------------*/
     .row2 {
