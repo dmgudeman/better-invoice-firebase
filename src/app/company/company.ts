@@ -5,13 +5,13 @@ export class Company {
   hourly:number;
   paymentTerms:number;
   active:boolean;
-  userId:number;
-  items:any[];
-  invoices:any[];
+  userId:string;
+  items:{};
+  invoices:{};
   address:{}
 
-  constructor(name:string, color:string, hourly:number, paymentTerms:number, active:boolean, userId:number, 
-              items:any[], invoices:any[], address:{}){
+  constructor(name:string, color:string, hourly:number, paymentTerms:number, active:boolean, userId:string, 
+              items:{}, invoices:{}, address:{}){
     this.name = name;
     this.color = color;
     this.hourly= hourly;

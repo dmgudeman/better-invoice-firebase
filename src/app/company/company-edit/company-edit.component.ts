@@ -56,37 +56,37 @@ import { Company }               from '../company';
 })
 export class CompanyEditComponent implements OnInit{
   @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
-  setactive: boolean;
   address;
   coName;
   company:Company;
-  companyKey:string;
-  setCompanyObs: FirebaseObjectObservable<any[]>;
-  companies: FirebaseListObservable<any[]>
-  title;
-  myform : FormGroup;
-  icons=['thumbs-up', 'chevron-left']
   companiesByUser: FirebaseListObservable<any[]>
+  companyKey:string;
+  companies: FirebaseListObservable<any[]>
+  icons=['thumbs-up', 'chevron-left']
+  myform : FormGroup;
+  setCompanyObs: FirebaseObjectObservable<any[]>;
+  setactive: boolean;
+  title;
   user: Observable<firebase.User>
   userId: string;
 
   constructor(
+    public afAuth: AngularFireAuth,
     private db: AngularFireDatabase,
     private fb: FormBuilder,
     private iconRegistry: MdIconRegistry,
     private location: Location,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer,
-    public afAuth: AngularFireAuth,
     private router:Router,
+    private sanitizer: DomSanitizer,
   ) {
-    this.icons.forEach((icon) =>{
-    iconRegistry.addSvgIcon(
+    this.icons.forEach((icon) => {
+      iconRegistry.addSvgIcon(
       icon,
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
-    );
+      );
     });
-  console.log('Login constructor');
+    console.log('Login constructor');
     this.user = afAuth.authState;
   };
 

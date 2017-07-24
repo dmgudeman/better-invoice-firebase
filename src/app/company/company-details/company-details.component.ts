@@ -83,8 +83,8 @@ export class CompanyDetailsComponent implements OnInit{
     }
     console.log("LOGGED IN", this.user);
 
-      this.afAuth.authState.subscribe ( user => {
-        if (user) {
+    this.afAuth.authState.subscribe ( user => {
+      if (user) {
           this.userId = user.uid;
         firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
           // console.log('snapshot', snapshot.val());
@@ -93,13 +93,14 @@ export class CompanyDetailsComponent implements OnInit{
           this.coColor = this.company.color;
           this.address = this.company.address;
           console.log('thiEEEEEEEEE', this.company.items);
-          if(this.company.items)
+          if (this.company.items) {
             this.items = (<any>Object).values(this.company.items);
-          console.log(this.items);
-      });
-    }
-      });  
-  };
+          }
+            console.log(this.items);
+        });
+      }
+    });  
+  }
   
   
   goToEditItem() {
