@@ -32,6 +32,7 @@ export class AddressComponent implements OnInit, AfterContentInit {
       this.state = this.address.state;
       this.postalCode = this.address.postalCode;
       this.country = this.address.country;
+      if(this.city)
       this.line3 = this.city + ', ' + this.state + '  ' + this.postalCode;
     }
   }

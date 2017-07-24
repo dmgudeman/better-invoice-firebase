@@ -1,4 +1,5 @@
 import { 
+  AfterContentInit,
   AfterViewInit,
   Component, 
   OnInit,
@@ -53,7 +54,7 @@ import { Company }               from '../company';
   templateUrl: './company-edit.component.html',
   styleUrls: ['./company-edit.component.scss']
 })
-export class CompanyEditComponent implements OnInit, AfterViewInit {
+export class CompanyEditComponent implements OnInit{
   @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
   setactive: boolean;
   address;
@@ -106,6 +107,11 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
           this.company = snapshot.val();
           this.address = this.company.address;
           console.log('this.address', this.address);
+
+          if(this.company && this.company.address){
+            console.log('this.addres2222222', this.address);
+            this.addressViewChild.myform.setValue(this.company.address);
+          }
          
           this.buildForm(); 
           
@@ -116,13 +122,15 @@ export class CompanyEditComponent implements OnInit, AfterViewInit {
     });
       this.buildForm(); 
   }
-  ngAfterViewInit(){
-    if(this.company && this.company.address){
-      console.log('this.addres2222222', this.address);
-      this.addressViewChild.myform.setValue(this.company.address);
-    }
+  // ngAfterContentInit(){
+  //     console.log('this.addres333333333', this.address);
 
-  }
+  //   if(this.company && this.company.address){
+  //     console.log('this.addres2222222', this.address);
+  //     this.addressViewChild.myform.setValue(this.company.address);
+  //   }
+
+  // }
   buildForm() {
     console.log('buildFormmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
     if(!this.myform){
