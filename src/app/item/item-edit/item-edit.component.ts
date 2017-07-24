@@ -94,24 +94,28 @@ export class ItemEditComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
       this.itemKey = params[ 'itemKey']
-      console.log('GGGGGGGGGGGGGGGGGGG', this.itemKey);
     });
+    // obtain the company
     this.db.object('/companies/'+ this.companyKey ).subscribe(data => {
       this.company = data; 
       this.coName = this.company.name;
     });
+
+    // obtain the item if it is pre-existing
     if (this.itemKey){
-    this.db.object('/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
-    this.item = data; 
-    this.buildForm(this.item);
-    console.log('item ', data)});
+      this.db.object('/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
+      this.item = data; 
+      this.buildForm(this.item);
+      this.makeTitle(this.coName, this.itemKey);
+    });
     return;
     }
     this.buildForm();
+    this.makeTitle( this.coName);
   }
 
-  makeTitle(coName:string, itemId?:number){
-      this.title = (itemId) ? " Edit Item" : " New Item for " + this.coName;
+  makeTitle(coName:string, itemId?:string){
+      this.title = (this.itemKey) ? " Edit Item for " + this.coName : " New Item for " + this.coName;
   }
 
   buildForm(item?) {
