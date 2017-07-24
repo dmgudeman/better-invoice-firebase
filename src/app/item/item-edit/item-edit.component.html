@@ -7,48 +7,48 @@
   </md-toolbar>
    
   <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
-            <!--  FORM -->
-            <form [formGroup]="myform" (ngSubmit)="onSubmit()" fxLayoutWrap novalidate fxFlex="100%">
-                <md-tab-group fxFlex="100%">
-                    <md-tab label="Hours">
-                       <div fxLayout="column" fxFlex="100%">
-                        <md-input-container class="example-full-width">
-                          <input mdInput formControlName="hours" placeholder="Hours">
-                        </md-input-container>
-                     </div>
-                    </md-tab>
-                    <md-tab label="$Amount">
-                      <div fxLayout="column" fxFlex="100%">
-                        <md-input-container class="example-full-width">
-                          <input mdInput formControlName="amount" placeholder="Amount">
-                        </md-input-container>
-                     </div>
-                    </md-tab>
-                </md-tab-group>
-                <div fxFlex="100%">
-                  <md-input-container>
-                    <input 
-                      name="date" 
-                      formControlName="date"
-                      id="date" 
-                      mdInput 
-                      [mdDatepicker]="picker" 
-                      placeholder="Choose a date"
-                      >
-                    <button mdSuffix [mdDatepickerToggle]="picker"></button>
-                  </md-input-container>
-                  <md-datepicker #picker></md-datepicker>
-                </div>
-          <div fxLayout="column" fxFlex="100%">
-            <md-input-container class="example-full-width">
-              <textarea mdInput formControlName="description" placeholder="Description"></textarea>
-            </md-input-container>
-          </div>
-          <div fxFlex="10%">
-            <div fxLayout="column" >
-              <button md-raised-button >Submit </button>
+        <!--  FORM -->
+    <form [formGroup]="myform" (ngSubmit)="onSubmit()" fxLayoutWrap novalidate fxFlex="100%">
+      <md-tab-group fxFlex="100%">
+          <md-tab label="Hours">
+              <div fxLayout="column" fxFlex="100%">
+              <md-input-container class="example-full-width">
+                <input mdInput formControlName="hours" placeholder="Hours">
+              </md-input-container>
             </div>
-          </div>
-        </form>
-    </div>
+          </md-tab>
+          <md-tab label="$Amount">
+            <div fxLayout="column" fxFlex="100%">
+              <md-input-container class="example-full-width">
+                <input mdInput formControlName="amount" placeholder="Amount">
+              </md-input-container>
+            </div>
+          </md-tab>
+      </md-tab-group>
+        <div fxFlex="100%">
+          <md-input-container>
+            <input 
+              name="date" 
+              formControlName="date"
+              id="date" 
+              mdInput 
+              [mdDatepicker]="picker" 
+              placeholder="Choose a date"
+              >
+            <button mdSuffix [mdDatepickerToggle]="picker"></button>
+          </md-input-container>
+          <md-datepicker #picker></md-datepicker>
+        </div>
+      <div fxLayout="column" fxFlex="100%">
+        <md-input-container class="example-full-width">
+          <textarea mdInput formControlName="description" placeholder="Description"></textarea>
+        </md-input-container>
+      </div>
+      <div fxFlex="10%">
+        <div fxLayout="column" >
+          <button md-raised-button >Submit </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
