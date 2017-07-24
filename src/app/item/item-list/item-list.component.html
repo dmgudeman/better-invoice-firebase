@@ -9,7 +9,7 @@
   </tr>
   <hr>
 
-  <tr *ngFor="let item of sortedData" fxLayoutAlign="center center" >
+  <tr *ngFor="let item of sortedData" (click)="goToItem(item)"  fxLayoutAlign="center center" >
     <td fxFlex="15%">{{item.date}}</td>
     <td fxFlex="15%">{{item.amount}}</td>
     <td fxFlex="15%">{{item.hours}}</td>

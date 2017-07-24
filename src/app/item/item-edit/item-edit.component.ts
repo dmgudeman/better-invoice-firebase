@@ -4,7 +4,7 @@ import {
   OnInit,
   ViewChild
 }                                         from '@angular/core';
-import { DomSanitizer }          from '@angular/platform-browser';
+import { DomSanitizer }                   from '@angular/platform-browser';
 import { Location }                       from '@angular/common';
 import { 
   FormBuilder, 
@@ -53,9 +53,11 @@ export class ItemEditComponent implements OnInit {
   hoursArray:number[] = [];
   coName: string;
   company: Company
-  companyId: string;
+  companyKey: string;
   companyItems: FirebaseListObservable<any[]>
   date:Date;
+  item;
+  itemKey: string;
   m: moment.Moment;
   title: string;
   myform : FormGroup;
@@ -80,33 +82,68 @@ export class ItemEditComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.myform = this.fb.group({
-      date:'',
-      description:'',
-      amount:'',
-      hours:'',
-      type:'',
-      companyKey: '',
-    });
+    // this.myform = this.fb.group({
+    //   date:'',
+    //   description:'',
+    //   amount:'',
+    //   hours:'',
+    //   type:'',
+    //   companyKey: '',
+    // });
     
     this.route.params.subscribe(params => {
-      this.companyId = params['companyKey'];
+      this.companyKey = params['companyKey'];
+      this.itemKey = params[ 'itemKey']
+      console.log('GGGGGGGGGGGGGGGGGGG', this.itemKey);
     });
-    this.db.object('/companies/'+ this.companyId).subscribe(data => {
+    this.db.object('/companies/'+ this.companyKey ).subscribe(data => {
       this.company = data; 
-      console.log('data ', data)});
+      this.coName = this.company.name;
+    });
+    if (this.itemKey){
+    this.db.object('/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
+    this.item = data; 
+    this.buildForm(this.item);
+    console.log('item ', data)});
+    return;
+    }
+    this.buildForm();
   }
 
   makeTitle(coName:string, itemId?:number){
       this.title = (itemId) ? " Edit Item" : " New Item for " + this.coName;
   }
 
+  buildForm(item?) {
+    if(!this.myform){
+      this.myform = this.fb.group({
+        date:'',
+        description:'',
+        amount:'',
+        hours:'',
+        type:'',
+        companyKey: '',
+      });
+    }
+    if(item) {
+      this.myform = this.fb.group({
+        date: item.date,
+        description: item.description,
+        amount: item.amount,
+        hours: item.hours,
+        type: item.type,
+        companyKey: item.companyKey,
+        itemKey: item.itemKey,
+      });
+      return this.myform;
+    }
+  }
   onSubmit() {
     let payload = this.myform.value;
-    payload.companyKey = this.companyId;
+    payload.companyKey = this.companyKey;
     // if(!this.company.items) this.company.items = [];
     // this.company.items.push(this.myform.value);
-    // this.db.object('/companies/'+ this.companyId).update({items:this.company.items});
+    // this.db.object('/companies/'+ this.companyKey).update({items:this.company.items});
     let total = (
       (this.myform.value.hours - 0 ) * (this.company.hourly - 0)) + (this.myform.value.amount - 0);
     console.log('hours', this.myform.value.hours);
@@ -116,12 +153,16 @@ export class ItemEditComponent implements OnInit {
     payload.total = total;
 
     // Get a key for a new Invoice
-    let newItemKey = this.db.app.database().ref().child('companies').child('items').push().key;
-    payload.id = newItemKey;
+    if(!this.itemKey){
+      let newItemKey = this.db.app.database().ref().child('companies').child('items').push().key;
+      payload.itemKey = newItemKey;
+    } else {
+      payload.itemKey = this.item.itemKey;
+    } 
     // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
     let updates = {};
-    updates['/companies/'+ this.companyId + '/items/' + newItemKey] = payload;
-    updates['/items/' + newItemKey] = payload;
+    updates['/companies/'+ this.companyKey + '/items/' + payload.itemKey] = payload;
+    updates['/items/' + payload.itemKey] = payload;
     this.db.app.database().ref().update(updates);
     this.goToCompanies();
   }

@@ -6,9 +6,9 @@ export class Item {
   amount: number;
   hours: number;
   type: string;
-  companyId: number;
+  companyKey: number;
 
-  constructor(id?, date?, description?, amount?, hours?, type?, companyId?){
+  constructor(id?, date?, description?, amount?, hours?, type?, companyKey?){
     this.id = id || null;
     this.date = date || null;
     this.description = description || null;

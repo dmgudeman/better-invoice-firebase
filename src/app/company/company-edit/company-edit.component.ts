@@ -106,10 +106,8 @@ export class CompanyEditComponent implements OnInit{
         firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
           this.company = snapshot.val();
           this.address = this.company.address;
-          console.log('this.address', this.address);
 
           if(this.company && this.company.address){
-            console.log('this.addres2222222', this.address);
             this.addressViewChild.myform.setValue(this.company.address);
           }
          
@@ -122,26 +120,17 @@ export class CompanyEditComponent implements OnInit{
     });
       this.buildForm(); 
   }
-  // ngAfterContentInit(){
-  //     console.log('this.addres333333333', this.address);
 
-  //   if(this.company && this.company.address){
-  //     console.log('this.addres2222222', this.address);
-  //     this.addressViewChild.myform.setValue(this.company.address);
-  //   }
-
-  // }
   buildForm() {
-    console.log('buildFormmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
     if(!this.myform){
       this.setactive = true;
       this.myform = this.fb.group({
-      name: ['', Validators.required],
-      color: '',
-      hourly:'',
-      paymentTerms: '',
-      active: '',
-    });
+        name: ['', Validators.required],
+        color: '',
+        hourly:'',
+        paymentTerms: '',
+        active: '',
+      });
     }
     if(this.company) {
       this.setactive = this.company.active;
@@ -154,7 +143,6 @@ export class CompanyEditComponent implements OnInit{
       });
       return this.myform;
     }
-    
   }
 
   toggleActive() {

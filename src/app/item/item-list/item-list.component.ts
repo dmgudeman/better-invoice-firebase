@@ -36,7 +36,7 @@ export class ItemListComponent implements OnInit {
   company: Company;
   @Input()items=[];
   itemsArray = [];
-  item: Item;
+  @Input() public item;
   sortedData
   shared = new Shared();
   moment: moment.Moment;
@@ -44,6 +44,7 @@ export class ItemListComponent implements OnInit {
   constructor(
     private db:AngularFireDatabase,
     private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -74,6 +75,12 @@ export class ItemListComponent implements OnInit {
         default: return 0;
       }
     });
+  }
+  goToItem(item){
+    console.log('itemmmmmmmmmmmmmmms', item);
+    console.log('itemKey', item.itemKey);
+    console.log('companyKey', item.companyKey);
+    this.router.navigate(['/item-edit/', {companyKey: item.companyKey, itemKey: item.itemKey}])
   }
 }
 function compare(a, b, isAsc) {
