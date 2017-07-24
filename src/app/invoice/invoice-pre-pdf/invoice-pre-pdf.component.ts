@@ -8,6 +8,10 @@ import {
   FirebaseListObservable,
   FirebaseObjectObservable,
 }                                         from 'angularfire2/database';
+import { DomSanitizer }                   from '@angular/platform-browser';
+import { 
+  MdIconRegistry,
+ }                                        from '@angular/material';
 import { Router, 
          ActivatedRoute, 
          Params }                         from '@angular/router';
@@ -50,6 +54,7 @@ export class InvoicePrePdfComponent implements OnInit {
   errorMessage: string;
   createdDate: string;
   dueDate: Date;
+  icons = ['chevron-left'];
   invoiceId: string;
   invoice: Invoice;
   invoiceKey: string;
@@ -65,18 +70,25 @@ export class InvoicePrePdfComponent implements OnInit {
   state: string;
   street1: string;
   street2: string;
-  
-
+  total: number;
 
   constructor(
     private db: AngularFireDatabase,
     private invoiceService: InvoiceService,
     private location: Location,
+    private iconRegistry: MdIconRegistry,
     private route: ActivatedRoute,
     private router: Router,
+    private sanitizer: DomSanitizer,
     // private moment: moment,
     ) {
     this.shared = new Shared();
+    this.icons.forEach((icon) =>{
+        iconRegistry.addSvgIcon(
+        icon,
+        sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
+        );
+      });
     //  this.myGlobals = new MyGlobals();
   }
 
@@ -87,6 +99,7 @@ export class InvoicePrePdfComponent implements OnInit {
     firebase.database().ref('/invoices/' + this.invoiceKey).once('value', (snapshot)  => {
       this.invoice = snapshot.val();
       this.invoiceId = this.invoiceKey;
+      this.total = this.invoice.total;
       this.createdDate = this.invoice.createdAt;
       this.m = moment( this.createdDate );
       // this.company = this._invoiceService.getCompanyFromInvoice(this.invoice);

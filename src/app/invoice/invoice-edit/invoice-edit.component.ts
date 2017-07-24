@@ -136,32 +136,28 @@ export class InvoiceEditComponent implements OnInit {
     let bmDate = moment(beginDate).format('LL');
     let emDate = moment(endDate).format('LL');
     let filteredItems: Item[]=[];
-
-    console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
-    console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-    console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
 
     if(this.items){
       let itemsArray = (<any>Object).values(this.items);
       itemsArray.forEach(i => {
-        console.log('GGGGGGGGGGGGGGGGGG', i);
         let imDate;
         imDate = moment(i.date);
-        console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
+        // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
         if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
+          // console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
           filteredItems.push(i)
         }
       })
     }
-    console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
-    
+    // console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
     if(filteredItems.length>0)return filteredItems;
     return 0;
-
   } 
 
   goBack() { this.location.back(); }
@@ -175,9 +171,16 @@ export class InvoiceEditComponent implements OnInit {
     this.invoice.companyId = this.companyId;
     this.invoice.createdAt = this.createdAt;
     this.invoice.items = this.filterByDateRange(bdate, edate);
-    console.log('TTTTTTTTTTTTTTTTTTT', this.invoice.items);
+    let invoiceTotal = 0;
+    let itemsArray = (<any>Object).values(this.items);
+      itemsArray.forEach(i => {
+        invoiceTotal = invoiceTotal + i.total;
+      });
+    this.invoice.total = invoiceTotal;
+    // console.log('TTTTTTTTTTTTTTTTTTT', this.invoice.items);
     // console.log(this.invoice);
     // console.log(this.company);
+
     
     // Get a key for a new Invoice
     let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyId).push().key;

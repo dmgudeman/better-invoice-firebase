@@ -49,7 +49,7 @@
                                 {{coName}}<br> {{street1}}<br> {{city}}, {{state}} {{postalCode}}
                             </td>
                             <td>
-                                {{coName}}<br> John Doe<br> john@example.com
+                                <!-- {{coName}}<br> John Doe<br> john@example.com -->
                             </td>
                         </tr>
                     </table>
@@ -77,20 +77,21 @@
             <tr class="item row1"  *ngFor="let i of items">
                 <td class="col1"> {{i.date| date:'yMd'}} </td>
                 <td class="col1 col1-mid"> {{i.description}} </td>
-                <td class="col1"> {{i.amount}} </td>
+                <td class="col1"> {{i.total}} </td>
             </tr>
             
             <tr class="total row1">
                 <td class="col1"></td>
                 <td class="col1"></td>
-                <td class="col1"> Total: $385.00 </td>
+                <td class="col1"> Total: ${{total}} </td>
             </tr>
         </table>
     </div>
     </div>
     <footer id="footer" class="row2"> 
        <div class="col2 col2-mid">
-           <button class="my-submit-btn" type="submit" (click)="submit()">Submit</button>
+          <button md-raised-button >Submit </button>
+           <!-- <button class="my-submit-btn" type="submit" (click)="submit()">Submit</button> -->
        </div>
     </footer>
 </div>

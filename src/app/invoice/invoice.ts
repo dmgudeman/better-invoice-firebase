@@ -15,8 +15,9 @@ export class Invoice implements InvoiceInterface {
   company: Company;
   items: Item[];
   createdAt: string;
+  total: number;
 
-  constructor(id?, beginDate?, endDate?, description?, amount?, discount?, url?, companyId?, company?, items?){
+  constructor(id?, beginDate?, endDate?, description?, amount?, discount?, url?, companyId?, company?, items?, total?){
     this.beginDate   = beginDate || null;
     this.endDate     = endDate || null;
     this.description = description || null;
@@ -27,5 +28,6 @@ export class Invoice implements InvoiceInterface {
     this.company     = company || null;
     this.items       = items || null;
     this.createdAt   = moment().format('ll');
+    this.total       = total;
   }
 }

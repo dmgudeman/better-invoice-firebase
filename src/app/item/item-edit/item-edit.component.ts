@@ -95,20 +95,10 @@ export class ItemEditComponent implements OnInit {
     this.db.object('/companies/'+ this.companyId).subscribe(data => {
       this.company = data; 
       console.log('data ', data)});
-    
-    this.makeHoursArray(41);
   }
 
   makeTitle(coName:string, itemId?:number){
       this.title = (itemId) ? " Edit Item" : " New Item for " + this.coName;
-  }
-
-  makeHoursArray(hoursArrayLimit):number[]{
-    for (let i =0; i < hoursArrayLimit; i++){
-      let x = 0.25 * i;
-      this.hoursArray.push(x);
-    }
-    return this.hoursArray;
   }
 
   onSubmit() {
@@ -117,7 +107,13 @@ export class ItemEditComponent implements OnInit {
     // if(!this.company.items) this.company.items = [];
     // this.company.items.push(this.myform.value);
     // this.db.object('/companies/'+ this.companyId).update({items:this.company.items});
-    
+    let total = (
+      (this.myform.value.hours - 0 ) * (this.company.hourly - 0)) + (this.myform.value.amount - 0);
+    console.log('hours', this.myform.value.hours);
+    console.log('hourly', this.company.hourly);
+    console.log('amount', this.myform.value.amount);
+    console.log('total', total);
+    payload.total = total;
 
     // Get a key for a new Invoice
     let newItemKey = this.db.app.database().ref().child('companies').child('items').push().key;
