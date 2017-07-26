@@ -54,7 +54,13 @@ export class CompanyCardComponent implements OnInit {
   }
 
   goToInvoice() {
+    console.log('invoice-edit list URL', '/invoice-edit/' + this.companyKey);
     this.router.navigate(['/invoice-edit/', {companyKey:this.companyKey}]);
+  }
+
+  goToInvoiceList() {
+    console.log('invoices list URL', '/invoices/' + this.companyKey);
+    this.router.navigate(['/invoices/', {id:this.companyKey} ]);
   }
 
   goToEditCompany(){

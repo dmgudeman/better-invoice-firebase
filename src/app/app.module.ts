@@ -32,24 +32,25 @@ import { environment }               from '../environments/environment';
 import { AppRoutingModule }          from './app-routing.module';
 import { AppComponent }              from './app.component';
 import { CompanyModule }             from './company/company.module';
-import { ItemEditComponent }         from './item/item-edit/item-edit.component';
-
 import { InvoiceEditComponent }      from './invoice/invoice-edit/invoice-edit.component';
+import { InvoiceListComponent }      from './invoice/invoice-list/invoice-list.component';
 import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre-pdf.component';
 import { InvoiceService }            from './invoice/invoice.service';
-import { RegisterComponent }         from './user/register/register.component';
+import { ItemEditComponent }         from './item/item-edit/item-edit.component';
 import { LoginComponent }            from './user/login/login.component';
+import { RegisterComponent }         from './user/register/register.component';
 import { TempComponent }             from './temp/temp/temp.component';
 import { Temp2Component }            from './temp/temp2/temp2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemEditComponent,
     InvoiceEditComponent,
+    InvoiceListComponent,
     InvoicePrePdfComponent,
-    RegisterComponent,
+    ItemEditComponent,
     LoginComponent,
+    RegisterComponent,
     TempComponent,
     Temp2Component,
   ],
