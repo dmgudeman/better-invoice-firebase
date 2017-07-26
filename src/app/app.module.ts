@@ -44,6 +44,7 @@ import { LoginComponent }            from './user/login/login.component';
 import { RegisterComponent }         from './user/register/register.component';
 import { TempComponent }             from './temp/temp/temp.component';
 import { Temp2Component }            from './temp/temp2/temp2.component';
+import { InvoicesDashboardComponent } from './invoice/invoices-dashboard/invoices-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { Temp2Component }            from './temp/temp2/temp2.component';
     RegisterComponent,
     TempComponent,
     Temp2Component,
+    InvoicesDashboardComponent,
   ],
   imports: [
     AddressModule,

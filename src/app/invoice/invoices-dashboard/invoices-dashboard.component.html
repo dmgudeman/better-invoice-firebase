@@ -1,0 +1,23 @@
+
+<div class="container" fxLayout='column'>
+  <md-toolbar color="primary">
+    <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
+    <span class="bi-spacer"></span>
+    <span>{{coName + " Invoices"}}</span>
+    <span class="bi-spacer"></span>
+    <md-icon class="icon" (click)="goToEditCompany()" svgIcon="add"></md-icon>
+  </md-toolbar>
+  <div *ngIf="address">
+    <app-address [address]='address'></app-address>
+  </div>
+  <div *ngIf='invoices'>
+    <app-invoice-list [invoices]='invoices'></app-invoice-list>
+  </div>
+  <div fxLayout="row" fxFlex="1 1 auto">
+    <span class="bi-spacer-button"></span>
+    <!-- <button md-raised-button (click)="goToInvoice()"  >Invoice</button> -->
+    <span class="bi-spacer-button"></span>
+    <span class="bi-spacer-button"></span>
+    <span class="bi-spacer-button"></span>
+  </div>
+</div>

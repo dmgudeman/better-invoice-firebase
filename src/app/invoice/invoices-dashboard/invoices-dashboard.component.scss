@@ -1,0 +1,26 @@
+@import '../../../_variables.scss';
+
+* {
+  font-size: 20px;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 300;
+}
+
+.icon {
+  padding: 0 14px;
+  font-size: 25px;
+  cursor:pointer;
+}
+
+.bi-spacer {
+  flex: 1 1 auto;
+}
+
+.bi-spacer-button {
+  flex: 1 1 auto;
+}
+
+button {
+  margin: 10px;
+}
+

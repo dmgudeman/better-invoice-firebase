@@ -1,131 +1,87 @@
 import { 
-  AfterViewInit,
+  AfterContentInit,
   Component, 
-  OnInit,
-  ViewChild
- }                             from '@angular/core';
-import { DomSanitizer }          from '@angular/platform-browser';
-import { Location }            from '@angular/common';
-import { 
-  MdIconModule,
-  MdIconRegistry,
-  MaterialModule,
- }                               from '@angular/material';
+  OnInit, 
+  Input 
+}                            from '@angular/core';
 import { 
   AngularFireDatabase, 
-  FirebaseListObservable,
+  FirebaseListObservable ,
   FirebaseObjectObservable,
-}                              from 'angularfire2/database';
+}                             from 'angularfire2/database';
+import {Sort} from '@angular/material';
 import {
   Router,
   ActivatedRoute,
   Params 
 }                              from '@angular/router';
-// 3rd party
-import { AngularFireAuth }     from 'angularfire2/auth';
-import { Observable }            from 'rxjs/Observable';
-//Custom
-import * as firebase from 'firebase/app';
-// import { AddressComponent }    from '../../address/address/address.component';
-// import { CompanyService }      from '../company.service';
-import { ItemListComponent }   from '../../item/item-list/item-list.component';
-
+// 3rd Party
+import * as moment                        from 'moment'
+// Custom
+import { Company }             from '../../company/company';
+import { Invoice }                from '../invoice';
+import { Shared } from '../../shared/shared';
 @Component({
-  selector: 'app-company-details',
+  selector: 'app-invoice-list',
   templateUrl: './invoice-list.component.html',
   styleUrls: ['./invoice-list.component.scss']
 })
 export class InvoiceListComponent implements OnInit{
-  // @ViewChild(AddressComponent) addressViewChild: AddressComponent;
-  address;
-  companyKey;
-  company;
-  companiesArray;
-  coId: string;
-  coName: string;
+  @Input() companyKey;
+  arrayOfKeys =[];
   coColor: string;
-  icons=['add', 'chevron-left'];
-  items;
-  user: Observable<firebase.User>
-  userId: string;
+  company: Company;
+  @Input()invoices=[];
+  invoicesArray = [];
+  @Input() public invoice;
+  sortedData
+  shared = new Shared();
+  moment: moment.Moment;
   
   constructor(
-    // private _companyService: CompanyService,
-    // private _invoiceService: InvoiceService,
-    public afAuth: AngularFireAuth,
-    private location: Location,
-    // private companyService:CompanyService,
-    private db: AngularFireDatabase,
+    private db:AngularFireDatabase,
     private route: ActivatedRoute,
-    private iconRegistry: MdIconRegistry,
     private router: Router,
-    private sanitizer: DomSanitizer,
-    ) {
-      this.icons.forEach((icon) =>{
-        iconRegistry.addSvgIcon(
-          icon,
-          sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
-        );
-      });
-      this.user = afAuth.authState;
-    }
+  ) { }
 
   ngOnInit() {
-    this.route.params
-      .subscribe(params => {
-        this.companyKey = params['id']; 
-        this.coId = this.companyKey;
-      });
+  }
+  ngAfterContentInit() {
+    this.invoicesArray = (<any>Object).values(this.invoices);
+    console.log('INVOICESARRAY ', this.invoicesArray);
+    let date;
+    this.invoicesArray.forEach( (invoice) => { 
+      invoice.createdAt = moment(invoice.createdAt).format('MM/DD/YYYY');
+    });
+    this.sortedData = this.invoicesArray.slice();
 
-    if(!this.user){ 
-      console.log('NOT LOGGED IN')
+  }
+    sortData(sort: Sort) {
+    const data = this.invoicesArray.slice();
+    if (!sort.active || sort.direction == '') {
+      this.sortedData = data;
       return;
     }
-    console.log("LOGGED IN", this.user);
 
-    this.afAuth.authState.subscribe ( user => {
-      if (user) {
-          this.userId = user.uid;
-        firebase.database().ref('/companies/' + this.companyKey ).on('value', (snapshot)=> {
-          console.log('snapshot', snapshot.val());
-          this.company = snapshot.val();
-          this.coName = this.company.name
-          this.coColor = this.company.color;
-          this.address = this.company.address;
-          console.log('thiEEEEEEEEE', this.company.items);
-          if (this.company.items) {
-            this.items = (<any>Object).values(this.company.items);
-          }
-            console.log(this.items);
-        });
+    this.sortedData = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'date':  return compare(a.date, b.date, isAsc);
+        case 'amount': return compare(+a.amount, +b.amount, isAsc);
+        case 'hours': return compare(+a.hours, +b.hours, isAsc);
+        default: return 0;
       }
-    });  
+    });
   }
-  
-  
-  goToEditItem() {
-        // let id = item.id;
-        // let coId = item.companyId;
-        // this.router.navigate(['/item-edit/' + id, { id: id, coId: coId }]);
-  }
-  setColor(color) {
-      return color
-  }
-  goToItemDetail(item) {
-  }
-  goToEditCompany() {
-        this.router.navigate(['/company-edit/' + this.coId]);
-
-  }
-  goBack() {
-      this.location.back();
-  }
-  goToInvoice() {
-    this.router.navigate(['/invoice-edit/', {companyKey:this.companyKey}]);
-  }
-
-  getNothing() {
-
+  goToInvoice(invoice){
+    console.log('invoicemmmmmmmmmmmmmms', invoice);
+    console.log('invoiceKey', invoice.invoiceKey);
+    console.log('companyKey', invoice.companyKey);
+    this.router.navigate(['/invoice-edit/', {companyKey: invoice.companyKey, invoiceKey: invoice.invoiceKey}])
   }
 }
+function compare(a, b, isAsc) {
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
 
