@@ -29,6 +29,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule }     from 'angularfire2/auth';
 import { environment }               from '../environments/environment';
 // custom
+import { AddressModule }             from './address/address.module';
 import { AppRoutingModule }          from './app-routing.module';
 import { AppComponent }              from './app.component';
 import { CompanyModule }             from './company/company.module';
@@ -55,6 +56,7 @@ import { Temp2Component }            from './temp/temp2/temp2.component';
     Temp2Component,
   ],
   imports: [
+    AddressModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,

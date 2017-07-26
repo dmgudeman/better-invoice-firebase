@@ -13,7 +13,8 @@ import {
   MdTabsModule,
  }                                   from '@angular/material';
 
-import { AddressComponent }        from '../address/address/address.component';
+import { AddressModule }           from '../address/address.module';
+// import { AddressComponent }        from '../address/address/address.component';
 import { AddressEditComponent }    from '../address/address-edit/address-edit.component';
 // import { AddressService }          from '../address/address.service';
 import { CompaniesComponent }      from './companies/companies.component';
@@ -27,7 +28,7 @@ import { ItemDetailComponent } from '../item/item-detail/item-detail.component';
 
 @NgModule({
   declarations: [
-    AddressComponent,
+    // AddressComponent,
     AddressEditComponent,
     CompaniesComponent,
     CompanyCardComponent,
@@ -38,6 +39,7 @@ import { ItemDetailComponent } from '../item/item-detail/item-detail.component';
     
   ],
   imports: [
+    AddressModule,
     CommonModule,
     FormsModule,
     FlexLayoutModule,
