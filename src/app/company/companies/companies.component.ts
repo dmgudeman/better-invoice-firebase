@@ -85,7 +85,7 @@ export class CompaniesComponent implements OnInit {
     this.router.navigate(['company-edit' ]);
   }
   onLogOut() {
-
+    this.router.navigate(['/login']);
   }
   attachKeys(keys, data){
     for(let i =0; i<data.length; i++){

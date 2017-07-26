@@ -1,5 +1,16 @@
-<h1>Hello {{displayName}}</h1>
-<img *ngIf="photoURL" src="{{photoURL}}" alt="userpic">
-<button (click)="login()">Login</button>
-<button (click)="logout()">Logout</button>
-<button (click)="goToCompanies()">Your Companies" </button>
+<!-- NAVIGATION -->
+<div class="container" fxLayout='column' >
+  <md-toolbar color="primary">
+    <!-- <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon> -->
+    <span class="bi-spacer"></span>
+    <span>Hello {{displayName}}</span>
+    <span class="bi-spacer"></span>
+    <!-- <md-icon class="icon" (click)="goToEditCompany()" svgIcon="add"></md-icon> -->
+  </md-toolbar>
+  <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
+    <h1></h1>
+    <img *ngIf="photoURL" src="{{photoURL}}" alt="userpic">
+    <button md-raised-button class="green" (click)="login()">Login</button>
+    <button md-raised-button class="red" (click)="logout()">Logout</button>
+    <button md-raised-button class="purple" (click)="goToCompanies()">Your Companies</button>
+  </div>
