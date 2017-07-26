@@ -57,6 +57,9 @@ import { ItemDetailComponent } from '../item/item-detail/item-detail.component';
   providers: [
     // AddressService,
     CompanyService,
+  ],
+  exports:[
+    AddressModule,
   ]
 })
 export class CompanyModule { }

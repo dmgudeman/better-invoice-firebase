@@ -26,7 +26,7 @@ import { AngularFireAuth }     from 'angularfire2/auth';
 import { Observable }            from 'rxjs/Observable';
 //Custom
 import * as firebase from 'firebase/app';
-import { AddressComponent }    from '../../address/address/address.component';
+// import { AddressComponent }    from '../../address/address/address.component';
 // import { CompanyService }      from '../company.service';
 import { ItemListComponent }   from '../../item/item-list/item-list.component';
 

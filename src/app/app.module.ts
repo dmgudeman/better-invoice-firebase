@@ -15,6 +15,8 @@ import {
   MdCardModule,
   MdDatepickerModule,
   MdInputModule,
+  MdListItem,
+  MdListModule,
   MdNativeDateModule,
   MdTabsModule,
  }                                   from '@angular/material'
@@ -69,10 +71,15 @@ import { Temp2Component }            from './temp/temp2/temp2.component';
     HttpModule,
     ReactiveFormsModule,
     MaterialModule,
+    MdListModule,
     MdDatepickerModule,
     MdInputModule,
     MdNativeDateModule,
     MdTabsModule,
+  ],
+  exports:[
+    MaterialModule,
+    MdListModule,
   ],
   providers: [
     InvoiceService,

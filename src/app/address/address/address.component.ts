@@ -4,6 +4,13 @@ import {
   Input, 
   OnInit,
 }                         from '@angular/core';
+import { 
+  MdIconModule,
+  MdIconRegistry,
+  MaterialModule,
+  MdListModule,
+  MdListItem,
+ }                               from '@angular/material';
 import { Address }        from '../address';
 
 @Component({
@@ -24,7 +31,7 @@ export class AddressComponent implements OnInit, AfterContentInit {
   constructor() { }
 
   ngOnInit() {}
-  
+
   ngAfterContentInit() {
     if(this.address){
       this.street1 = this.address.street1;

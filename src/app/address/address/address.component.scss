@@ -1,20 +1,21 @@
 @import '../../../_variables.scss';
+@import '~@angular/material/theming';
+
 
 .container {
-  display: flex;
   min-height: 125px;
-  min-width: 150px;
-  max-width: 150px;
 }
-.unit {
-  display: flex;
-  min-height: 30px;
-  width: 450px;
-}
-.unit:first-of-type {
-  margin: 20px 0 0 0;
-}
-.unit:last-of-type {
-  margin: 0 0 20px 0;
-}
+// .unit {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   min-height: 30px;
+// }
+// .unit:first-of-type {
+//   // background-color: accent;
+//   margin: 20px 0 0 0;
+// }
+// .unit:last-of-type {
+//   margin: 0 0 20px 0;
+// }
 
