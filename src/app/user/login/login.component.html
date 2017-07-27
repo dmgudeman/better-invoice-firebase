@@ -1,16 +1,17 @@
 <!-- NAVIGATION -->
 <div class="container" fxLayout='column' >
   <md-toolbar color="primary">
-    <!-- <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon> -->
+    <input (click)="logout()" type="image" src='../../assets/images/logo/large-press.png_48x48.png' alt="logo">
+    <span (click)="logout()">LogOut</span>
     <span class="bi-spacer"></span>
     <span>Hello {{displayName}}</span>
     <span class="bi-spacer"></span>
-    <!-- <md-icon class="icon" (click)="goToEditCompany()" svgIcon="add"></md-icon> -->
+     <md-icon class="icon" (click)="goToCompanies()" svgIcon="chevron-right"></md-icon> 
   </md-toolbar>
   <div fxLayout="column" fxFlex="100%" fxLayoutAlign="space-around center"  >
     <h1></h1>
     <img *ngIf="photoURL" src="{{photoURL}}" alt="userpic">
     <button md-raised-button class="green" (click)="login()">Login</button>
-    <button md-raised-button class="red" (click)="logout()">Logout</button>
-    <button md-raised-button class="purple" (click)="goToCompanies()">Your Companies</button>
+    <!-- <button md-raised-button class="red" (click)="logout()">Logout</button> -->
+    <!-- <button md-raised-button class="purple" (click)="goToCompanies()">Your Companies</button> -->
   </div>

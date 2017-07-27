@@ -41,6 +41,7 @@ import { InvoicePrePdfComponent }    from './invoice/invoice-pre-pdf/invoice-pre
 import { InvoiceService }            from './invoice/invoice.service';
 import { ItemEditComponent }         from './item/item-edit/item-edit.component';
 import { LoginComponent }            from './user/login/login.component';
+import { MyIcons }                   from './shared/my-icons';
 import { RegisterComponent }         from './user/register/register.component';
 import { TempComponent }             from './temp/temp/temp.component';
 import { Temp2Component }            from './temp/temp2/temp2.component';
@@ -82,9 +83,11 @@ import { InvoicesDashboardComponent } from './invoice/invoices-dashboard/invoice
   exports:[
     MaterialModule,
     MdListModule,
+    // MyIcons,
   ],
   providers: [
     InvoiceService,
+    MyIcons,
     RouterOutlet,
   ],
   schemas: [

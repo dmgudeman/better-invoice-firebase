@@ -26,6 +26,7 @@ export class MyIcons {
   };
 
   makeIcons(icons) {
+    console.log('IN MAKEICONS icons', icons);
     icons.forEach((icon) =>{
     this.iconRegistry.addSvgIcon(
       icon,
