@@ -99,6 +99,7 @@ export class CompanyEditComponent implements OnInit{
     this.route.params
       .subscribe(params => { 
         this.companyKey = params['id']
+      this.buildForm(); 
     });
     this.afAuth.authState.subscribe ( user => {
       if (user){
@@ -106,24 +107,32 @@ export class CompanyEditComponent implements OnInit{
         firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
           this.company = snapshot.val();
           this.address = this.company.address;
-          console.log('this.company', this.company);
+          console.log('tttttttttttttttttttttttttttttttttthis.company', this.company);
+          this.buildForm(this.company); 
+
+ if(this.company && this.company.address){
+            console.log('MMMMMMMMMMMMM', this.company.address);
+            this.addressViewChild.myform.setValue(this.company.address);
+          }
+
 
           if(!this.company) this.setactive = true;
             this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
           });
-
-          this.buildForm(this.company); 
-          
-          if(this.company && this.company.address){
-            this.addressViewChild.myform.setValue(this.company.address);
-          }
       }
     });
-      this.buildForm(); 
   }
 
+  // ngAfterViewInit () {
+  //         if(this.company && this.company.address){
+  //           console.log('MMMMMMMMMMMMM', this.company.address);
+  //           this.addressViewChild.myform.setValue(this.company.address);
+  //         }
+  // }
   buildForm(company?) {
-    if(!company && !this.myform){
+
+    if(!this.myform){
+      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBB11111111111111');
       this.setactive = true;
       this.myform = this.fb.group({
         name: ['', Validators.required],
@@ -134,6 +143,8 @@ export class CompanyEditComponent implements OnInit{
       });
     }
     if(company ) {
+      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBB22222222222222');
+      
       this.setactive = this.company.active;
       this.myform = this.fb.group({
         name:this.company.name,
