@@ -94,12 +94,16 @@ export class ItemEditComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
       this.itemKey = params[ 'itemKey']
-    });
-    // obtain the company
+
+      // obtain the company
     this.db.object('/companies/'+ this.companyKey ).subscribe(data => {
       this.company = data; 
       this.coName = this.company.name;
+      console.log(`this.company.name ${this.company.name}`);
+      this.makeTitle(this.coName);
     });
+    });
+    
 
     // obtain the item if it is pre-existing
     if (this.itemKey){

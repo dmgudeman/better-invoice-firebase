@@ -52,9 +52,11 @@ export class InvoiceEditComponent implements OnInit {
   
   createdAt;
   company: Company;
-  companyId: string;
+  companyKey: string;
+  coName: string;
   errorMessage: string;
   invoice:any;
+  invoiceKey: string;
   invoices: FirebaseListObservable<any[]>;
   invoiceRes: FirebaseObjectObservable<any>;
   item;
@@ -87,31 +89,67 @@ export class InvoiceEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.myform = this.fb.group({
-      beginDate: '',
-      endDate: '',
-      description: '',
-      amount: '',
-      discount: '',
-      companyId: '',
-    });
+
     this.route.params.subscribe(params => {
-      this.companyId = params['companyKey'];
-      console.log('companyId', this.companyId);
+      this.companyKey = params['companyKey'];
+      this.invoiceKey = params['invoiceId']
+      console.log('companyKey', this.companyKey);
     });
-    this.invoices = this.db.list('/invoices')
-    this.db.object('/companies/'+ this.companyId).subscribe(data => {
-      this.company = data; 
-      this.items = this.company.items;
-      console.log('this.items', this.items);
-      console.log('data ', this.company.name)});
+
+    this.db.object('/companies/'+ this.companyKey).subscribe(data => {
+      this.company = data;
+      this.coName = this.company.name; 
+      // this.items = this.company.items;
+      // console.log('this.items', this.items);
+      // console.log('data ', this.company.name)
+      this.makeTitle(this.coName);
+    });
+    
+    this.db.object('/invoices/'+ this.invoiceKey).subscribe(data => {
+      this.invoice = data;
+      this.buildForm(this.invoice);
+      this.coName = this.company.name; 
+      // this.items = this.company.items;
+      // console.log('this.items', this.items);
+      // console.log('data ', this.company.name);
+      this.makeTitle(this.coName);
+    });
+      
+      this.buildForm();
+  }
+     
+  buildForm(invoice?) {
+    if(!this.invoice){
+      this.myform = this.fb.group({
+        beginDate: '',
+        endDate: '',
+        description: '',
+        amount: '',
+        discount: '',
+        companyKey: '',
+      });
     }
+    if(invoice) {
+      this.myform = this.fb.group({
+        beginDate: invoice.beginDate,
+        endDate: invoice.endDate,
+        description: invoice.description,
+        amount: invoice.amount,
+        discount: invoice.discount,
+        companyKey: invoice.companyKey,
+        invoiceKey: invoice.invoiceKey,
+      });
+      return this.myform;
+    }
+  }
   
+  makeTitle(coName:string, invoiceId?:string){
+    this.title = (this.invoiceKey) ? " Edit Invoice for " + this.coName : " New Invoice for " + this.coName;
+  }
   onFormChange() {
     this.myform.valueChanges.subscribe(data => {
       this.filterByDateRange(data.beginDate, data.endDate)
       this.output = data
-      console.log('DAAAAATTTTTTTTTAAAAAAAAAA', data);
     })
   }
 
@@ -128,7 +166,7 @@ export class InvoiceEditComponent implements OnInit {
   }
 
   goToPrePdf() {
-    let id = this.companyId;
+    let id = this.companyKey;
     this.router.navigate(['/invoice-pre-pdf', id]);
   }
   
@@ -168,7 +206,7 @@ export class InvoiceEditComponent implements OnInit {
     let edate= this.myform.value.endDate;
 
     this.invoice = this.myform.value;
-    this.invoice.companyId = this.companyId;
+    this.invoice.companyKey = this.companyKey;
     this.invoice.createdAt = this.createdAt;
     this.invoice.items = this.filterByDateRange(bdate, edate);
     let invoiceTotal = 0;
@@ -177,18 +215,14 @@ export class InvoiceEditComponent implements OnInit {
         invoiceTotal = invoiceTotal + i.total;
       });
     this.invoice.total = invoiceTotal;
-    // console.log('TTTTTTTTTTTTTTTTTTT', this.invoice.items);
-    // console.log(this.invoice);
-    // console.log(this.company);
-
     
     // Get a key for a new Invoice
-    let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyId).push().key;
+    let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyKey).push().key;
     
     // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
     let updates = {};
     updates['/invoices/' + newInvoiceKey] = this.invoice;
-    updates['/companies/'+ this.companyId + '/invoices/' + newInvoiceKey] = this.invoice;
+    updates['/companies/'+ this.companyKey + '/invoices/' + newInvoiceKey] = this.invoice;
     this.db.app.database().ref().update(updates);
 
     this.router.navigate(['/invoice-pre-pdf/' + newInvoiceKey ]);

@@ -111,18 +111,20 @@ export class CompanyEditComponent implements OnInit{
             this.addressViewChild.myform.setValue(this.company.address);
           }
          
-          this.buildForm(); 
           
+          console.log('this.company', this.company);
+
           if(!this.company) this.setactive = true;
           this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
           });
+          this.buildForm(this.company); 
       }
     });
       this.buildForm(); 
   }
 
-  buildForm() {
-    if(!this.myform){
+  buildForm(company?) {
+    if(!company && !this.myform){
       this.setactive = true;
       this.myform = this.fb.group({
         name: ['', Validators.required],
@@ -132,7 +134,7 @@ export class CompanyEditComponent implements OnInit{
         active: '',
       });
     }
-    if(this.company) {
+    if(company ) {
       this.setactive = this.company.active;
       this.myform = this.fb.group({
         name:this.company.name,

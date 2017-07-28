@@ -61,7 +61,7 @@ export class AddressEditComponent implements OnInit {
   ngOnInit() {
 
     if(this.company)
-      console.log('company.name in ngOnInit', this.company.name);
+      console.log('AAAAAAAAAAAAAAAAAAAAAAADDDDDDDDDDDcompany.name in ngOnInit', this.company.name);
     if(this.address) {
       this.buildForm(this.address);
     }
