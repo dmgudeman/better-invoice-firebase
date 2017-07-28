@@ -9,8 +9,8 @@
   <!--  FORM -->
   <div fxLayout="row" fxFlex="100%" flexLayoutWrap fxLayoutAlign="space-around center"  >
     <form [formGroup]="myform"  (ngSubmit)="onSubmit()" novalidate  fxLayoutWrap fxFlex="100%">
-      <md-tab-group fxFlex="100%">
-        <md-tab label="General" >
+       <div fxFlex="100%"> 
+        <!-- <md-tab label="General" > -->
          
           <!-- ================ ROW1 =============================== -->
           <div class="row"fxLayout="row"  fxLayoutAlign="space-around center" fxGap="10px" >
@@ -67,9 +67,21 @@
           <div class="row" fxLayout="row" fxLayoutAlign="space-around center">
             <div fxLayout="column" fxFlex="20%"></div>
              <div  fxFlex="35%"fxLayout="column">
-                <app-address-auto
-                  (onAddress)= "onAddress($event)" ></app-address-auto>
-              </div>
+               <md-input-container class="example-full-width">
+    <input 
+      mdInput 
+      id="address" 
+      placeholder="search for location" 
+      autocorrect="off" 
+      autocapitalize="off" 
+      spellcheck="off" 
+      type="text" 
+      class="form-control"
+      formControlName="searchControl"
+    >
+  </md-input-container> 
+               
+            </div> 
                 <div   fxLayout="column" fxFlex=50%>
                   <label id="label5" class="input unit">Active company</label> 
                   <div id="input4" class="input ec-input unit">
@@ -85,11 +97,11 @@
               </div>
              
             </div>
-          </md-tab>
+          <!-- </md-tab>
           <md-tab label="Address" fxLayout="column" >
             <app-address-edit ></app-address-edit>
-          </md-tab>
-        </md-tab-group>
+          </md-tab> -->
+         </div> 
              <div fxLayout="row" class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
               <div fxLayout="column" fxFlex="350px"></div> 
               <div fxLayout="column" fxFlex=5%>

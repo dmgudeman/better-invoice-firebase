@@ -46,8 +46,8 @@ import * as firebase from 'firebase/app';
 
 // Custom
 import { Address }               from '../../address/address';
-import { AddressAutoComponent }  from '../../address/address-auto/address-auto.component';
-import { AddressService }        from '../../address/address.service';
+// import { AddressAutoComponent }  from '../../address/address-auto/address-auto.component';
+// import { AddressService }        from '../../address/address.service';
 import { Company }               from '../company';
 
 @Component({
@@ -56,7 +56,7 @@ import { Company }               from '../company';
   styleUrls: ['./company-edit.component.scss']
 })
 export class CompanyEditComponent implements OnInit{
-  @ViewChild(AddressAutoComponent) addressViewChild: AddressAutoComponent;
+  // @ViewChild(AddressAutoComponent) addressViewChild: AddressAutoComponent;
 
   address: google.maps.places.PlaceResult;
   addr;
@@ -76,7 +76,7 @@ export class CompanyEditComponent implements OnInit{
 
   constructor(
     public afAuth: AngularFireAuth,
-    private addressService: AddressService,
+    // private addressService: AddressService,
     private db: AngularFireDatabase,
     private fb: FormBuilder,
     private iconRegistry: MdIconRegistry,
@@ -117,13 +117,8 @@ export class CompanyEditComponent implements OnInit{
           console.log('TTTTTTTTTTTTTTTTTTTTif ', this.company.address)
           if(this.company && this.company.address){
             console.log('HHHHHHHHHHHHHHHHHHh', this.company.address);
-            this.addressService.setAddress(this.company.address);
+            // this.addressService.setAddress(this.company.address);
           }
-
-
-
-
-          
           if(!this.company) this.setactive = true;
             this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
           });
@@ -145,9 +140,10 @@ export class CompanyEditComponent implements OnInit{
         hourly:'',
         paymentTerms: '',
         active: '',
+        searchControl: '',
       });
       //  this.addressViewChild.address = '';
-      this.addressService.setAddress('');
+      // this.addressService.setAddress('');
     }
     if(company ) {
       console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBB22222222222222');
@@ -159,14 +155,11 @@ export class CompanyEditComponent implements OnInit{
         hourly: this.company.hourly,
         paymentTerms: this.company.paymentTerms,
         active: this.setactive,
+        searchControl: this.company.address,
       });
-      this.addressService.setAddress(this.company.address);
+      // this.addressService.setAddress(this.company.address);
       return this.myform
     }
-  }
-  ngAfterViewInit() {
-    if(this.company && this.company.address)
-      this.addressViewChild.address = this.company.address;
   }
 
   toggleActive() {

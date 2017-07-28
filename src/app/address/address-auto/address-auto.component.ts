@@ -77,7 +77,6 @@ export class AddressAutoComponent implements AfterViewInit {
       });
     }
   }
-  
 
   ngAfterViewInit() {
  //set google maps defaults
@@ -87,7 +86,6 @@ export class AddressAutoComponent implements AfterViewInit {
     
     //create search FormControl
     console.log('TTHHHHHUSSSSSSSS ADDRESSSSSSSSSSS', this.address);
-     <HTMLInputElement>document.getElementById("address")
     //set current position
     // this.setCurrentPosition();
     
