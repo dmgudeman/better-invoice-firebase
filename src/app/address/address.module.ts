@@ -1,6 +1,12 @@
 import { NgModule }              from '@angular/core';
 import { CommonModule }          from '@angular/common';
-import { ReactiveFormsModule }        from '@angular/forms';
+import { 
+  FormBuilder, 
+  FormControl, 
+  FormGroup, 
+  FormsModule, 
+  ReactiveFormsModule, 
+}                                from '@angular/forms';
 import { MaterialModule }        from '@angular/material';
 // 3rd Party
 import { AgmCoreModule }             from 'angular2-google-maps/core';
@@ -20,7 +26,9 @@ import { AddressAutoComponent } from './address-auto/address-auto.component';
     }),
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule,
+  // FormControl, FormGroup, 
+  FormsModule, 
+  ReactiveFormsModule, 
   ],
   declarations: [
     AddressComponent, 

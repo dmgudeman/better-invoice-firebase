@@ -7,30 +7,36 @@ import {
   ElementRef,
  }                        from '@angular/core';
 import { 
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
- }                        from '@angular/forms';
-import { Company }        from '../../company/company';
-import { Address }        from '../address';
+  FormBuilder, 
+  FormControl, 
+  FormGroup, 
+  FormsModule, 
+  ReactiveFormsModule }          from '@angular/forms';
+import { MaterialModule } from '@angular/material';
+// 3rd Party
 import { 
   AgmCoreModule, 
   MapsAPILoader 
 }                         from 'angular2-google-maps/core';
 import { }                from '@types/googlemaps';
 
+// Custom
+import { Company }        from '../../company/company';
+import { Address }        from '../address';
+
 
 @Component({
   selector: 'app-address-auto',
-  template: `
-    <div class="container">
-      <h1>Angular 2 + Google Maps Places Autocomplete</h1>
-      <div class="form-group">
-        <input id="address" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control">
-      </div>
-     
-    </div>
+  // templateUrl: './address-auto.component.html',
+  template: 
+  `
+
+  <form class="example-form">
+  <md-input-container class="example-full-width">
+    <input mdInput id="address" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control">
+  </md-input-container>
+  </form>
+   
   `
   ,
   styleUrls: ['./address-auto.component.scss']
