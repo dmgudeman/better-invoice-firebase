@@ -26,6 +26,7 @@ import {
   RouterOutlet 
 }                                    from '@angular/router';
 // 3rd party
+import { AgmCoreModule }             from '@agm/core';
 import { AngularFireModule }         from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule }     from 'angularfire2/auth';
@@ -62,6 +63,9 @@ import { InvoicesDashboardComponent } from './invoice/invoices-dashboard/invoice
   ],
   imports: [
     AddressModule,
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyBcnyegbgQ6MLbeopaGx2SNV1vfIrK57yc'
+    // }),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,

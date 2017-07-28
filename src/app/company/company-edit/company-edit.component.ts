@@ -105,16 +105,13 @@ export class CompanyEditComponent implements OnInit{
       if (user){
         this.userId = user.uid;
         firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
+          
           this.company = snapshot.val();
-          this.address = this.company.address;
-          console.log('tttttttttttttttttttttttttttttttttthis.company', this.company);
           this.buildForm(this.company); 
 
- if(this.company && this.company.address){
-            console.log('MMMMMMMMMMMMM', this.company.address);
+          if(this.company && this.company.address){
             this.addressViewChild.myform.setValue(this.company.address);
           }
-
 
           if(!this.company) this.setactive = true;
             this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
@@ -123,12 +120,6 @@ export class CompanyEditComponent implements OnInit{
     });
   }
 
-  // ngAfterViewInit () {
-  //         if(this.company && this.company.address){
-  //           console.log('MMMMMMMMMMMMM', this.company.address);
-  //           this.addressViewChild.myform.setValue(this.company.address);
-  //         }
-  // }
   buildForm(company?) {
 
     if(!this.myform){

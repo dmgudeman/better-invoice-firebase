@@ -2,6 +2,7 @@ import { NgModule }                   from '@angular/core';
 import { RouterModule, Routes }       from '@angular/router';
 // Custom
 import { AddressEditComponent }       from './address/address-edit/address-edit.component';
+import { AddressAutoComponent }       from './address/address-auto/address-auto.component';
 import { CompaniesComponent }         from './company/companies/companies.component';
 import { CompanyCardComponent }       from './company/company-card/company-card.component';
 import { CompanyDetailsComponent }    from './company/company-details/company-details.component';
@@ -14,13 +15,14 @@ import { InvoiceEditComponent }       from './invoice/invoice-edit/invoice-edit.
 import { InvoicesDashboardComponent } from './invoice/invoices-dashboard/invoices-dashboard.component';
 import { LoginComponent }             from './user/login/login.component';
 // import { NotFoundComponent }        from './not-found/not-found.component'o;
-import { TempComponent }              from './temp/temp/temp.component';
-import { Temp2Component }             from './temp/temp2/temp2.component';
+// import { TempComponent }              from './temp/temp/temp.component';
+// import { Temp2Component }             from './temp/temp2/temp2.component';
 
 
 export const APP_ROUTES: Routes = [
   { path: '',  redirectTo: '/login', pathMatch: 'full'}, 
   { path: 'address',              component: AddressEditComponent },
+  { path: 'address-auto',         component: AddressAutoComponent },
   { path: 'item-edit/:id',        component: ItemEditComponent },
   { path: 'item-edit',            component: ItemEditComponent },
   { path: 'login',                component: LoginComponent},
@@ -32,8 +34,8 @@ export const APP_ROUTES: Routes = [
   { path: 'invoice-edit/:id',     component: InvoiceEditComponent },
   // { path: 'invoice-pre-pdf',      component: InvoicePrePdfComponent },
   { path: 'invoice-pre-pdf/:id',  component: InvoicePrePdfComponent },
-  { path: 'temp',                 component: TempComponent },
-  { path: 'temp2',                component: Temp2Component },
+  // { path: 'temp',                 component: TempComponent },
+  // { path: 'temp2',                component: Temp2Component },
   { path: 'companies',            component: CompaniesComponent}, 
   { path: 'company-card/:id',     component: CompanyCardComponent}, 
   { path: 'company-edit',         component: CompanyEditComponent}, 
