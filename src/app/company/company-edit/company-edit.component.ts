@@ -106,18 +106,17 @@ export class CompanyEditComponent implements OnInit{
         firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
           this.company = snapshot.val();
           this.address = this.company.address;
-
-          if(this.company && this.company.address){
-            this.addressViewChild.myform.setValue(this.company.address);
-          }
-         
-          
           console.log('this.company', this.company);
 
           if(!this.company) this.setactive = true;
-          this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
+            this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
           });
+
           this.buildForm(this.company); 
+          
+          if(this.company && this.company.address){
+            this.addressViewChild.myform.setValue(this.company.address);
+          }
       }
     });
       this.buildForm(); 
