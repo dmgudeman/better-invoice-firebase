@@ -46,7 +46,8 @@ import * as firebase from 'firebase/app';
 
 // Custom
 import { Address }               from '../../address/address';
-import { AddressEditComponent }  from '../../address/address-edit/address-edit.component';
+import { AddressAutoComponent }  from '../../address/address-auto/address-auto.component';
+import { AddressService }        from '../../address/address.service';
 import { Company }               from '../company';
 
 @Component({
@@ -55,8 +56,10 @@ import { Company }               from '../company';
   styleUrls: ['./company-edit.component.scss']
 })
 export class CompanyEditComponent implements OnInit{
-  @ViewChild(AddressEditComponent) addressViewChild: AddressEditComponent;
-  address;
+  @ViewChild(AddressAutoComponent) addressViewChild: AddressAutoComponent;
+
+  address: google.maps.places.PlaceResult;
+  addr;
   coName;
   company:Company;
   companiesByUser: FirebaseListObservable<any[]>
@@ -69,9 +72,11 @@ export class CompanyEditComponent implements OnInit{
   title;
   user: Observable<firebase.User>
   userId: string;
+  $event
 
   constructor(
     public afAuth: AngularFireAuth,
+    private addressService: AddressService,
     private db: AngularFireDatabase,
     private fb: FormBuilder,
     private iconRegistry: MdIconRegistry,
@@ -109,15 +114,24 @@ export class CompanyEditComponent implements OnInit{
           this.company = snapshot.val();
           this.buildForm(this.company); 
 
+          console.log('TTTTTTTTTTTTTTTTTTTTif ', this.company.address)
           if(this.company && this.company.address){
-            this.addressViewChild.myform.setValue(this.company.address);
+            console.log('HHHHHHHHHHHHHHHHHHh', this.company.address);
+            this.addressService.setAddress(this.company.address);
           }
 
+
+
+
+          
           if(!this.company) this.setactive = true;
             this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
           });
       }
     });
+  }
+  onAddress($event){
+    this.address = $event;
   }
 
   buildForm(company?) {
@@ -132,6 +146,8 @@ export class CompanyEditComponent implements OnInit{
         paymentTerms: '',
         active: '',
       });
+      //  this.addressViewChild.address = '';
+      this.addressService.setAddress('');
     }
     if(company ) {
       console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBB22222222222222');
@@ -144,8 +160,13 @@ export class CompanyEditComponent implements OnInit{
         paymentTerms: this.company.paymentTerms,
         active: this.setactive,
       });
-      return this.myform;
+      this.addressService.setAddress(this.company.address);
+      return this.myform
     }
+  }
+  ngAfterViewInit() {
+    if(this.company && this.company.address)
+      this.addressViewChild.address = this.company.address;
   }
 
   toggleActive() {
@@ -157,9 +178,16 @@ export class CompanyEditComponent implements OnInit{
     }
 
   onSubmit() {
-    this.address = this.addressViewChild.myform.value;
+    // this.addressViewChild.onAddress.subscribe( data => {
+    //   this.address = data;
+    //   console.log('THHHHHHHHHISSSSSSSSS address = ', this.address);
+    // }
+    // );
   
     console.log('this.address ', this.address);
+    this.addr = this.address.formatted_address;
+
+    console.log('this.addr', this.addr);
     if (!this.myform.value.name){
       this.router.navigate(['companies']);
       return;
@@ -180,11 +208,11 @@ export class CompanyEditComponent implements OnInit{
         hourly:hourly, 
         active:true, 
         userId: this.userId, 
-        address: this.address
+        address: this.addr
     }
 
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
-    console.log('newCompanyKey', newCompanyKey);
+    // console.log('newCompanyKey', newCompanyKey);
 
     if(!this.companyKey){
       let updates = {};

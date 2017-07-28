@@ -12,8 +12,10 @@ import { MaterialModule }        from '@angular/material';
 import { AgmCoreModule }             from 'angular2-google-maps/core';
 
 // Custom
-import { AddressComponent } from './address/address.component';
-import { AddressAutoComponent } from './address-auto/address-auto.component';
+import { AddressComponent }         from './address/address.component';
+import { AddressAutoComponent }     from './address-auto/address-auto.component';
+import { AddressProducerComponent } from './address-producer/address-producer.component';
+import { AddressService }           from './address.service';
 
 @NgModule({
   imports: [
@@ -32,7 +34,10 @@ import { AddressAutoComponent } from './address-auto/address-auto.component';
   ],
   declarations: [
     AddressComponent, 
-    AddressAutoComponent,
+    AddressAutoComponent, AddressProducerComponent,
+  ],
+  providers: [
+    AddressService,
   ],
   exports:[
      AddressComponent,

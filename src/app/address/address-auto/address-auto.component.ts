@@ -1,10 +1,13 @@
 import { 
+  AfterViewInit,
   Component, 
+  ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   NgZone,
   ViewChild,
-  ElementRef,
  }                        from '@angular/core';
 import { 
   FormBuilder, 
@@ -23,51 +26,68 @@ import { }                from '@types/googlemaps';
 // Custom
 import { Company }        from '../../company/company';
 import { Address }        from '../address';
+import { AddressService } from '../address.service';
 
 
 @Component({
   selector: 'app-address-auto',
-  // templateUrl: './address-auto.component.html',
-  template: 
-  `
-
-  <form class="example-form">
-  <md-input-container class="example-full-width">
-    <input mdInput id="address" placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control">
-  </md-input-container>
-  </form>
-   
-  `
-  ,
+  templateUrl: './address-auto.component.html',
   styleUrls: ['./address-auto.component.scss']
 })
-export class AddressAutoComponent implements OnInit {
+export class AddressAutoComponent implements AfterViewInit {
   @Input() company: Company;
-  @Input() address:Address;
+  @Input() address;
+  @Output() onAddress = new EventEmitter<any>();
+
   public latitude: number;
   public longitude: number;
   public searchControl: FormControl;
   public zoom: number;
+  myform: FormGroup;
   
   @ViewChild("search")
   public searchElementRef: ElementRef;
   
   constructor(
+    private fb:FormBuilder,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private addressService: AddressService,
   ) {}
   
+  ngOnInit() {
+
+    if(this.company)
+      console.log('AAAAAAAAAAAAAAAAAAAAAAADDDDDDDDDDDcompany.name in ngOnInit', this.company.name);
+    if(this.addressService.getAddress()) {
+      this.address = this.addressService.getAddress() 
+      this.buildForm(this.address);
+    }
+    this.buildForm(); 
+  } 
+
+  buildForm(address?) {
+    if(address){
+      this.myform = this.fb.group({
+        searchControl: this.address
+    });
+    } else{
+      this.myform = this.fb.group({
+        searchControl: '' 
+      });
+    }
+  }
   
 
-  ngOnInit() {
+  ngAfterViewInit() {
  //set google maps defaults
     this.zoom = 4;
     this.latitude = 39.8282;
     this.longitude = -98.5795;
     
     //create search FormControl
-    this.searchControl = new FormControl();
-    
+    console.log('TTHHHHHUSSSSSSSS ADDRESSSSSSSSSSS', this.address);
+     <HTMLInputElement>document.getElementById("address")
     //set current position
     // this.setCurrentPosition();
     
@@ -81,6 +101,8 @@ export class AddressAutoComponent implements OnInit {
             this.ngZone.run(() => {
                 // get the place result
                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                this.onAddress.emit(place);
                 // add map calls here
             });
         });
@@ -98,3 +120,5 @@ export class AddressAutoComponent implements OnInit {
   // }
 
 }
+
+// http://brianflove.com/2016/10/18/angular-2-google-maps-places-autocomplete/

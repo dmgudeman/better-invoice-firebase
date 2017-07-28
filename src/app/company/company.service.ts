@@ -10,9 +10,10 @@ import {
 // 3rd party
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase       from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
+import { Observable }      from 'rxjs/Observable';
+import { Subject }         from 'rxjs/Subject';
 // Custom
-import { Company } from './company';
+import { Company }         from './company';
 
 @Injectable()
 export class CompanyService implements OnInit {
@@ -102,7 +103,6 @@ export class CompanyService implements OnInit {
       payload
     })
     return payload;
-
   }
 
 }
