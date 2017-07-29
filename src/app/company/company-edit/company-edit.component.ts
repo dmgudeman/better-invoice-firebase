@@ -44,15 +44,16 @@ import {
 import { $ }                     from 'jquery';
 import { Observable }            from 'rxjs/Observable';
 import 'rxjs/add/operator/take'; 
-import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import { AngularFireAuth }       from 'angularfire2/auth';
+import * as firebase             from 'firebase/app';
 import { 
   AgmCoreModule, 
   MapsAPILoader 
-}                         from 'angular2-google-maps/core';
+}                                from 'angular2-google-maps/core';
 
 // Custom
 import { Address }               from '../../address/address';
+import { AddressService }        from '../../address/address.service';
 // import { AddressAutoComponent }  from '../../address/address-auto/address-auto.component';
 // import { AddressService }        from '../../address/address.service';
 import { Company }               from '../company';
@@ -64,9 +65,10 @@ import { Company }               from '../company';
 })
 export class CompanyEditComponent implements OnInit{
   // @ViewChild(AddressAutoComponent) addressViewChild: AddressAutoComponent;
-   @Output() onAddress = new EventEmitter<any>();
+  //  @Output() onAddress = new EventEmitter<any>();
 
-  address: google.maps.places.PlaceResult;
+  // address: google.maps.places.PlaceResult;
+  address: string;
   addr;
   coName;
   company:Company;
@@ -84,6 +86,7 @@ export class CompanyEditComponent implements OnInit{
 
   constructor(
     public afAuth: AngularFireAuth,
+    public addressService:AddressService,
     private db: AngularFireDatabase,
     private fb: FormBuilder,
     private iconRegistry: MdIconRegistry,
@@ -120,30 +123,35 @@ export class CompanyEditComponent implements OnInit{
         firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
           
           this.company = snapshot.val();
+          this.addressService.publishData(this.company.address);
+          this.addressService.address.subscribe( data => {
+            console.log('In ngOnInit CE data=', data);
+            this.address = data;
+          })
           this.buildForm(this.company); 
-           //create search FormControl
-  // ========================================================
-    
-    //load Places Autocomplete
-     this.mapsAPILoader.load().then(() => {
-        let autocomplete = new google.maps.places.Autocomplete(
-            <HTMLInputElement>document.getElementById("address"), {
-            types: ['address']
-        });
-        autocomplete.addListener('place_changed', () => {
-            this.ngZone.run(() => {
-                // get the place result
-                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-                this.onAddress.emit(place);
-                console.log('place', place);
-                this.addr = place.formatted_address;
-            });
-        });
-    });
-// ========================================================
-          if(this.company && this.company.address){
-          }
+           //create search FormControl
+//   // ========================================================
+    
+//     //load Places Autocomplete
+//      this.mapsAPILoader.load().then(() => {
+//         let autocomplete = new google.maps.places.Autocomplete(
+//             <HTMLInputElement>document.getElementById("address"), {
+//             types: ['address']
+//         });
+//         autocomplete.addListener('place_changed', () => {
+//             this.ngZone.run(() => {
+//                 // get the place result
+//                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+//                 this.onAddress.emit(place);
+//                 console.log('place', place);
+//                 this.addr = place.formatted_address;
+//             });
+//         });
+//     });
+// // ========================================================
+         
           if(!this.company) this.setactive = true;
             this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
           });
@@ -165,7 +173,6 @@ export class CompanyEditComponent implements OnInit{
         hourly:'',
         paymentTerms: '',
         active: '',
-        searchControl: '',
       });
     }
     if(company ) {
@@ -176,7 +183,6 @@ export class CompanyEditComponent implements OnInit{
         hourly: this.company.hourly,
         paymentTerms: this.company.paymentTerms,
         active: this.setactive,
-        searchControl: this.company.address,
       });
       return this.myform
     }
@@ -191,14 +197,14 @@ export class CompanyEditComponent implements OnInit{
     }
 
   onSubmit() {
-    console.log('this.address ', this.address);
-    if (this.address) this.addr = this.address.formatted_address;
+    // console.log('this.address ', this.address);
+    // if (this.address) this.addr = this.address.formatted_address;
 
-    console.log('this.addr', this.addr);
-    if (!this.myform.value.name){
-      this.router.navigate(['companies']);
-      return;
-    }
+    // console.log('this.addr', this.addr);
+    // if (!this.myform.value.name){
+    //   this.router.navigate(['companies']);
+    //   return;
+    // }
 
     let mf = this.myform.value;
       let name = mf.name;
@@ -215,7 +221,6 @@ export class CompanyEditComponent implements OnInit{
         hourly:hourly, 
         active:true, 
         userId: this.userId, 
-        address: this.addr,
     }
 
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;

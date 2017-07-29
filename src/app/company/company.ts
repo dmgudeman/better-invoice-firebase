@@ -8,10 +8,10 @@ export class Company {
   userId:string;
   items:{};
   invoices:{};
-  address:{}
+  address:string
 
   constructor(name:string, color:string, hourly:number, paymentTerms:number, active:boolean, userId:string, 
-              items:{}, invoices:{}, address:{}){
+              items:{}, invoices:{}, address){
     this.name = name;
     this.color = color;
     this.hourly= hourly;

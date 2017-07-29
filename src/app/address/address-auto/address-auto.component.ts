@@ -6,7 +6,6 @@ import {
   Input,
   OnInit,
   Output,
-  NgZone,
   ViewChild,
  }                        from '@angular/core';
 import { 
@@ -16,12 +15,12 @@ import {
   FormsModule, 
   ReactiveFormsModule }          from '@angular/forms';
 import { MaterialModule } from '@angular/material';
-// 3rd Party
-import { 
-  AgmCoreModule, 
-  MapsAPILoader 
-}                         from 'angular2-google-maps/core';
-import { }                from '@types/googlemaps';
+// // 3rd Party
+// import { 
+//   AgmCoreModule, 
+//   MapsAPILoader 
+// }                         from 'angular2-google-maps/core';
+// import { }                from '@types/googlemaps';
 
 // Custom
 import { Company }        from '../../company/company';
@@ -34,78 +33,81 @@ import { AddressService } from '../address.service';
   templateUrl: './address-auto.component.html',
   styleUrls: ['./address-auto.component.scss']
 })
-export class AddressAutoComponent implements AfterViewInit {
-  @Input() company: Company;
-  @Input() address;
-  @Output() onAddress = new EventEmitter<any>();
+export class AddressAutoComponent {
+  // @Input() company: Company;
+  // @Input() address;
+  // @Output() onAddress = new EventEmitter<any>();
 
-  public latitude: number;
-  public longitude: number;
-  public searchControl: FormControl;
-  public zoom: number;
+  
+  searchAddress: any = '';;
+
+  // public latitude: number;
+  // public longitude: number;
+  // public searchControl: FormControl;
+  // public zoom: number;
   myform: FormGroup;
   
-  @ViewChild("search")
   public searchElementRef: ElementRef;
   
   constructor(
     private fb:FormBuilder,
-    private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
     private addressService: AddressService,
   ) {}
   
   ngOnInit() {
 
-    if(this.company)
-      console.log('AAAAAAAAAAAAAAAAAAAAAAADDDDDDDDDDDcompany.name in ngOnInit', this.company.name);
-    if(this.addressService.getAddress()) {
-      this.address = this.addressService.getAddress() 
-      this.buildForm(this.address);
-    }
     this.buildForm(); 
+    this.addressService.address.subscribe( data => {
+      console.log('address-auto received from company-edit', data);
+      this.searchAddress = data;
+      this.myform.patchValue({
+        address: data
+      });
+    });
   } 
 
   buildForm(address?) {
-    if(address){
-      this.myform = this.fb.group({
-        searchControl: this.address
-    });
-    } else{
-      this.myform = this.fb.group({
-        searchControl: '' 
-      });
-    }
+    this.myform = this.fb.group ({
+      address: ''
+    }) 
   }
 
-  ngAfterViewInit() {
+  onSubmit(): void {
+        // console.log('Sibling1Component-received from sibling2: ' + this._sharedService.subscribeData());
+        console.log('Form submitted-sibling1Form');
+        let address = this.myform.get('address').value;
+        this.searchAddress = address;
+        this.addressService.publishData(address);
+    }
+}
+  // ngAfterViewInit() {
  //set google maps defaults
-    this.zoom = 4;
-    this.latitude = 39.8282;
-    this.longitude = -98.5795;
+    // this.zoom = 4;
+    // this.latitude = 39.8282;
+    // this.longitude = -98.5795;
     
     //create search FormControl
-    console.log('TTHHHHHUSSSSSSSS ADDRESSSSSSSSSSS', this.address);
+    // console.log('TTHHHHHUSSSSSSSS ADDRESSSSSSSSSSS', this.address);
     //set current position
     // this.setCurrentPosition();
     
     //load Places Autocomplete
-     this.mapsAPILoader.load().then(() => {
-        let autocomplete = new google.maps.places.Autocomplete(
-            <HTMLInputElement>document.getElementById("address"), {
-            types: ['address']
-        });
-        autocomplete.addListener('place_changed', () => {
-            this.ngZone.run(() => {
-                // get the place result
-                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+    //  this.mapsAPILoader.load().then(() => {
+    //     let autocomplete = new google.maps.places.Autocomplete(
+    //         <HTMLInputElement>document.getElementById("address"), {
+    //         types: ['address']
+    //     });
+    //     autocomplete.addListener('place_changed', () => {
+    //         this.ngZone.run(() => {
+    //             // get the place result
+    //             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-                this.onAddress.emit(place);
-                // add map calls here
-            });
-        });
-    });
-  }
+    //             this.onAddress.emit(place);
+    //             // add map calls here
+    //         });
+    //     });
+    // });
+  // }
   
   // private setCurrentPosition() {
   //   if ("geolocation" in navigator) {
@@ -117,6 +119,6 @@ export class AddressAutoComponent implements AfterViewInit {
   //   }
   // }
 
-}
+
 
 // http://brianflove.com/2016/10/18/angular-2-google-maps-places-autocomplete/
