@@ -66,49 +66,44 @@
           <!-- ================ ROW3 =============================== -->
           <div class="row" fxLayout="row" fxLayoutAlign="space-around center">
             <div fxLayout="column" fxFlex="20%"></div>
-             <div  fxFlex="35%"fxLayout="column">
-               <md-input-container class="example-full-width">
-    <input 
-      mdInput 
-      id="address" 
-      placeholder="search for location" 
-      autocorrect="off" 
-      autocapitalize="off" 
-      spellcheck="off" 
-      type="text" 
-      class="form-control"
-      formControlName="searchControl"
-    >
-  </md-input-container> 
-               
-            </div> 
-                <div   fxLayout="column" fxFlex=50%>
-                  <label id="label5" class="input unit">Active company</label> 
-                  <div id="input4" class="input ec-input unit">
-                    <md-slide-toggle
-                        formControlName="active"
-                        class="example-margin "
-                        [(ngModel)]="setactive"
-                        (change) = "onChange($event)"
-                        >
-                      Yes
-                    </md-slide-toggle>
-                </div>
+              <div  fxFlex="35%"fxLayout="column">
+                <md-input-container class="example-full-width">
+                  <input 
+                    mdInput 
+                    id="address" 
+                    placeholder="search for location" 
+                    autocorrect="off" 
+                    autocapitalize="off" 
+                    spellcheck="off" 
+                    type="text" 
+                    class="form-control"
+                    formControlName="searchControl"
+                    (change)="onAddr()"
+                  >
+                </md-input-container> 
+              </div> 
+              <div   fxLayout="column" fxFlex=50%>
+                <label id="label5" class="input unit">Active company</label> 
+                <div id="input4" class="input ec-input unit">
+                  <md-slide-toggle
+                      formControlName="active"
+                      class="example-margin "
+                      [(ngModel)]="setactive"
+                      (change) = "onChange($event)"
+                    >
+                  Yes
+                </md-slide-toggle>
               </div>
-             
             </div>
-          <!-- </md-tab>
-          <md-tab label="Address" fxLayout="column" >
-            <app-address-edit ></app-address-edit>
-          </md-tab> -->
-         </div> 
-             <div fxLayout="row" class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
-              <div fxLayout="column" fxFlex="350px"></div> 
-              <div fxLayout="column" fxFlex=5%>
-                <button md-raised-button >Submit </button>
-              </div>
-             <div fxLayout="column" fxFlex="75%"></div>
           </div>
-      </form>
+        </div> 
+        <div fxLayout="row" class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+          <div fxLayout="column" fxFlex="350px"></div> 
+          <div fxLayout="column" fxFlex=5%>
+            <button md-raised-button >Submit </button>
+          </div>
+          <div fxLayout="column" fxFlex="75%"></div>
+      </div>
+    </form>
   </div>
 </div>

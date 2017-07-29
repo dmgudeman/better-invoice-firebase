@@ -1,8 +1,11 @@
 import { 
   AfterContentInit,
   AfterViewInit,
-  Component, 
+  Component,
+  EventEmitter,
+  NgZone, 
   OnInit,
+  Output,
   ViewChild,
  }                               from '@angular/core';
 import { 
@@ -43,6 +46,10 @@ import { Observable }            from 'rxjs/Observable';
 import 'rxjs/add/operator/take'; 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { 
+  AgmCoreModule, 
+  MapsAPILoader 
+}                         from 'angular2-google-maps/core';
 
 // Custom
 import { Address }               from '../../address/address';
@@ -57,6 +64,7 @@ import { Company }               from '../company';
 })
 export class CompanyEditComponent implements OnInit{
   // @ViewChild(AddressAutoComponent) addressViewChild: AddressAutoComponent;
+   @Output() onAddress = new EventEmitter<any>();
 
   address: google.maps.places.PlaceResult;
   addr;
@@ -84,6 +92,8 @@ export class CompanyEditComponent implements OnInit{
     private route: ActivatedRoute,
     private router:Router,
     private sanitizer: DomSanitizer,
+     private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone,
   ) {
     this.icons.forEach((icon) => {
       iconRegistry.addSvgIcon(
@@ -113,7 +123,29 @@ export class CompanyEditComponent implements OnInit{
           
           this.company = snapshot.val();
           this.buildForm(this.company); 
+           //create search FormControl
+    console.log('TTHHHHHUSSSSSSSS ADDRESSSSSSSSSSS', this.address);
+  // ========================================================
+    //set current position
+    // this.setCurrentPosition();
+    
+    //load Places Autocomplete
+     this.mapsAPILoader.load().then(() => {
+        let autocomplete = new google.maps.places.Autocomplete(
+            <HTMLInputElement>document.getElementById("address"), {
+            types: ['address']
+        });
+        autocomplete.addListener('place_changed', () => {
+            this.ngZone.run(() => {
+                // get the place result
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
+                this.onAddress.emit(place);
+                // add map calls here
+            });
+        });
+    });
+// ========================================================
           console.log('TTTTTTTTTTTTTTTTTTTTif ', this.company.address)
           if(this.company && this.company.address){
             console.log('HHHHHHHHHHHHHHHHHHh', this.company.address);
@@ -125,8 +157,9 @@ export class CompanyEditComponent implements OnInit{
       }
     });
   }
-  onAddress($event){
-    this.address = $event;
+  onAddr(){
+    this.address = this.myform.value.searchControl;
+    console.log('KKKKKKKKKKKLLLLLLLLLLLLLLLLLLL', this.address);
   }
 
   buildForm(company?) {
@@ -177,6 +210,7 @@ export class CompanyEditComponent implements OnInit{
     // }
     // );
   
+  
     console.log('this.address ', this.address);
     this.addr = this.address.formatted_address;
 
@@ -201,7 +235,7 @@ export class CompanyEditComponent implements OnInit{
         hourly:hourly, 
         active:true, 
         userId: this.userId, 
-        address: this.addr
+        address: this.address,
     }
 
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
