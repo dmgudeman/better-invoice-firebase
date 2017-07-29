@@ -64,8 +64,6 @@ import { Company }               from '../company';
   styleUrls: ['./company-edit.component.scss']
 })
 export class CompanyEditComponent implements OnInit{
-  // @ViewChild(AddressAutoComponent) addressViewChild: AddressAutoComponent;
-  //  @Output() onAddress = new EventEmitter<any>();
 
   // address: google.maps.places.PlaceResult;
   address: string;
@@ -120,47 +118,23 @@ export class CompanyEditComponent implements OnInit{
     this.afAuth.authState.subscribe ( user => {
       if (user){
         this.userId = user.uid;
-        firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
+        firebase.database().ref('/companies/' + this.companyKey ).on('value', (snapshot)=> {
           
           this.company = snapshot.val();
-          this.addressService.publishData(this.company.address);
+          if(this.company && this.company.address){
+            this.addressService.publishData(this.company.address);
+          }
           this.addressService.address.subscribe( data => {
             console.log('In ngOnInit CE data=', data);
             this.address = data;
           })
           this.buildForm(this.company); 
 
-           //create search FormControl
-//   // ========================================================
-    
-//     //load Places Autocomplete
-//      this.mapsAPILoader.load().then(() => {
-//         let autocomplete = new google.maps.places.Autocomplete(
-//             <HTMLInputElement>document.getElementById("address"), {
-//             types: ['address']
-//         });
-//         autocomplete.addListener('place_changed', () => {
-//             this.ngZone.run(() => {
-//                 // get the place result
-//                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-//                 this.onAddress.emit(place);
-//                 console.log('place', place);
-//                 this.addr = place.formatted_address;
-//             });
-//         });
-//     });
-// // ========================================================
-         
           if(!this.company) this.setactive = true;
             this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
           });
       }
     });
-  }
-  onAddr(){
-    this.addr = this.myform.value.searchControl;
-    console.log('KKKKKKKKKKKLLLLLLLLLLLLLLLLLLL', this.address);
   }
 
   buildForm(company?) {
@@ -197,11 +171,6 @@ export class CompanyEditComponent implements OnInit{
     }
 
   onSubmit() {
-    // this.addressService.address.subscribe( data => {
-    //         console.log('In ngOnInit CE data=', data);
-    //         this.address = data;
-    //       })
-   
 
     let mf = this.myform.value;
       let name = mf.name;
@@ -217,10 +186,10 @@ export class CompanyEditComponent implements OnInit{
         paymentTerms:paymentTerms, 
         hourly:hourly, 
         active:true, 
-        userId: this.userId, 
-        address: this.address,
+        userId: this.userId,
+        address: '' 
     }
-
+    if (this.address) payload.address = this.address;
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
     // console.log('newCompanyKey', newCompanyKey);
 

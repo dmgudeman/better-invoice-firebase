@@ -63,13 +63,13 @@ export class AddressService {
       this.publishData(this.company.address);
 
     //=========================================================
-        this.mapsAPILoader.load().then(() => {
-            let autocomplete = new google.maps.places.Autocomplete(
-                <HTMLInputElement>document.getElementById("address"), {
-                types: ['address']
-            }).getPlace().formatted_address;
-              this.publishData(autocomplete);
-        })
+        // this.mapsAPILoader.load().then(() => {
+        //     let autocomplete = new google.maps.places.Autocomplete(
+        //         <HTMLInputElement>document.getElementById("address"), {
+        //         types: ['address']
+        //     }).getPlace().formatted_address;
+        //       this.publishData(autocomplete);
+        // })
       }
     });
   }

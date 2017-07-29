@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   OnInit,
   Output,
   ViewChild,
@@ -16,10 +17,10 @@ import {
   ReactiveFormsModule }          from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 // // 3rd Party
-// import { 
-//   AgmCoreModule, 
-//   MapsAPILoader 
-// }                         from 'angular2-google-maps/core';
+import { 
+  AgmCoreModule, 
+  MapsAPILoader 
+}                         from 'angular2-google-maps/core';
 // import { }                from '@types/googlemaps';
 
 // Custom
@@ -34,25 +35,16 @@ import { AddressService } from '../address.service';
   styleUrls: ['./address-auto.component.scss']
 })
 export class AddressAutoComponent {
-  // @Input() company: Company;
-  // @Input() address;
-  // @Output() onAddress = new EventEmitter<any>();
   address: string;
-
-  
   searchAddress: any = '';;
-
-  // public latitude: number;
-  // public longitude: number;
-  // public searchControl: FormControl;
-  // public zoom: number;
   myform: FormGroup;
-  
   public searchElementRef: ElementRef;
   
   constructor(
+    private mapsAPILoader: MapsAPILoader,
     private fb:FormBuilder,
     private addressService: AddressService,
+    private ngZone: NgZone,
   ) {}
   
   ngOnInit() {
@@ -60,13 +52,30 @@ export class AddressAutoComponent {
     this.buildForm(); 
     this.addressService.address.subscribe( data => {
       console.log('address-auto received from company-edit', data);
-      // this.searchAddress = data;
+      this.searchAddress = data;
       this.myform.patchValue({
         address: data
       });
       this.address = data;
     });
     this.addressService.publishData(this.address);
+
+    this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(
+                <HTMLInputElement>document.getElementById("address"), {
+                types: ['address']
+            });
+             autocomplete.addListener('place_changed', () => {
+            this.ngZone.run(() => {
+                // get the place result
+                let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+              this.address = autocomplete.getPlace().formatted_address;
+    this.addressService.publishData(this.address);
+
+            });
+        });
+            
+        })
   } 
 
   buildForm(address?) {
@@ -76,6 +85,7 @@ export class AddressAutoComponent {
   }
   onChanges(){
     this.address = this.myform.value.address;
+    console.log('this.myform.value.address', this.myform.value.address);
     this.addressService.publishData(this.address);
     
   }
