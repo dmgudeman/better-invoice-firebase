@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
-  NgZone, 
   OnInit,
   Output,
   ViewChild,
@@ -46,10 +45,6 @@ import { Observable }            from 'rxjs/Observable';
 import 'rxjs/add/operator/take'; 
 import { AngularFireAuth }       from 'angularfire2/auth';
 import * as firebase             from 'firebase/app';
-import { 
-  AgmCoreModule, 
-  MapsAPILoader 
-}                                from 'angular2-google-maps/core';
 
 // Custom
 import { Address }               from '../../address/address';
@@ -65,9 +60,7 @@ import { Company }               from '../company';
 })
 export class CompanyEditComponent implements OnInit{
 
-  // address: google.maps.places.PlaceResult;
   address: string;
-  addr;
   coName;
   company:Company;
   companiesByUser: FirebaseListObservable<any[]>
@@ -80,7 +73,6 @@ export class CompanyEditComponent implements OnInit{
   title;
   user: Observable<firebase.User>
   userId: string;
-  $event
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -92,8 +84,6 @@ export class CompanyEditComponent implements OnInit{
     private route: ActivatedRoute,
     private router:Router,
     private sanitizer: DomSanitizer,
-     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,
   ) {
     this.icons.forEach((icon) => {
       iconRegistry.addSvgIcon(
@@ -125,7 +115,6 @@ export class CompanyEditComponent implements OnInit{
             this.addressService.publishData(this.company.address);
           }
           this.addressService.address.subscribe( data => {
-            console.log('In ngOnInit CE data=', data);
             this.address = data;
           })
           this.buildForm(this.company); 
@@ -165,11 +154,6 @@ export class CompanyEditComponent implements OnInit{
   toggleActive() {
      this.myform.value.active = !this.myform.value.active;
   }
-    onChange(e){
-      console.log(e.checked)
-      console.log('this.myform.value.active', this.myform.value.active);
-    }
-
   onSubmit() {
 
     let mf = this.myform.value;
@@ -180,18 +164,18 @@ export class CompanyEditComponent implements OnInit{
       let active = mf.active;
     
     if(!mf.items) mf.items = null;
-    let payload = {
-        name:name, 
-        color:color,  
-        paymentTerms:paymentTerms, 
-        hourly:hourly, 
-        active:true, 
-        userId: this.userId,
-        address: '' 
+    let payload ={
+      name:name, 
+      color:color,  
+      paymentTerms:paymentTerms, 
+      hourly:hourly, 
+      active:true, 
+      userId: this.userId,
+      address: '' 
     }
     if (this.address) payload.address = this.address;
+
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
-    // console.log('newCompanyKey', newCompanyKey);
 
     if(!this.companyKey){
       let updates = {};

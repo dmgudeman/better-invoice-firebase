@@ -43,39 +43,15 @@ export class AddressService {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
   ){}
+
   ngOnInit () {
-     if(!this.user){ 
-      console.log('NOT LOGGED IN')
-      return;
-    }
-    console.log("LOGGED IN", this.user)
-    this.route.params
-      .subscribe(params => { 
-        this.companyKey = params['id']
+    firebase.database().ref('/companies/' + this.companyKey ).on('value', (snapshot)=> {
+      this.company = snapshot.val();
     });
-    this.afAuth.authState.subscribe ( user => {
-      if (user){
-        this.userId = user.uid;
-
-       firebase.database().ref('/companies/' + this.companyKey ).on('value', (snapshot)=> {
-          this.company = snapshot.val();
-        });
-      this.publishData(this.company.address);
-
-    //=========================================================
-        // this.mapsAPILoader.load().then(() => {
-        //     let autocomplete = new google.maps.places.Autocomplete(
-        //         <HTMLInputElement>document.getElementById("address"), {
-        //         types: ['address']
-        //     }).getPlace().formatted_address;
-        //       this.publishData(autocomplete);
-        // })
-      }
-    });
+    this.publishData(this.company.address);
   }
     // Service message commands
   publishData(data: string) {
-    console.log('dataaaaaaaaaaaaaaaaaa in service', data);
     this.address.next(data);
   }
 
