@@ -138,7 +138,6 @@ export class CompanyEditComponent implements OnInit{
                 this.onAddress.emit(place);
                 console.log('place', place);
                 this.addr = place.formatted_address;
-                // add map calls here
             });
         });
     });

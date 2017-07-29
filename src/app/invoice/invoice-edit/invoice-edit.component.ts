@@ -206,25 +206,31 @@ export class InvoiceEditComponent implements OnInit {
     let edate= this.myform.value.endDate;
 
     this.invoice = this.myform.value;
+    console.log('this.invoiceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', this.invoice);
     this.invoice.companyKey = this.companyKey;
     this.invoice.createdAt = this.createdAt;
     this.invoice.items = this.filterByDateRange(bdate, edate);
     let invoiceTotal = 0;
-    let itemsArray = (<any>Object).values(this.items);
-      itemsArray.forEach(i => {
-        invoiceTotal = invoiceTotal + i.total;
-      });
-    this.invoice.total = invoiceTotal;
-    
-    // Get a key for a new Invoice
-    let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyKey).push().key;
-    
-    // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
-    let updates = {};
-    updates['/invoices/' + newInvoiceKey] = this.invoice;
-    updates['/companies/'+ this.companyKey + '/invoices/' + newInvoiceKey] = this.invoice;
-    this.db.app.database().ref().update(updates);
+    if (this.items){
+      let itemsArray = (<any>Object).values(this.items);
+        itemsArray.forEach(i => {
+          invoiceTotal = invoiceTotal + i.total;
+        });
+      this.invoice.total = invoiceTotal;
+      
+      
+      // Get a key for a new Invoice
+      let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyKey).push().key;
+      
+      // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
+      let updates = {};
+      updates['/invoices/' + newInvoiceKey] = this.invoice;
+      updates['/companies/'+ this.companyKey + '/invoices/' + newInvoiceKey] = this.invoice;
+      this.db.app.database().ref().update(updates);
 
-    this.router.navigate(['/invoice-pre-pdf/' + newInvoiceKey ]);
+      this.router.navigate(['/invoice-pre-pdf/' + newInvoiceKey ]);
+    } 
+    alert('there are no items in that time frame')
+      this.router.navigate(['/companies']);
   }
 }
