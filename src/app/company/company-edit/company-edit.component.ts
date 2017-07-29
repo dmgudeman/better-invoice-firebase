@@ -150,6 +150,10 @@ export class CompanyEditComponent implements OnInit{
       return this.myform
     }
   }
+  onChange(e){
+    console.log(e.checked)
+    console.log('this.myform.value.active', this.myform.value.active);
+  }
 
   toggleActive() {
      this.myform.value.active = !this.myform.value.active;

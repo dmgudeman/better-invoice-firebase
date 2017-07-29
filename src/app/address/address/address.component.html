@@ -14,13 +14,10 @@
 </div> -->
 
 <!-- <div class="container mat-app-background" color="accent" fxLayout="column" fxLayoutAlign="center center" > -->
- <div class="mat-app-background"> 
+ <div class="mat-app-background line"> 
 <md-list>
   <md-list-item  > 
-    <p md-line>{{street1}} </p>
-    <p md-line *ngIf="street2">{{street2}} </p>
-    <p md-line>{{line3}} </p>
-    <p md-line>{{country}} </p>
+    <p md-line *ngIf="address">{{address}} </p>
   </md-list-item>
 </md-list>
 </div>
