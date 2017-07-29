@@ -95,23 +95,23 @@ export class ItemEditComponent implements OnInit {
       this.companyKey = params['companyKey'];
       this.itemKey = params[ 'itemKey']
 
-      // obtain the company
-    this.db.object('/companies/'+ this.companyKey ).subscribe(data => {
-      this.company = data; 
-      this.coName = this.company.name;
-      console.log(`this.company.name ${this.company.name}`);
-      this.makeTitle(this.coName);
-    });
+        // obtain the company
+      this.db.object('/companies/'+ this.companyKey ).subscribe(data => {
+        this.company = data; 
+        this.coName = this.company.name;
+        console.log(`this.company.name ${this.company.name}`);
+        this.makeTitle(this.coName);
+      });
     });
     
 
     // obtain the item if it is pre-existing
     if (this.itemKey){
       this.db.object('/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
-      this.item = data; 
-      this.buildForm(this.item);
-      this.makeTitle(this.coName, this.itemKey);
-    });
+        this.item = data; 
+        this.buildForm(this.item);
+        this.makeTitle(this.coName, this.itemKey);
+      });
     return;
     }
     this.buildForm();
