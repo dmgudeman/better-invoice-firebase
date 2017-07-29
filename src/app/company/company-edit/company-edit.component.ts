@@ -132,7 +132,7 @@ export class CompanyEditComponent implements OnInit{
       this.setactive = true;
       this.myform = this.fb.group({
         name: ['', Validators.required],
-        color: '',
+        color: ['', Validators.required],
         hourly:'',
         paymentTerms: '',
         active: '',
@@ -141,8 +141,8 @@ export class CompanyEditComponent implements OnInit{
     if(company ) {
       this.setactive = this.company.active;
       this.myform = this.fb.group({
-        name:this.company.name,
-        color: this.company.color,
+        name:[this.company.name, Validators.required],
+        color: [this.company.color, Validators.required],
         hourly: this.company.hourly,
         paymentTerms: this.company.paymentTerms,
         active: this.setactive,

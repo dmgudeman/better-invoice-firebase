@@ -78,12 +78,6 @@ export class InvoiceEditComponent implements OnInit {
     private router: Router,
     private sanitizer:DomSanitizer,
   ) {
-    // this.icons.forEach((icon) =>{
-    // iconRegistry.addSvgIcon(
-    //   icon,
-    //   sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
-    // );
-    // });
     let myIcons = new MyIcons(iconRegistry, sanitizer);
     myIcons.makeIcon("chevron-left");
   }
@@ -93,14 +87,14 @@ export class InvoiceEditComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
       this.invoiceKey = params['invoiceId']
-      console.log('companyKey', this.companyKey);
+      // console.log('companyKey', this.companyKey);
     });
 
     this.db.object('/companies/'+ this.companyKey).subscribe(data => {
       this.company = data;
       this.coName = this.company.name; 
       this.items = this.company.items;
-      console.log('this.items', this.items);
+      // console.log('this.items', this.items);
       // console.log('data ', this.company.name)
       this.makeTitle(this.coName);
     });
@@ -110,7 +104,7 @@ export class InvoiceEditComponent implements OnInit {
       this.buildForm(this.invoice);
       this.coName = this.company.name; 
       this.items = this.company.items;
-      console.log('this.items', this.items);
+      // console.log('this.items', this.items);
       // console.log('data ', this.company.name);
       this.makeTitle(this.coName);
     });
@@ -175,25 +169,25 @@ export class InvoiceEditComponent implements OnInit {
     let emDate = moment(endDate).format('LL');
     let filteredItems: Item[]=[];
     // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
-    console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-    console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
 
     if(this.items){
       let itemsArray = (<any>Object).values(this.items);
       itemsArray.forEach(i => {
         let imDate;
         imDate = moment(i.date);
-        console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
+        // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
         if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
+          // console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
           filteredItems.push(i)
         }
       })
     }
-    console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
     if(filteredItems.length>0)return filteredItems;
     return 0;
   } 
@@ -206,7 +200,7 @@ export class InvoiceEditComponent implements OnInit {
     let edate= this.myform.value.endDate;
 
     this.invoice = this.myform.value;
-    console.log('this.invoiceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', this.invoice);
+    // console.log('this.invoiceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', this.invoice);
     this.invoice.companyKey = this.companyKey;
     this.invoice.createdAt = this.createdAt;
     this.invoice.items = this.filterByDateRange(bdate, edate);

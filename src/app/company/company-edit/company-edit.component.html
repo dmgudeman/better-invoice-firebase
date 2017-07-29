@@ -101,7 +101,7 @@
         <div fxLayout="row" class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
           <div fxLayout="column" fxFlex="350px"></div> 
           <div fxLayout="column" fxFlex=5%>
-            <button md-raised-button >Submit </button>
+            <button md-raised-button [disabled]="!myform.valid">Submit </button>
           </div>
           <div fxLayout="column" fxFlex="75%"></div>
       </div>
