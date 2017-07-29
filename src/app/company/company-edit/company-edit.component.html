@@ -1,17 +1,14 @@
-<!-- NAVIGATION -->
 <div class="container" fxLayout='column' >
+  <!-- NAVIGATION -->
   <md-toolbar color="primary"(click)="goBack()">
     <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
     <span class="spacer"></span>
     <span class="tb-text">{{title}}</span>
   </md-toolbar>
- 
   <!--  FORM -->
   <div fxLayout="row" fxFlex="100%" flexLayoutWrap fxLayoutAlign="space-around center"  >
     <form [formGroup]="myform"  (ngSubmit)="onSubmit()" novalidate  fxLayoutWrap fxFlex="100%">
        <div fxFlex="100%"> 
-        <!-- <md-tab label="General" > -->
-         
           <!-- ================ ROW1 =============================== -->
           <div class="row"fxLayout="row"  fxLayoutAlign="space-around center" fxGap="10px" >
            <div fxLayout="column" fxFlex="20%"></div> 

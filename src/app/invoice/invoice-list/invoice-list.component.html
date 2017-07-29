@@ -9,11 +9,11 @@
   </tr>
   <hr>
 
-  <tr *ngFor="let invoice of sortedData" (click)="goToItem(invoice)"  fxLayoutAlign="center center" >
+  <tr *ngFor="let invoice of sortedData" (click)="goToItem(invoice)"  fxLayoutAlign="center space-between" >
     <td fxFlex="15%">{{invoice.createdAt | date}}</td>
     <td fxFlex="15%">{{invoice.beginDate | date}}</td>
     <td fxFlex="15%">{{invoice.endDate | date}}</td>
-    <td fxFlex="15%">{{invoice.description}}</td>
+    <td fxFlex="15%"> <div style="word-break: break-all;" >{{invoice.description}}</div></td>
     <td fxFlex="15%">{{invoice.total}}</td>
 
   </tr>
