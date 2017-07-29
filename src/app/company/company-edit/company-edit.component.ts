@@ -197,14 +197,11 @@ export class CompanyEditComponent implements OnInit{
     }
 
   onSubmit() {
-    // console.log('this.address ', this.address);
-    // if (this.address) this.addr = this.address.formatted_address;
-
-    // console.log('this.addr', this.addr);
-    // if (!this.myform.value.name){
-    //   this.router.navigate(['companies']);
-    //   return;
-    // }
+    // this.addressService.address.subscribe( data => {
+    //         console.log('In ngOnInit CE data=', data);
+    //         this.address = data;
+    //       })
+   
 
     let mf = this.myform.value;
       let name = mf.name;
@@ -221,6 +218,7 @@ export class CompanyEditComponent implements OnInit{
         hourly:hourly, 
         active:true, 
         userId: this.userId, 
+        address: this.address,
     }
 
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;

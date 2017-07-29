@@ -37,6 +37,7 @@ export class AddressAutoComponent {
   // @Input() company: Company;
   // @Input() address;
   // @Output() onAddress = new EventEmitter<any>();
+  address: string;
 
   
   searchAddress: any = '';;
@@ -59,11 +60,13 @@ export class AddressAutoComponent {
     this.buildForm(); 
     this.addressService.address.subscribe( data => {
       console.log('address-auto received from company-edit', data);
-      this.searchAddress = data;
+      // this.searchAddress = data;
       this.myform.patchValue({
         address: data
       });
+      this.address = data;
     });
+    this.addressService.publishData(this.address);
   } 
 
   buildForm(address?) {
@@ -71,12 +74,17 @@ export class AddressAutoComponent {
       address: ''
     }) 
   }
+  onChanges(){
+    this.address = this.myform.value.address;
+    this.addressService.publishData(this.address);
+    
+  }
 
   onSubmit(): void {
         // console.log('Sibling1Component-received from sibling2: ' + this._sharedService.subscribeData());
         console.log('Form submitted-sibling1Form');
         let address = this.myform.get('address').value;
-        this.searchAddress = address;
+        // this.searchAddress = address;
         this.addressService.publishData(address);
     }
 }
