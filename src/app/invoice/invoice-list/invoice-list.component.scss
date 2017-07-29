@@ -4,3 +4,19 @@ div {
   background-color: yellow;
 
 }
+td {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+.head {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+}
+
+.red {
+  background-color:red;
+}
