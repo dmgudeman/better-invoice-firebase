@@ -84,7 +84,6 @@ export class CompanyEditComponent implements OnInit{
 
   constructor(
     public afAuth: AngularFireAuth,
-    // private addressService: AddressService,
     private db: AngularFireDatabase,
     private fb: FormBuilder,
     private iconRegistry: MdIconRegistry,
@@ -101,7 +100,6 @@ export class CompanyEditComponent implements OnInit{
       sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
       );
     });
-    console.log('Login constructor');
     this.user = afAuth.authState;
   };
 
@@ -124,10 +122,7 @@ export class CompanyEditComponent implements OnInit{
           this.company = snapshot.val();
           this.buildForm(this.company); 
            //create search FormControl
-    console.log('TTHHHHHUSSSSSSSS ADDRESSSSSSSSSSS', this.address);
   // ========================================================
-    //set current position
-    // this.setCurrentPosition();
     
     //load Places Autocomplete
      this.mapsAPILoader.load().then(() => {
@@ -141,15 +136,14 @@ export class CompanyEditComponent implements OnInit{
                 let place: google.maps.places.PlaceResult = autocomplete.getPlace();
 
                 this.onAddress.emit(place);
+                console.log('place', place);
+                this.addr = place.formatted_address;
                 // add map calls here
             });
         });
     });
 // ========================================================
-          console.log('TTTTTTTTTTTTTTTTTTTTif ', this.company.address)
           if(this.company && this.company.address){
-            console.log('HHHHHHHHHHHHHHHHHHh', this.company.address);
-            // this.addressService.setAddress(this.company.address);
           }
           if(!this.company) this.setactive = true;
             this.title = this.companyKey ? " Edit "+ this.company.name + " Details" : " New Business";
@@ -158,14 +152,13 @@ export class CompanyEditComponent implements OnInit{
     });
   }
   onAddr(){
-    this.address = this.myform.value.searchControl;
+    this.addr = this.myform.value.searchControl;
     console.log('KKKKKKKKKKKLLLLLLLLLLLLLLLLLLL', this.address);
   }
 
   buildForm(company?) {
 
     if(!this.myform){
-      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBB11111111111111');
       this.setactive = true;
       this.myform = this.fb.group({
         name: ['', Validators.required],
@@ -175,12 +168,8 @@ export class CompanyEditComponent implements OnInit{
         active: '',
         searchControl: '',
       });
-      //  this.addressViewChild.address = '';
-      // this.addressService.setAddress('');
     }
     if(company ) {
-      console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBB22222222222222');
-      
       this.setactive = this.company.active;
       this.myform = this.fb.group({
         name:this.company.name,
@@ -190,7 +179,6 @@ export class CompanyEditComponent implements OnInit{
         active: this.setactive,
         searchControl: this.company.address,
       });
-      // this.addressService.setAddress(this.company.address);
       return this.myform
     }
   }
@@ -204,15 +192,8 @@ export class CompanyEditComponent implements OnInit{
     }
 
   onSubmit() {
-    // this.addressViewChild.onAddress.subscribe( data => {
-    //   this.address = data;
-    //   console.log('THHHHHHHHHISSSSSSSSS address = ', this.address);
-    // }
-    // );
-  
-  
     console.log('this.address ', this.address);
-    this.addr = this.address.formatted_address;
+    if (this.address) this.addr = this.address.formatted_address;
 
     console.log('this.addr', this.addr);
     if (!this.myform.value.name){
@@ -235,7 +216,7 @@ export class CompanyEditComponent implements OnInit{
         hourly:hourly, 
         active:true, 
         userId: this.userId, 
-        address: this.address,
+        address: this.addr,
     }
 
     let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
