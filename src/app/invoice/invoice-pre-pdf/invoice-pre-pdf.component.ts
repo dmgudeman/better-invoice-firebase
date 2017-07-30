@@ -19,7 +19,7 @@ import { Location }                       from '@angular/common';
 
 // 3rd party
 import * as firebase                      from 'firebase/app';
-import * as moment                        from 'moment'
+// import * as moment                        from 'moment'
 import 'rxjs/add/operator/filter';
 import { Observable }                     from 'rxjs/Observable';
 
@@ -41,16 +41,16 @@ import { Shared }                         from '../../shared/shared';
 })
 export class InvoicePrePdfComponent implements OnInit {
   address;
-  city:string;
-  coDetails
-  coId: number;
-  color:string = '';
+  // city:string;
+  // coDetails
+  // coId: number;
+  // color:string = '';
   company:Company;
   coName: string = '';
-  coInterval: number;
+  // coInterval: number;
   companyKey: string;
-  date = new Date("2017-2-11");
-  date2 = new Date("2017-2-12");
+  // date = new Date("2017-2-11");
+  // date2 = new Date("2017-2-12");
   errorMessage: string;
   createdDate: string;
   dueDate: Date;
@@ -58,18 +58,18 @@ export class InvoicePrePdfComponent implements OnInit {
   // invoiceId: string;
   invoice: Invoice;
   invoiceKey: string;
-  invoices: Invoice[];
-  item: ItemDetailComponent;
+  // invoices: Invoice[];
+  // item: ItemDetailComponent;
   items: Item[];
-  items2: Item[] =[];
-  m: moment.Moment;
-  moment: moment.Moment;
-  postalCode: string;
+  // items2: Item[] =[];
+  // m: moment.Moment;
+  // moment: moment.Moment;
+  // postalCode: string;
   // myGlobals: MyGlobals;
   shared: Shared;
   state: string;
-  street1: string;
-  street2: string;
+  // street1: string;
+  // street2: string;
   total: number;
 
   constructor(
@@ -98,57 +98,34 @@ export class InvoicePrePdfComponent implements OnInit {
     
     firebase.database().ref('/invoices/' + this.invoiceKey).on('value', (snapshot)  => {
       this.invoice = snapshot.val();
-      console.log('this.invoice', this.invoice);
-      
-    
-      // this.invoiceId = this.invoiceKey;
       this.total = this.invoice.total;
       this.createdDate = this.invoice.createdAt;
-      // this.m = moment( this.createdDate );
-      // console.log('mmmmmmmmmmma', this.m);
       this.companyKey = this.invoice.companyKey;
       this.address = this.invoice.address
       this.coName = this.invoice.coName;
+      this.dueDate = this.invoice.dueDate;
+      this.items = this.invoice.items;
 
             
-      firebase.database().ref('/companies/' + this.invoice.companyKey ).on('value', (snapshot)=> {
-        this.company = snapshot.val();
-        console.log('this.company', this.company);
-        console.log(this.invoice.items);
-        if(this.invoice.items){
-          this.items = this.invoice.items;
-          console.log('this.items', this.items);
-
-        }
-          this.coName = this.company.name;
-          this.color = this.company.color;
-          this.coInterval = this.company.paymentTerms;
-          let date = this.m.add(this.coInterval, 'day')
-          this.dueDate = this.m.toDate()
-          console.log("this.m ", this.m.date);
-          console.log("coInterval " + this.coInterval);
-      });
+      // firebase.database().ref('/companies/' + this.invoice.companyKey ).on('value', (snapshot)=> {
+      //   this.company = snapshot.val();
+      //   if(this.invoice.items){
+      //     this.items = this.invoice.items;
+      //   }
+      // });
     });
   }
-  ngAfterContentInit () {
-
-        
-
-  }
-
-goNowhere() {};
 
 goBack(): void {
   this.location.back();
 }
 
 setColor(color) {
-    console.log("COLOR " + this.color);
     return color
 }
 submit(){
 let newPdf = this.invoiceService.addPdf(document.getElementById('invoice-body').innerHTML);
-console.log('newPdf', newPdf);
+// console.log('newPdf', newPdf);
 // Get a key for a new Invoice
 let newInvoiceKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
   

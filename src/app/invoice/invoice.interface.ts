@@ -14,4 +14,5 @@ export interface InvoiceInterface {
         createdAt: string;
         paymentTerms: number;
         coName: string;
+        dueDate: Date;
 }

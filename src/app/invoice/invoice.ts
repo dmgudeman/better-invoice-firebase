@@ -18,10 +18,11 @@ export class Invoice implements InvoiceInterface {
   total: number;
   address: string;
   paymentTerms: number;
-  coName: string
+  coName: string;
+  dueDate: Date;
 
   constructor(id?, beginDate?, endDate?, description?,
-     amount?, discount?, url?, companyKey?, company?, items?, total?, address?, paymentTerms?, coName?, ){
+     amount?, discount?, url?, companyKey?, company?, items?, total?, address?, paymentTerms?, coName?, dueDate? ){
     this.beginDate   = beginDate || null;
     this.endDate     = endDate || null;
     this.description = description || null;
@@ -36,5 +37,6 @@ export class Invoice implements InvoiceInterface {
     this.address     = address;
     this.paymentTerms= paymentTerms;
     this.coName      = coName;
+    this.dueDate     = dueDate;
   }
 }
