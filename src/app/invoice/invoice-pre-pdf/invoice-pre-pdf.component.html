@@ -2,7 +2,7 @@
    <md-toolbar color="primary">
     <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
     <span class="bi-spacer"></span>
-    <span>InvoicePreview</span>
+    <span>Invoice Preview</span>
     <span class="bi-spacer"></span>
     <md-icon ></md-icon>
   </md-toolbar>
@@ -37,23 +37,20 @@
               </table>
             </td>
           </tr>
-          <!-- <tr class="heading row1">
-            <td class="col1"> Payment Method </td>
-            <td class="col1 col1-mid"> </td>
-            <td class="col1 line-total"> Check # </td>
+            <tr class="heading item row0">
+             <td class="col1">  </td> 
+            <td class="col1 col1-mid"> Overall Invoice Description </td>
+             <td class="col1 line-total"></td> 
              <td class="col1-spacer"> </td> 
           </tr>
-
-          <tr class="details row1">
-            <td class="col1"> Check </td>
-            <td class="col1 col1-mid"> </td>
-            <td class="col1 line-total"> 1000 </td>
-             <td class="col1-spacer"> </td> 
-          </tr> -->
+          <tr class="item row0" style='{ min-height: 50px;}'>
+            <td class="col1 col1-mid"> {{description}} </td>
+            <td class="col1-spacer"> </td>
+          </tr> 
 
           <tr class="heading item row1">
             <td class="col1"> Item </td>
-            <td class="col1 col1-mid"> Description </td>
+            <td class="col1 col1-mid"> Specific Item Description </td>
             <td class="col1 line-total"> Price </td>
              <td class="col1-spacer"> </td> 
           </tr>

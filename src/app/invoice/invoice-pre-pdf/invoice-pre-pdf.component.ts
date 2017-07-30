@@ -42,6 +42,7 @@ export class InvoicePrePdfComponent implements OnInit {
   companyKey: string;
   errorMessage: string;
   createdDate: string;
+  description: string;
   dueDate: Date;
   icons = ['chevron-left'];
   invoice: Invoice;
@@ -81,6 +82,7 @@ export class InvoicePrePdfComponent implements OnInit {
       this.coName = this.invoice.coName;
       this.dueDate = this.invoice.dueDate;
       this.items = this.invoice.items;
+      this.description = this.invoice.description;
     });
   }
 
