@@ -78,6 +78,12 @@ export class InvoiceEditComponent implements OnInit {
     private router: Router,
     private sanitizer:DomSanitizer,
   ) {
+    // this.icons.forEach((icon) =>{
+    // iconRegistry.addSvgIcon(
+    //   icon,
+    //   sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
+    // );
+    // });
     let myIcons = new MyIcons(iconRegistry, sanitizer);
     myIcons.makeIcon("chevron-left");
   }
@@ -86,38 +92,34 @@ export class InvoiceEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
-      this.invoiceKey = params['invoiceKey']
-      // console.log('companyKey', this.companyKey);
+      this.invoiceKey = params['invoiceId']
+      console.log('companyKey', this.companyKey);
     });
 
     this.db.object('/companies/'+ this.companyKey).subscribe(data => {
       this.company = data;
       this.coName = this.company.name; 
-      // this.items = this.company.items;
-      // console.log('this.items', this.items);
+      this.items = this.company.items;
+      console.log('this.items', this.items);
       // console.log('data ', this.company.name)
       this.makeTitle(this.coName);
     });
     
-    console.log('this.invoiceKey', this.invoiceKey);
-    if(this.invoiceKey){
+    this.db.object('/invoices/'+ this.invoiceKey).subscribe(data => {
+      this.invoice = data;
+      this.buildForm(this.invoice);
+      this.coName = this.company.name; 
+      this.items = this.company.items;
+      console.log('this.items', this.items);
+      // console.log('data ', this.company.name);
+      this.makeTitle(this.coName);
+    });
       
-      this.db.object('/companies/' + this.companyKey + '/invoices/'+ this.invoiceKey).subscribe(data => {
-        this.invoice = data;
-        console.log('KKKKKKKKKKKKKKKLLLLLLLLLLLLLL', this.invoice);
-
-        this.buildForm(this.invoice);
-        this.makeTitle(this.coName, this.invoiceKey);
-      });
-      return;
-    }
       this.buildForm();
-        this.makeTitle(this.coName);
   }
      
   buildForm(invoice?) {
-    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', invoice);
-    if(!this.myform){
+    if(!this.invoice){
       this.myform = this.fb.group({
         beginDate: '',
         endDate: '',
@@ -128,7 +130,6 @@ export class InvoiceEditComponent implements OnInit {
       });
     }
     if(invoice) {
-      console.log('this.invoiceeeeeeeeeeeeeeeeeeeeeeekkkkkkkkkkkkk', this.invoice);
       this.myform = this.fb.group({
         beginDate: invoice.beginDate,
         endDate: invoice.endDate,
@@ -187,7 +188,7 @@ export class InvoiceEditComponent implements OnInit {
         console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
         console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
         if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          // console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
+          console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
           filteredItems.push(i)
         }
       })
@@ -209,7 +210,6 @@ export class InvoiceEditComponent implements OnInit {
     this.invoice.companyKey = this.companyKey;
     this.invoice.createdAt = this.createdAt;
     this.invoice.items = this.filterByDateRange(bdate, edate);
-    console.log('this.invoice.items', this.invoice.items);
     let invoiceTotal = 0;
     if (this.items){
       let itemsArray = (<any>Object).values(this.items);
@@ -220,21 +220,18 @@ export class InvoiceEditComponent implements OnInit {
       
       
       // Get a key for a new Invoice
-      if(!this.invoice.invoiceKey){
-        let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyKey).push().key;
-        this.invoice.invoiceKey = newInvoiceKey
-      }
+      let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyKey).push().key;
       
       // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
       let updates = {};
-      updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
-      updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
+      updates['/invoices/' + newInvoiceKey] = this.invoice;
+      updates['/companies/'+ this.companyKey + '/invoices/' + newInvoiceKey] = this.invoice;
       this.db.app.database().ref().update(updates);
 
-      // this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
-      return;
+      this.router.navigate(['/invoice-pre-pdf/' + newInvoiceKey ]);
+      return
     } 
-    // alert('there are no items in that time frame')
-    //   this.router.navigate(['/companies']);
+    alert('there are no items in that time frame')
+      this.router.navigate(['/companies']);
   }
 }
