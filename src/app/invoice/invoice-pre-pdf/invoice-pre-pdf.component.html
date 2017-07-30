@@ -20,7 +20,7 @@
                     </div>
                   </td>
                   <td>
-                    Invoice #: {{invoiceId}}<br> Created: {{createdDate| date:'yMd'}}<br> Due: {{dueDate| date:'yMd' }}
+                    Invoice #: {{invoiceKey}}<br> Created: {{createdDate| date:'yMd'}}<br> Due: {{dueDate| date:'yMd' }}
                   </td>
                 </tr>
               </table>
@@ -31,7 +31,7 @@
               <table>
                 <tr>
                   <td>
-                      {{coName}}<br> {{street1}}<br> {{city}}, {{state}} {{postalCode}}
+                    {{address}}
                   </td>
                   <td>
                       <!-- {{coName}}<br> John Doe<br> john@example.com -->

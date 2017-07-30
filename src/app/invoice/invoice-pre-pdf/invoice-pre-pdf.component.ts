@@ -55,7 +55,7 @@ export class InvoicePrePdfComponent implements OnInit {
   createdDate: string;
   dueDate: Date;
   icons = ['chevron-left'];
-  invoiceId: string;
+  // invoiceId: string;
   invoice: Invoice;
   invoiceKey: string;
   invoices: Invoice[];
@@ -96,29 +96,23 @@ export class InvoicePrePdfComponent implements OnInit {
     console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
     this.route.params.subscribe(params => {this.invoiceKey = params['id']; });
     
-    firebase.database().ref('/invoices/' + this.invoiceKey).once('value', (snapshot)  => {
+    firebase.database().ref('/invoices/' + this.invoiceKey).on('value', (snapshot)  => {
       this.invoice = snapshot.val();
-      this.invoiceId = this.invoiceKey;
+      console.log('this.invoice', this.invoice);
+      
+    
+      // this.invoiceId = this.invoiceKey;
       this.total = this.invoice.total;
       this.createdDate = this.invoice.createdAt;
-      this.m = moment( this.createdDate );
-      // this.company = this._invoiceService.getCompanyFromInvoice(this.invoice);
-      this.companyKey = this.invoice.companyId;
+      // this.m = moment( this.createdDate );
+      // console.log('mmmmmmmmmmma', this.m);
+      this.companyKey = this.invoice.companyKey;
+      this.address = this.invoice.address
 
             
-      firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
+      firebase.database().ref('/companies/' + this.invoice.companyKey ).on('value', (snapshot)=> {
         this.company = snapshot.val();
-        this.address = this.company.address;
-        console.log('this.address', this.address);
-
-        if(this.company && this.company.address){
-          console.log('this.addres2222222', this.address);
-          this.street1 = this.address.street1;
-          this.street2 = this.address.street2;
-          this.city = this.address.city;
-          this.state = this.address.state;
-          this.postalCode = this.address.postalCode;
-        };
+        console.log('this.company', this.company);
         console.log(this.invoice.items);
         if(this.invoice.items){
           this.items = this.invoice.items;
@@ -129,9 +123,9 @@ export class InvoicePrePdfComponent implements OnInit {
           this.color = this.company.color;
           this.coInterval = this.company.paymentTerms;
           let date = this.m.add(this.coInterval, 'day')
-          this.dueDate = this.m.toDate();
-          // console.log("this.m ", this.m._d);
-          // console.log("coInterval " + this.coInterval);
+          this.dueDate = this.m.toDate()
+          console.log("this.m ", this.m.date);
+          console.log("coInterval " + this.coInterval);
       });
     });
   }

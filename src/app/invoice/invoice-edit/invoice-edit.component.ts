@@ -50,11 +50,14 @@ import { customTransitionRight } from '../../shared/custom-transition-right.comp
 })
 export class InvoiceEditComponent implements OnInit {
   
+  address: string;
   createdAt;
   company: Company;
   companyKey: string;
   coName: string;
   errorMessage: string;
+  dueDate;
+  icons=["chevron-left"]
   invoice:any;
   invoiceKey: string;
   invoices: FirebaseListObservable<any[]>;
@@ -64,10 +67,10 @@ export class InvoiceEditComponent implements OnInit {
   itemIds: number[] = [];
   m: moment.Moment;
   myform: FormGroup;
+  paymentTerms: number;
   output
   submittedForm
   title: string;
-  icons=["chevron-left"]
 
   constructor(
     private db: AngularFireDatabase,
@@ -103,6 +106,8 @@ export class InvoiceEditComponent implements OnInit {
       this.company = data;
       this.coName = this.company.name; 
       this.items = this.company.items;
+      this.address = this.company.address;
+      this.paymentTerms = this.company.paymentTerms;
       console.log('this.items', this.items);
       // console.log('data ', this.company.name)
       this.makeTitle(this.coName);
@@ -173,31 +178,38 @@ export class InvoiceEditComponent implements OnInit {
     let id = this.companyKey;
     this.router.navigate(['/invoice-pre-pdf', id]);
   }
-  
+  calcDueDate(date, paymentTerms){
+    let a = moment(date);
+    console.log('aaaaaaaaaaaaaaaaa', a.toString() );
+    a.add(paymentTerms, 'days');
+    console.log('a.toString', a.toString());
+    this.dueDate = a.format(); 
+    console.log('this.dueDate', this.dueDate);
+  }
   filterByDateRange(beginDate?, endDate?) {
     let bmDate = moment(beginDate).format('LL');
     let emDate = moment(endDate).format('LL');
     let filteredItems: Item[]=[];
     // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
-    console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-    console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
 
     if(this.items){
       let itemsArray = (<any>Object).values(this.items);
       itemsArray.forEach(i => {
         let imDate;
         imDate = moment(i.date);
-        console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
-        console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
+        // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
+        // console.log(`INVOICE_EDIT filterByDateRange im.isSorA(bm, day)= ${imDate.isSameOrAfter(bmDate, 'day')}`);
         if (imDate.isSameOrAfter(bmDate, 'day') && imDate.isSameOrBefore(emDate, 'day')) {
-          console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
+          // console.log(`INVOICE_EDIT filterByDateRange is[i]= ${JSON.stringify(i)}`);
           filteredItems.push(i)
         }
       })
     }
-    console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
+    // console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
     if(filteredItems.length>0)return filteredItems;
     return 0;
   } 
@@ -205,15 +217,22 @@ export class InvoiceEditComponent implements OnInit {
   goBack() { this.location.back(); }
 
   onSubmit() {
-    this.createdAt = moment().format(); 
-    let bdate= this.myform.value.beginDate;
-    let edate= this.myform.value.endDate;
 
     this.invoice = this.myform.value;
-    console.log('this.invoiceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee', this.invoice);
+
+    this.createdAt = moment().format('L'); 
+    let bdate = this.invoice.beginDate;
+    let edate = this.invoice.endDate;
+    
     this.invoice.companyKey = this.companyKey;
+    this.invoice.coName = this.coName;
     this.invoice.createdAt = this.createdAt;
+    this.invoice.address = this.address;
+
+    this.invoice.dueDate = this.calcDueDate(this.createdAt, this.paymentTerms);
     this.invoice.items = this.filterByDateRange(bdate, edate);
+
+    // calculate total
     let invoiceTotal = 0;
     if (this.items){
       let itemsArray = (<any>Object).values(this.items);
@@ -224,11 +243,12 @@ export class InvoiceEditComponent implements OnInit {
       
       
       // Get a key for a new Invoice
-      if(!this.invoice.invoiceKey){
-      let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyKey).push().key;
-      this.invoice.invoiceKey = newInvoiceKey;
+      if (!this.invoice.invoiceKey){
+        let newInvoiceKey = this.db.app.database().ref().child('/invoices').push().key;
+        this.invoice.invoiceKey = newInvoiceKey;
+        return;
       }
-      
+
       // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
       let updates = {};
       updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
@@ -242,3 +262,18 @@ export class InvoiceEditComponent implements OnInit {
       this.router.navigate(['/companies']);
   }
 }
+
+
+// let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
+
+//     if(!this.companyKey){
+//       let updates = {};
+//       updates['/companies/' + newCompanyKey] = payload;
+//       updates['/companiesByUser/'+ this.userId + '/' + newCompanyKey] = payload;
+//       this.db.app.database().ref().update(updates);
+//     } else {
+//       this.db.object('/companies/'+ this.companyKey).update(payload);
+//       this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).update(payload);
+//     }
+//       this.router.navigate(['companies']);
+//   }

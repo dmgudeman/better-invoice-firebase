@@ -179,9 +179,9 @@ export class CompanyEditComponent implements OnInit{
     }
     if (this.address) payload.address = this.address;
 
-    let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
 
     if(!this.companyKey){
+      let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
       let updates = {};
       updates['/companies/' + newCompanyKey] = payload;
       updates['/companiesByUser/'+ this.userId + '/' + newCompanyKey] = payload;
