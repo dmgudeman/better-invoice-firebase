@@ -13,4 +13,5 @@ export interface InvoiceInterface {
         items: Item[];
         createdAt: string;
         paymentTerms: number;
+        coName: string;
 }

@@ -146,6 +146,18 @@ export class ItemEditComponent implements OnInit {
       return this.myform;
     }
   }
+  
+  goToCompanyDetails() {
+    this.router.navigate(['/company-details']);
+  } 
+  
+  goToCompanies() {
+    this.router.navigate(['/companies']);
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
   onSubmit() {
     let payload = this.myform.value;
     payload.companyKey = this.companyKey;
@@ -175,15 +187,4 @@ export class ItemEditComponent implements OnInit {
     this.goToCompanies();
   }
   
-  goToCompanyDetails() {
-    this.router.navigate(['/company-details']);
-  } 
-  
-  goToCompanies() {
-    this.router.navigate(['/companies']);
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
 }

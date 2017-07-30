@@ -108,6 +108,7 @@ export class InvoicePrePdfComponent implements OnInit {
       // console.log('mmmmmmmmmmma', this.m);
       this.companyKey = this.invoice.companyKey;
       this.address = this.invoice.address
+      this.coName = this.invoice.coName;
 
             
       firebase.database().ref('/companies/' + this.invoice.companyKey ).on('value', (snapshot)=> {

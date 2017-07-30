@@ -174,10 +174,6 @@ export class InvoiceEditComponent implements OnInit {
     this.canSave = !this.canSave;
   }
 
-  goToPrePdf() {
-    let id = this.companyKey;
-    this.router.navigate(['/invoice-pre-pdf', id]);
-  }
   calcDueDate(date, paymentTerms){
     let a = moment(date);
     console.log('aaaaaaaaaaaaaaaaa', a.toString() );
@@ -185,6 +181,7 @@ export class InvoiceEditComponent implements OnInit {
     console.log('a.toString', a.toString());
     this.dueDate = a.format(); 
     console.log('this.dueDate', this.dueDate);
+    return this.dueDate;
   }
   filterByDateRange(beginDate?, endDate?) {
     let bmDate = moment(beginDate).format('LL');
@@ -216,6 +213,14 @@ export class InvoiceEditComponent implements OnInit {
 
   goBack() { this.location.back(); }
 
+  goToCompanies() {
+    this.router.navigate(['/companies']);
+  }
+  
+  goToPrePdfInvoice() {
+    this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
+  }
+
   onSubmit() {
 
     this.invoice = this.myform.value;
@@ -230,7 +235,9 @@ export class InvoiceEditComponent implements OnInit {
     this.invoice.address = this.address;
 
     this.invoice.dueDate = this.calcDueDate(this.createdAt, this.paymentTerms);
+    console.log('this.invoice.dueDate', this.invoice.dueDate );
     this.invoice.items = this.filterByDateRange(bdate, edate);
+    console.log('this.invoice.items', this.invoice.items );
 
     // calculate total
     let invoiceTotal = 0;
@@ -241,29 +248,62 @@ export class InvoiceEditComponent implements OnInit {
         });
       this.invoice.total = invoiceTotal;
       
-      
-      // Get a key for a new Invoice
-      if (!this.invoice.invoiceKey){
-        let newInvoiceKey = this.db.app.database().ref().child('/invoices').push().key;
-        this.invoice.invoiceKey = newInvoiceKey;
-        return;
-      }
-
-      // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
-      let updates = {};
-      updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
-      updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
-      this.db.app.database().ref().update(updates);
-
-      this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
-      return;
+      if(!this.invoiceKey){
+      let newItemKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
+      this.invoice.invoiceKey = newItemKey;
+    } else {
+      this.invoice.invoiceKey = this.invoice.invoiceKey;
     } 
-    alert('there are no items in that time frame')
-      this.router.navigate(['/companies']);
+    // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
+    let updates = {};
+    updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
+    updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
+    this.db.app.database().ref().update(updates);
+    this.goToPrePdfInvoice();
+  } 
+      // Get a key for a new Invoice
+    //   if (!this.invoiceKey){
+    //     let newInvoiceKey = this.db.app.database().ref().child('/invoices').push().key;
+    //     console.log('newInvoiceKey', newInvoiceKey );
+    //     console.log('this.invoice', this.invoice);
+    //     this.invoice.invoiceKey = newInvoiceKey;
+    //     let updates = {};
+    //     updates['/invoices/' + newInvoiceKey] = this.invoice;
+    //     updates['/companies/' + this.companyKey + '/invoices/' + newInvoiceKey] = this.invoice;
+
+    //     this.db.app.database().ref().update(updates);
+
+    //     return;
+    //   }
+
+    //   // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
+    //   let updates = {};
+    //   updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
+    //   updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
+    //   this.db.app.database().ref().update(updates);
+
+    //   this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
+    //   return;
+    // } 
+    // alert('there are no items in that time frame')
+    //   this.router.navigate(['/companies']);
   }
 }
 
-
+// Get a key for a new Invoice
+  //   if(!this.itemKey){
+  //     let newItemKey = this.db.app.database().ref().child('companies').child('items').push().key;
+  //     payload.itemKey = newItemKey;
+  //   } else {
+  //     payload.itemKey = this.item.itemKey;
+  //   } 
+  //   // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
+  //   let updates = {};
+  //   updates['/companies/'+ this.companyKey + '/items/' + payload.itemKey] = payload;
+  //   updates['/items/' + payload.itemKey] = payload;
+  //   this.db.app.database().ref().update(updates);
+  //   this.goToCompanies();
+  // }
 // let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
 
 //     if(!this.companyKey){
