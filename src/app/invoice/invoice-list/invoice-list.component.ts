@@ -74,6 +74,7 @@ export class InvoiceListComponent implements OnInit{
     });
   }
   goToInvoice(invoice){
+  
     console.log('invoicemmmmmmmmmmmmmms', invoice);
     console.log('invoiceKey', invoice.invoiceKey);
     console.log('companyKey', invoice.companyKey);

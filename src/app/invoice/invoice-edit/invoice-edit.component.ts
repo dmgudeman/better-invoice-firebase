@@ -92,11 +92,14 @@ export class InvoiceEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
-      this.invoiceKey = params['invoiceId']
+      // this.invoiceKey = params['invoiceId']
+      this.invoiceKey = params['invoiceKey']
       console.log('companyKey', this.companyKey);
+      console.log('invoiceKey', this.invoiceKey);
     });
 
     this.db.object('/companies/'+ this.companyKey).subscribe(data => {
+      console.log('dddddddddaaaaaaaaattttttttttt1111111111',data);
       this.company = data;
       this.coName = this.company.name; 
       this.items = this.company.items;
@@ -105,7 +108,8 @@ export class InvoiceEditComponent implements OnInit {
       this.makeTitle(this.coName);
     });
     
-    this.db.object('/invoices/'+ this.invoiceKey).subscribe(data => {
+    this.db.object('/companies/'+ this.companyKey + '/invoices/'+ this.invoiceKey).subscribe(data => {
+      console.log('dddddddddaaaaaaaaattttttttttt2222222222',data);
       this.invoice = data;
       this.buildForm(this.invoice);
       this.coName = this.company.name; 
@@ -220,16 +224,19 @@ export class InvoiceEditComponent implements OnInit {
       
       
       // Get a key for a new Invoice
+      if(!this.invoice.invoiceKey){
       let newInvoiceKey = this.db.app.database().ref().child('/invoices/' + this.companyKey).push().key;
+      this.invoice.invoiceKey = newInvoiceKey;
+      }
       
       // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
       let updates = {};
-      updates['/invoices/' + newInvoiceKey] = this.invoice;
-      updates['/companies/'+ this.companyKey + '/invoices/' + newInvoiceKey] = this.invoice;
+      updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
+      updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
       this.db.app.database().ref().update(updates);
 
-      this.router.navigate(['/invoice-pre-pdf/' + newInvoiceKey ]);
-      return
+      this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
+      return;
     } 
     alert('there are no items in that time frame')
       this.router.navigate(['/companies']);
