@@ -51,7 +51,7 @@ export class InvoiceListComponent implements OnInit{
     console.log('INVOICESARRAY ', this.invoicesArray);
     let date;
     this.invoicesArray.forEach( (invoice) => { 
-      invoice.createdAt = moment(invoice.createdAt).format('MM/DD/YYYY');
+      invoice.createdAt = moment(invoice.createdAt).format('L');
     });
     this.sortedData = this.invoicesArray.slice();
 

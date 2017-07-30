@@ -19,18 +19,14 @@ import { Location }                       from '@angular/common';
 
 // 3rd party
 import * as firebase                      from 'firebase/app';
-// import * as moment                        from 'moment'
 import 'rxjs/add/operator/filter';
 import { Observable }                     from 'rxjs/Observable';
 
 // custom
-import { CompanyService }                 from '../../company/company.service';
 import { Company }                        from '../../company/company';
 import { Item }                           from '../../item/item';
-import { ItemDetailComponent }            from '../../item/item-detail/item-detail.component';
 import { Invoice }                        from '../invoice'; 
 import { InvoiceService }                 from '../invoice.service';
-// import { MyGlobals }                      from '../../shared/myglobals';
 import { Shared }                         from '../../shared/shared';
 
 
@@ -41,35 +37,18 @@ import { Shared }                         from '../../shared/shared';
 })
 export class InvoicePrePdfComponent implements OnInit {
   address;
-  // city:string;
-  // coDetails
-  // coId: number;
-  // color:string = '';
   company:Company;
   coName: string = '';
-  // coInterval: number;
   companyKey: string;
-  // date = new Date("2017-2-11");
-  // date2 = new Date("2017-2-12");
   errorMessage: string;
   createdDate: string;
   dueDate: Date;
   icons = ['chevron-left'];
-  // invoiceId: string;
   invoice: Invoice;
   invoiceKey: string;
-  // invoices: Invoice[];
-  // item: ItemDetailComponent;
   items: Item[];
-  // items2: Item[] =[];
-  // m: moment.Moment;
-  // moment: moment.Moment;
-  // postalCode: string;
-  // myGlobals: MyGlobals;
   shared: Shared;
   state: string;
-  // street1: string;
-  // street2: string;
   total: number;
 
   constructor(
@@ -80,20 +59,17 @@ export class InvoicePrePdfComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private sanitizer: DomSanitizer,
-    // private moment: moment,
     ) {
-    this.shared = new Shared();
-    this.icons.forEach((icon) =>{
+      this.shared = new Shared();
+      this.icons.forEach((icon) =>{
         iconRegistry.addSvgIcon(
         icon,
         sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
         );
       });
-    //  this.myGlobals = new MyGlobals();
   }
 
   ngOnInit() {
-    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
     this.route.params.subscribe(params => {this.invoiceKey = params['id']; });
     
     firebase.database().ref('/invoices/' + this.invoiceKey).on('value', (snapshot)  => {
@@ -105,14 +81,6 @@ export class InvoicePrePdfComponent implements OnInit {
       this.coName = this.invoice.coName;
       this.dueDate = this.invoice.dueDate;
       this.items = this.invoice.items;
-
-            
-      // firebase.database().ref('/companies/' + this.invoice.companyKey ).on('value', (snapshot)=> {
-      //   this.company = snapshot.val();
-      //   if(this.invoice.items){
-      //     this.items = this.invoice.items;
-      //   }
-      // });
     });
   }
 
@@ -124,25 +92,13 @@ setColor(color) {
     return color
 }
 submit(){
-let newPdf = this.invoiceService.addPdf(document.getElementById('invoice-body').innerHTML);
-// console.log('newPdf', newPdf);
-// Get a key for a new Invoice
-let newInvoiceKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
+  let newPdf = this.invoiceService.addPdf(document.getElementById('invoice-body').innerHTML);
+
+  // Get a key for a new Invoice
+  let newInvoiceKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
   
-  // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
   let updates = {};
   updates['/invoice-pre-pdf/' + newInvoiceKey] = newPdf;
-  // this.db.app.database().ref().update(updates);
-  // this.company.items.push(this.myform.value);
   this.db.object('/invoice-pre-pdf/'+ newInvoiceKey).update(updates);
-//    this._invoiceService
-  //        .addPdf(stringy)
-  //        .subscribe(
-  //           x => {console.log("Success!");
-  //             this._router.navigate(['companies'])}, 
-  //           response => { if (response.status = 404) {
-  //             this._router.navigate(['not-found']);}
-  //           }
-  //        );
   }
 }
