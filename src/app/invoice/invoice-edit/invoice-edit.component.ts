@@ -86,7 +86,7 @@ export class InvoiceEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
-      this.invoiceKey = params['invoiceId']
+      this.invoiceKey = params['invoiceKey']
       // console.log('companyKey', this.companyKey);
     });
 
@@ -99,6 +99,7 @@ export class InvoiceEditComponent implements OnInit {
       this.makeTitle(this.coName);
     });
     
+    console.log('this.invoiceKey', this.invoiceKey);
     if(this.invoiceKey){
       
       this.db.object('/companies/' + this.companyKey + '/invoices/'+ this.invoiceKey).subscribe(data => {
@@ -127,8 +128,7 @@ export class InvoiceEditComponent implements OnInit {
       });
     }
     if(invoice) {
-
-        console.log('this.invoiceeeeeeeeeeeeeeeeeeeeeeekkkkkkkkkkkkk', this.invoice);
+      console.log('this.invoiceeeeeeeeeeeeeeeeeeeeeeekkkkkkkkkkkkk', this.invoice);
       this.myform = this.fb.group({
         beginDate: invoice.beginDate,
         endDate: invoice.endDate,
