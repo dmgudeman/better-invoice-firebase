@@ -90,11 +90,18 @@ goBack(): void {
   this.location.back();
 }
 
+
+
 setColor(color) {
     return color
 }
-submit(){
+goToCompanies(){
+    this.router.navigate(['/companies']);
+  }
+onSubmit(){
+  console.log('submit Fired');
   let newPdf = this.invoiceService.addPdf(document.getElementById('invoice-body').innerHTML);
+
 
   // Get a key for a new Invoice
   let newInvoiceKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
@@ -102,5 +109,6 @@ submit(){
   let updates = {};
   updates['/invoice-pre-pdf/' + newInvoiceKey] = newPdf;
   this.db.object('/invoice-pre-pdf/'+ newInvoiceKey).update(updates);
+  this.goToCompanies();
   }
 }

@@ -1,6 +1,6 @@
 <div class="my-container">
    <md-toolbar color="primary">
-    <md-icon class="icon" (click)="goBack()" svgIcon="chevron-left"></md-icon>
+    <md-icon class="icon" svgIcon="chevron-left"></md-icon>
     <span class="bi-spacer"></span>
     <span>Invoice Preview</span>
     <span class="bi-spacer"></span>
@@ -73,7 +73,7 @@
     </div>
     <footer id="footer" class="row2"> 
        <div class="col2 col2-mid">
-          <button md-raised-button >Submit </button>
+          <button md-raised-button type="submit" (click)="onSubmit()" >Submit </button>
            <!-- <button class="my-submit-btn" type="submit" (click)="submit()">Submit</button> -->
        </div>
     </footer>

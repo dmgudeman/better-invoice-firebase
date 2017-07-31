@@ -37,6 +37,6 @@ export class Invoice implements InvoiceInterface {
     this.address     = address;
     this.paymentTerms= paymentTerms;
     this.coName      = coName;
-    this.dueDate     = dueDate.moment.format('L';
+    this.dueDate     = dueDate.moment.format('L');
   }
 }
