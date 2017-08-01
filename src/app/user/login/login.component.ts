@@ -9,6 +9,7 @@ import { AngularFireAuth }    from 'angularfire2/auth';
 import * as firebase          from 'firebase/app';
 import { Observable }         from 'rxjs/Observable';
 // Custom
+import { AuthService }        from '../../providers/auth.service';
 import { MyIcons }            from '../../shared/my-icons';
 
 
@@ -22,10 +23,11 @@ export class LoginComponent implements OnInit {
   photoURL;
   user: Observable<firebase.User>
   userId: string;
-  icons = ['chevron-right'];
+  icons = ['chevron-right', 'facebook', 'google'];
 
   constructor(
-    public afAuth: AngularFireAuth,
+    public  afAuth: AngularFireAuth,
+    public  authService: AuthService,
     private router:Router,
     private myIcons:MyIcons,
   ) {
@@ -48,25 +50,33 @@ export class LoginComponent implements OnInit {
         console.log('this.userId', this.userId)
         this.router.navigate(['/companies']);
       }
-     
     });
   }
 
-  login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(authState=>{
-      console.log('AFTER LOGIN', authState);
-       let provider = new firebase.auth.FacebookAuthProvider();
-      this.afAuth.auth.currentUser.linkWithPopup(provider);
-    })
+  // loginWithFacebook() {
+  //   this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(authState=>{
+  //     console.log('AFTER LOGIN', authState);
+  //   })
+  // }
+
+  loginWithGoogle() {
+    this.authService.login('g');
+      console.log('AFTER LOGIN');
+  }
+
+  loginWithFacebook() {
+    this.authService.login('f');
+      console.log('AFTER LOGIN');
   }
 
   logout() {
     this.afAuth.auth.signOut();
-      this.router.navigate(['/login']);
   }
 
   goToCompanies() {
+    if(this.userId)
     this.router.navigate(['/companies']);
 
   }
 }
+

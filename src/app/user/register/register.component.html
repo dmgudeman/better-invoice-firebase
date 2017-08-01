@@ -1,3 +1,31 @@
-<p>
-  register works!
-</p>
+<div class="container" fxLayout='column' >
+   <!-- NAVIGATION -->
+  <md-toolbar color="primary">
+    <input (click)="logout()" type="image" src='../../assets/images/logo/large-press.png_48x48.png' alt="logo">
+    <span class="bi-spacer"></span>
+    <span>Hello {{displayName}}</span>
+    <span class="bi-spacer"></span>
+    <md-icon class="icon" (click)="goToLogin" svgIcon="chevron-right"></md-icon> 
+  </md-toolbar>
+  <!-- FORM -->
+  <div fxLayout="column" fxFlex="100%"fxLayoutAlign="space-around center"  >
+    <form [formGroup]="myform"  class="form-width" (ngSubmit)="onSubmit()" novalidate  flexLayout="column" fxFlex="100%">
+       <div fxFlex="100%"> 
+         
+        <div fxLayout="row"  class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+            <md-input-container class="full-width">
+              <input mdInput formControlName="email" placeholder="email">
+            </md-input-container>
+          </div>
+        <div fxLayout="row" class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+            <md-input-container class="full-width">
+              <input mdInput formControlName="password" placeholder="password">
+            </md-input-container>
+          </div>
+        <div fxLayout="row" class="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+            <button md-raised-button [disabled]="!myform.valid">Submit </button>
+      </div>
+       </div>
+    </form>
+  </div>
+</div>

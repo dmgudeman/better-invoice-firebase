@@ -35,6 +35,7 @@ import { environment }               from '../environments/environment';
 import { AddressModule }             from './address/address.module';
 import { AppRoutingModule }          from './app-routing.module';
 import { AppComponent }              from './app.component';
+import { AuthService }               from './providers/auth.service';
 import { CompanyModule }             from './company/company.module';
 import { InvoiceEditComponent }      from './invoice/invoice-edit/invoice-edit.component';
 import { InvoiceListComponent }      from './invoice/invoice-list/invoice-list.component';
@@ -90,6 +91,7 @@ import { InvoicesDashboardComponent } from './invoice/invoices-dashboard/invoice
     // MyIcons,
   ],
   providers: [
+    AuthService,
     InvoiceService,
     MyIcons,
     RouterOutlet,

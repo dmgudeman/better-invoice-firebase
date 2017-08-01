@@ -14,6 +14,7 @@ import { ItemEditComponent }          from './item/item-edit/item-edit.component
 import { InvoiceEditComponent }       from './invoice/invoice-edit/invoice-edit.component';
 import { InvoicesDashboardComponent } from './invoice/invoices-dashboard/invoices-dashboard.component';
 import { LoginComponent }             from './user/login/login.component';
+import { RegisterComponent }          from './user/register/register.component';
 // import { NotFoundComponent }        from './not-found/not-found.component'o;
 // import { TempComponent }              from './temp/temp/temp.component';
 // import { Temp2Component }             from './temp/temp2/temp2.component';
@@ -36,11 +37,12 @@ export const APP_ROUTES: Routes = [
   { path: 'invoice-pre-pdf/:id',  component: InvoicePrePdfComponent },
   // { path: 'temp',                 component: TempComponent },
   // { path: 'temp2',                component: Temp2Component },
-  { path: 'companies',            component: CompaniesComponent}, 
-  { path: 'company-card/:id',     component: CompanyCardComponent}, 
-  { path: 'company-edit',         component: CompanyEditComponent}, 
-  { path: 'company-edit/:id',     component: CompanyEditComponent}, 
-  { path: 'company-details',      component: CompanyDetailsComponent}, 
+  { path: 'companies',            component: CompaniesComponent }, 
+  { path: 'company-card/:id',     component: CompanyCardComponent }, 
+  { path: 'company-edit',         component: CompanyEditComponent }, 
+  { path: 'company-edit/:id',     component: CompanyEditComponent }, 
+  { path: 'company-details',      component: CompanyDetailsComponent }, 
+  { path: 'register',             component: RegisterComponent },
  
 ];
 
