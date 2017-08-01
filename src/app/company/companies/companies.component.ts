@@ -41,7 +41,7 @@ export class CompaniesComponent implements OnInit {
   companies: FirebaseListObservable<any[]>;
   company: FirebaseObjectObservable<any>;
   companiesArray = [];
-  icons=['add'];
+  icons=['add', 'logoff'];
   keysArray=[];
   sanpshot;
 
