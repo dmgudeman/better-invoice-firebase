@@ -48,17 +48,21 @@ export class LoginComponent implements OnInit {
         console.log('this.userId', this.userId)
         this.router.navigate(['/companies']);
       }
+     
     });
   }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(authState=>{
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(authState=>{
       console.log('AFTER LOGIN', authState);
+       let provider = new firebase.auth.FacebookAuthProvider();
+      this.afAuth.auth.currentUser.linkWithPopup(provider);
     })
   }
 
   logout() {
     this.afAuth.auth.signOut();
+      this.router.navigate(['/login']);
   }
 
   goToCompanies() {
