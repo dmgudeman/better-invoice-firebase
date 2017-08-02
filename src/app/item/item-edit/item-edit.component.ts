@@ -28,6 +28,7 @@ import {
   Router,
 }                                         from '@angular/router';
 // 3rd party
+import { AngularFireAuth }       from 'angularfire2/auth';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable ,
@@ -56,15 +57,19 @@ export class ItemEditComponent implements OnInit {
   companyKey: string;
   companyItems: FirebaseListObservable<any[]>
   date:Date;
+  icons= ['chevron-left'];
   item;
   itemKey: string;
+  loggedIn;
   m: moment.Moment;
-  title: string;
   myform : FormGroup;
-  icons= ['chevron-left'];
+  title: string;
+  user;
+  userId: string;
 
   constructor(
     private db: AngularFireDatabase,
+    public afAuth: AngularFireAuth, 
     private fb:FormBuilder,
     private iconRegistry:MdIconRegistry,
     private location: Location,
@@ -79,18 +84,21 @@ export class ItemEditComponent implements OnInit {
         sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
         );
       });
+    this.user = afAuth.authState;
     }
 
   ngOnInit() {
-    // this.myform = this.fb.group({
-    //   date:'',
-    //   description:'',
-    //   amount:'',
-    //   hours:'',
-    //   type:'',
-    //   companyKey: '',
-    // });
-    
+     this.afAuth.authState.subscribe ( user => {
+      if (!user) { 
+        console.log('NOT LOGGED IN');
+        this.loggedIn = "Not Logged In"
+      }
+      if (user){
+        this.userId = user.uid;
+        this.loggedIn = "Logged In"
+      }  
+    })
+    console.log("LOGGED IN", this.user)
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
       this.itemKey = params[ 'itemKey']
@@ -166,10 +174,10 @@ export class ItemEditComponent implements OnInit {
     // this.db.object('/companies/'+ this.companyKey).update({items:this.company.items});
     let total = (
       (this.myform.value.hours - 0 ) * (this.company.hourly - 0)) + (this.myform.value.amount - 0);
-    console.log('hours', this.myform.value.hours);
-    console.log('hourly', this.company.hourly);
-    console.log('amount', this.myform.value.amount);
-    console.log('total', total);
+    // console.log('hours', this.myform.value.hours);
+    // console.log('hourly', this.company.hourly);
+    // console.log('amount', this.myform.value.amount);
+    // console.log('total', total);
     payload.total = total;
 
     // Get a key for a new Invoice

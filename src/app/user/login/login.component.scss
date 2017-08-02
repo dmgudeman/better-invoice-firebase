@@ -4,6 +4,7 @@
   font-size: 30px;
   font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 700;
+  color: #c2becc;
 }
 
 .icon {
@@ -11,9 +12,11 @@
   font-size: 25px;
   cursor:pointer;
 }
+
 u {
   color: #c2becc;
 }
+
 .bi-spacer {
   flex: 1 1 auto;
 }
@@ -21,18 +24,21 @@ u {
 .bi-spacer-button {
   flex: 1 1 auto;
 }
+
 .login-btn{
   padding: 14px;
 }
+
 .facebook {
   color: $blue;
 }
+
 .google {
   color:$yellow;
 }
 button {
   margin: 10px;
-  color: white;
+  font-size: 18px;
 }
 .green {
   background-color: $green;

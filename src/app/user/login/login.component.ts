@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   user: Observable<firebase.User>
   userId: string;
   icons = ['chevron-right', 'facebook', 'google'];
+  loggedState: String
 
   constructor(
     public  afAuth: AngularFireAuth,
@@ -37,25 +38,33 @@ export class LoginComponent implements OnInit {
 
    ngOnInit() {
     this.myIcons.makeIcons(this.icons);
-    if(!this.user){ 
-      console.log('NOT LOGGED IN')
-      return;
-    }
-    console.log("LOGGED IN", this.user)
+    // if(!this.user){ 
+    //   console.log('NOT LOGGED IN')
+    //   this.loggedState = "Please Log In"
+    //   return;
+    // }
+    // console.log("LOGGED IN", this.user)
     this.afAuth.authState.subscribe ( user => {
-      if (user){
+      if (!user){
+       this.loggedState = "Please Log In"
+       
+      return; 
+      } else {
+
+        this.loggedState = "You are logged In"
         this.displayName = user.displayName;
         this.photoURL = user.photoURL;
         this.userId = user.uid;
         console.log('this.userId', this.userId)
-        this.router.navigate(['/companies']);
-      }
+        // this.router.navigate(['/companies']);
+      } 
     });
   }
 
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(authState=>{
       console.log('AFTER LOGIN', authState);
+
     })
   }
 
