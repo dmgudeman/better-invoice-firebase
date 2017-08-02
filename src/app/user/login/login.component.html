@@ -2,6 +2,7 @@
   <!-- NAVIGATION -->
   <md-toolbar color="primary">
     <input (click)="logout()" type="image" src='../../assets/images/logo/large-press.png_48x48.png' alt="logo">
+     <md-icon class="bi-icon" svgIcon="logoff" (click)='logout()'></md-icon>
     <span class="bi-spacer"></span>
     <span>Hello {{displayName}}</span>
     <span class="bi-spacer"></span>
@@ -13,7 +14,7 @@
     <img *ngIf="photoURL" src="{{photoURL}}" alt="userpic">
     <!-- <md-icon class="login-btn facebook" svgIcon="facebook" (click)="loginWithFacebook()"></md-icon> -->
     
-    <md-icon class="login-btn google"svgIcon="google" (click)="loginWithGoogle()"></md-icon>
+    <md-icon class="login-btn google"svgIcon="google" (click)="login()"></md-icon>
     <!-- <button md-raised-button class="green" (click)="loginWithFacebook()">Login with Facebook</button> -->
     <!-- <button md-raised-button class="red" (click)="loginWithGoogle()">Login with Google</button>  -->
      <!-- <button md-raised-button class="purple" (click)="goToCompanies()">Your Companies</button>   -->

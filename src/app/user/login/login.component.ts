@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.user = afAuth.authState;
    }
 
-  ngOnInit() {
+   ngOnInit() {
     this.myIcons.makeIcons(this.icons);
     if(!this.user){ 
       console.log('NOT LOGGED IN')
@@ -53,20 +53,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // loginWithFacebook() {
-  //   this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(authState=>{
-  //     console.log('AFTER LOGIN', authState);
-  //   })
-  // }
-
-  loginWithGoogle() {
-    this.authService.login('g');
-      console.log('AFTER LOGIN');
-  }
-
-  loginWithFacebook() {
-    this.authService.login('f');
-      console.log('AFTER LOGIN');
+  login() {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(authState=>{
+      console.log('AFTER LOGIN', authState);
+    })
   }
 
   logout() {
@@ -74,7 +64,6 @@ export class LoginComponent implements OnInit {
   }
 
   goToCompanies() {
-    if(this.userId)
     this.router.navigate(['/companies']);
 
   }
