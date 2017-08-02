@@ -63,6 +63,7 @@ export class RegisterComponent implements OnInit {
   myform : FormGroup;
   title;
   user: Observable<firebase.User>
+  displayName;
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -115,6 +116,13 @@ export class RegisterComponent implements OnInit {
   }
   goBack() {
      this.location.back();
+  }
+
+  logout(){
+
+  }
+  goToLogin() {
+
   }
 
 }
