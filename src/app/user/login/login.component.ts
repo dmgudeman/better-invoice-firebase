@@ -32,42 +32,20 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private myIcons:MyIcons,
   ) {
-    console.log('Login constructor');
     firebase.auth().onAuthStateChanged(user => {
       this.user = user;
       if(user) {
         this.goToCompanies();
-    } else {
+      } else {
+          this.loggedState = "Please Login"
         return;
-    }
-    })
-    // this.user = afAuth.authState;
 
+      }
+    });
    }
 
    ngOnInit() {
     this.myIcons.makeIcons(this.icons);
-    // if(!this.user){ 
-    //   console.log('NOT LOGGED IN')
-    //   this.loggedState = "Please Log In"
-    //   return;
-    // }
-    // console.log("LOGGED IN", this.user)
-    this.afAuth.authState.subscribe ( user => {
-      if (!user){
-       this.loggedState = "Please Log In"
-
-      return; 
-      } else {
-
-        this.loggedState = "You are logged In"
-        this.displayName = user.displayName;
-        this.photoURL = user.photoURL;
-        this.userId = user.uid;
-        console.log('this.userId', this.userId)
-        // this.router.navigate(['/companies']);
-      } 
-    });
   }
   
   loginWithGoogle() {
@@ -134,73 +112,31 @@ export class LoginComponent implements OnInit {
 loginWithFacebook() {
   let auth = this.afAuth.auth;
   // Step 1.
-// User tries to sign in to Google.
-  firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function(error) {
+// User tries to sign in to Facebook.
+  firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider()).catch(function(error) {
    console.log('error.code', error['code']);
   // An error happened.
   if (error['code'] === 'auth/account-exists-with-different-credential') {
     // Step 2.
     // User's email already exists.
-    // The pending Google credential.
+    // The pending Facebook credential.
     var pendingCred = error['credential'];
     // The provider account's email address.
     var email = error['email'];
     // Get registered providers for this email.
     firebase.auth().fetchProvidersForEmail(email).then(function(providers) {
       console.log('providers', providers);
-    this.afAuth.auth.currentUser.linkWithPopup(new firebase.auth.GoogleAuthProvider()).then (result=> {
-      var credential = result.credential;
-      var user = result.user;
+      if (providers[0] === 'google.com'){
+        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(error =>{
+          console.log('Error in loginWithFacebook', error);
+        })
+
+      }
+    
     })
-    })
-  }})
-  // .catch(error => {
-  //   if (error['code'] === 'auth/account-exists-with-different-credential') {
-  //     var credential = firebase.auth.GoogleAuthProvider.credential;
-  //     // Get reference to the currently signed-in use
-  //     var prevUser = auth.currentUser;
-  //       auth.signInWithCredential(prevUser.linkWithCredential(credential).then(function(user) {
-  //          console.log("Sign In Success", user);
-  //         var currentUser = user;
-  //        // Merge prevUser and currentUser data stored in Firebase.
-  //        // Note: How you handle this is specific to your application
+    }
+  })
 
-  //         // After data is migrated delete the duplicate user
-  //       })
-//   return user.delete().then(function() {
-//     // Link the OAuth Credential to original account
-//     return prevUser.linkWithCredential;
-//   }).then(function() {
-//     // Sign in with the newly linked credential
-//     return auth.signInWithCredential(credential);
-  
-// }).catch(function(error) {
-//   console.log("Sign In Error", error);
-// });
-//     }
-//   });
-//     }  );
-//     // Step 1.
-// // User tries to sign in to Google.
-// firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider()).catch(function(error) {
-//   console.log('error.code', error['code']);
-
-
-//   // An error happened.
-//   if (error['code'] === 'auth/account-exists-with-different-credential') {
-//     var pendingCred = error['credential'];
-//     var email = error['email'];
-//     firebase.auth().fetchProvidersForEmail(email).then(function(providers) {
-//       var provider = new firebase.auth.GoogleAuthProvider();
-//       firebase.auth().signInWithPopup(provider).then(function(result) {
-//         result.user.link(pendingCred).then(function() {
-//         });
-//       });
-//     });
-//   }
-// });
-
-//     // })
   }
   logout() {
     this.afAuth.auth.signOut();
