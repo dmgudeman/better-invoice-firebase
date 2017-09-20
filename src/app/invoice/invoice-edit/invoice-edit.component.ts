@@ -81,12 +81,6 @@ export class InvoiceEditComponent implements OnInit {
     private router: Router,
     private sanitizer:DomSanitizer,
   ) {
-    // this.icons.forEach((icon) =>{
-    // iconRegistry.addSvgIcon(
-    //   icon,
-    //   sanitizer.bypassSecurityTrustResourceUrl('assets/images/icons/' + icon + '.svg')
-    // );
-    // });
     let myIcons = new MyIcons(iconRegistry, sanitizer);
     myIcons.makeIcon("chevron-left");
   }
@@ -95,32 +89,23 @@ export class InvoiceEditComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
-      // this.invoiceKey = params['invoiceId']
       this.invoiceKey = params['invoiceKey']
-      console.log('companyKey', this.companyKey);
-      console.log('invoiceKey', this.invoiceKey);
     });
 
     this.db.object('/companies/'+ this.companyKey).subscribe(data => {
-      console.log('dddddddddaaaaaaaaattttttttttt1111111111',data);
       this.company = data;
       this.coName = this.company.name; 
       this.items = this.company.items;
       this.address = this.company.address;
       this.paymentTerms = this.company.paymentTerms;
-      console.log('this.items', this.items);
-      // console.log('data ', this.company.name)
       this.makeTitle(this.coName);
     });
     
     this.db.object('/companies/'+ this.companyKey + '/invoices/'+ this.invoiceKey).subscribe(data => {
-      console.log('dddddddddaaaaaaaaattttttttttt2222222222',data);
       this.invoice = data;
       this.buildForm(this.invoice);
       this.coName = this.company.name; 
       this.items = this.company.items;
-      console.log('this.items', this.items);
-      // console.log('data ', this.company.name);
       this.makeTitle(this.coName);
     });
       
@@ -176,11 +161,8 @@ export class InvoiceEditComponent implements OnInit {
 
   calcDueDate(date, paymentTerms){
     let a = moment(date);
-    console.log('aaaaaaaaaaaaaaaaa', a.toString() );
     a.add(paymentTerms, 'days');
-    console.log('a.toString', a.toString());
     this.dueDate = a.format(); 
-    console.log('this.dueDate', this.dueDate);
     return this.dueDate;
   }
   filterByDateRange(beginDate?, endDate?) {

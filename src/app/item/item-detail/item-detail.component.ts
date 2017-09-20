@@ -35,8 +35,8 @@ export class ItemDetailComponent implements OnInit {
     let date;
     date = this.shared.setDate(this.item.date);
     this.item.date = date;
-    console.log('CCCCCOOOOOLLLLLOOOOOORRR',this.itemColor);
   }
+  
 
   goToEditItem(item?: Item) {
     let id = item.id;

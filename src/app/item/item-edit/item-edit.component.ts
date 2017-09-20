@@ -167,6 +167,7 @@ export class ItemEditComponent implements OnInit {
     this.location.back();
   }
   onSubmit() {
+    
     let payload = this.myform.value;
     payload.companyKey = this.companyKey;
     // if(!this.company.items) this.company.items = [];
@@ -174,10 +175,6 @@ export class ItemEditComponent implements OnInit {
     // this.db.object('/companies/'+ this.companyKey).update({items:this.company.items});
     let total = (
       (this.myform.value.hours - 0 ) * (this.company.hourly - 0)) + (this.myform.value.amount - 0);
-    // console.log('hours', this.myform.value.hours);
-    // console.log('hourly', this.company.hourly);
-    // console.log('amount', this.myform.value.amount);
-    // console.log('total', total);
     payload.total = total;
 
     // Get a key for a new Invoice
@@ -193,6 +190,14 @@ export class ItemEditComponent implements OnInit {
     updates['/items/' + payload.itemKey] = payload;
     this.db.app.database().ref().update(updates);
     this.goToCompanies();
+  }
+
+  calcAmount() {
+
+      console.log("calcAMMMMMOUUUUNNNNNNTTT" + this.myform.value.hours);
+      console.log('this.company.hourly', this.company.hourly);
+      this.myform.value.amount = this.company.hourly * this.myform.value.hours;
+      console.log('this.myform.value.amount', this.myform.value.amount);
   }
   
 }

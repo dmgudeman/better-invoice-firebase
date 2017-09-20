@@ -13,7 +13,12 @@
           <md-tab label="Hours">
               <div fxLayout="column" fxFlex="100%">
               <md-input-container class="example-full-width">
-                <input mdInput formControlName="hours" placeholder="Hours">
+                <input 
+                  mdInput 
+                  formControlName="hours" 
+                  placeholder="Hours"
+                  (mouseleave)="calcAmount()"
+                >
               </md-input-container>
             </div>
           </md-tab>
