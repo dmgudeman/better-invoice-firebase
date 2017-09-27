@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
     firebase.auth().onAuthStateChanged(user => {
       this.user = user;
       if(user) {
+        console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLOGIN user', user);
         this.goToCompanies();
       } else {
           this.loggedState = "Please Login"

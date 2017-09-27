@@ -183,12 +183,15 @@ export class CompanyEditComponent implements OnInit{
     if(!this.companyKey){
       let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
       let updates = {};
-      updates['/companies/' + newCompanyKey] = payload;
-      updates['/companiesByUser/'+ this.userId + '/' + newCompanyKey] = payload;
+      // updates['/companies/' + newCompanyKey] = payload;
+      // console.log('this.userId', this.userId);
+      
+      updates['/users/'+ this.userId + '/companies/' + newCompanyKey] = payload;
       this.db.app.database().ref().update(updates);
     } else {
-      this.db.object('/companies/'+ this.companyKey).update(payload);
-      this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).update(payload);
+      // this.db.object('/companies/'+ this.companyKey).update(payload);
+      console.log('this.userId2', this.userId);
+      this.db.object('/users/'+ this.userId + '/companies/').update(payload);
     }
       this.router.navigate(['companies']);
   }

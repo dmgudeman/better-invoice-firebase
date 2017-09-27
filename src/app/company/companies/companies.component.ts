@@ -69,7 +69,6 @@ export class CompaniesComponent implements OnInit {
     this.afAuth.authState.subscribe ( user => {
       if (!user) return;
       this.userId = user.uid;
-      
       firebase.database().ref('/companiesByUser/' + this.userId).once('value', (snapshot)=> {
         if(snapshot.val()){
           this.keysArray = (<any>Object).keys(snapshot.val()); 
