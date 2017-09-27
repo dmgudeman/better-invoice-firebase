@@ -41,15 +41,12 @@ export class CompanyService implements OnInit {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userId = user.uid;
-        console.log('this.userId', this.userId)
         this.db.list('/companies-by-user/' + this.userId, {
           query: {
             orderByChild: 'name'
           }
         }).subscribe(x => {
-
           this.companiesArray = x;
-          //  console.log('companies in ngOnInit', this.companies);
         })
       }
     });
