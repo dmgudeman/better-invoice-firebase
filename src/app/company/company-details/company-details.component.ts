@@ -85,15 +85,12 @@ export class CompanyDetailsComponent implements OnInit{
 
     this.afAuth.authState.subscribe ( user => {
       if (user) {
-          this.userId = user.uid;
-        firebase.database().ref('/companies/' + this.companyKey ).once('value', (snapshot)=> {
+        firebase.database().ref('/users/' + user.uid + '/companies/' + this.companyKey ).once('value', (snapshot)=> {
           // console.log('snapshot', snapshot.val());
           this.company = snapshot.val();
           this.coName = this.company.name
           this.coColor = this.company.color;
           this.address = this.company.address;
-          console.log('company.address', this.company.address);
-          console.log('thiEEEEEEEEE', this.company.items);
           if (this.company.items) {
             this.items = (<any>Object).values(this.company.items);
           }
@@ -102,7 +99,6 @@ export class CompanyDetailsComponent implements OnInit{
       }
     });  
   }
-  
   
   goToEditItem() {
         // let id = item.id;
