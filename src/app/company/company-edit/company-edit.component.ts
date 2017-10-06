@@ -73,6 +73,7 @@ export class CompanyEditComponent implements OnInit{
   title;
   user: Observable<firebase.User>
   userId: string;
+  fUserId: string;
 
   constructor(
     public afAuth: AngularFireAuth,
@@ -108,6 +109,8 @@ export class CompanyEditComponent implements OnInit{
     this.afAuth.authState.subscribe ( user => {
       if (user){
         this.userId = user.uid;
+        this.fUserId = user.providerData[0].uid
+        console.log('this.fUserId', this.fUserId);
         firebase.database().ref('/companies/' + this.companyKey ).on('value', (snapshot)=> {
           
           this.company = snapshot.val();
@@ -174,7 +177,7 @@ export class CompanyEditComponent implements OnInit{
       paymentTerms:paymentTerms, 
       hourly:hourly, 
       active:true, 
-      userId: this.userId,
+      userId: this.fUserId,
       address: '' 
     }
     if (this.address) payload.address = this.address;
@@ -186,12 +189,14 @@ export class CompanyEditComponent implements OnInit{
       // updates['/companies/' + newCompanyKey] = payload;
       // console.log('this.userId', this.userId);
       
-      updates['/users/'+ this.userId + '/companies/' + newCompanyKey] = payload;
+      updates['/users/'+ this.fUserId + '/companies/' + newCompanyKey] = payload;
+    
       this.db.app.database().ref().update(updates);
     } else {
       // this.db.object('/companies/'+ this.companyKey).update(payload);
       console.log('this.userId2', this.userId);
-      this.db.object('/users/'+ this.userId + '/companies/').update(payload);
+      // this.db.object('/users/'+ this.userId + '/companies/').update(payload);
+      this.db.object('/'+ this.fUserId + '/companies/').update(payload);
     }
       this.router.navigate(['companies']);
   }

@@ -47,6 +47,7 @@ export class CompaniesComponent implements OnInit {
 
   user: Observable<firebase.User>
   userId: string;
+  fUserId: string;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -69,7 +70,8 @@ export class CompaniesComponent implements OnInit {
     this.afAuth.authState.subscribe ( user => {
       if (!user) return;
       this.userId = user.uid;
-      firebase.database().ref('/users/' + this.userId + '/companies').once('value', (snapshot)=> {
+      this.fUserId = user.providerData[0].uid;
+      firebase.database().ref('/users/'+ this.fUserId + '/companies').once('value', (snapshot)=> {
         if(snapshot.val()){
           this.keysArray = (<any>Object).keys(snapshot.val()); 
           this.companiesArray =  (<any>Object).values(snapshot.val());

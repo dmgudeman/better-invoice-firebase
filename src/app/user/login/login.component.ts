@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   photoURL;
   user: Observable<firebase.User>
   userId: string;
+  fUserId: string;
   icons = ['chevron-right', 'facebook', 'google', 'logoff'];
   loggedState: String
 
@@ -36,6 +37,8 @@ export class LoginComponent implements OnInit {
       this.user = user;
       if(user) {
         console.log('LLLLLLLLLLLLLLLLLLLLLLLLLLLLOGIN user', user);
+        this.fUserId = user.providerData[0].uid
+        console.log('this.fUserId', this.fUserId);
         this.goToCompanies();
       } else {
           this.loggedState = "Please Login"
