@@ -4,6 +4,7 @@ import {
   OnInit,
   ViewChild
 }                                         from '@angular/core';
+import * as firebase       from 'firebase/app';
 import { DomSanitizer }                   from '@angular/platform-browser';
 import { Location }                       from '@angular/common';
 import { 
@@ -57,6 +58,7 @@ export class ItemEditComponent implements OnInit {
   companyKey: string;
   companyItems: FirebaseListObservable<any[]>
   date:Date;
+  fUserId
   icons= ['chevron-left'];
   item;
   itemKey: string;
@@ -93,39 +95,65 @@ export class ItemEditComponent implements OnInit {
         console.log('NOT LOGGED IN');
         this.loggedIn = "Not Logged In"
       }
-      if (user){
+      else if (user){
         this.userId = user.uid;
-        this.loggedIn = "Logged In"
+        this.fUserId = user.providerData[0].uid;
+        console.log('user.uid', this.fUserId.uid);
+        this.loggedIn = "Logged In";
+       
+
+        console.log("LOGGED IN", user.uid)
+        this.route.params.subscribe(params => {
+          this.companyKey = params['companyKey'];
+          this.itemKey = params[ 'itemKey']
+         
+          
+        });
+        this.getCompany();
+        this.getItem()
       }  
     })
-    console.log("LOGGED IN", this.user)
-    this.route.params.subscribe(params => {
-      this.companyKey = params['companyKey'];
-      this.itemKey = params[ 'itemKey']
-
-        // obtain the company
-      this.db.object('/companies/'+ this.companyKey ).subscribe(data => {
-        this.company = data; 
-        this.coName = this.company.name;
-        console.log(`this.company.name ${this.company.name}`);
-        this.makeTitle(this.coName);
-      });
-    });
+   
     
 
+
     // obtain the item if it is pre-existing
-    if (this.itemKey){
-      this.db.object('/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
-        this.item = data; 
-        this.buildForm(this.item);
-        this.makeTitle(this.coName, this.itemKey);
-      });
-    return;
-    }
+    
     this.buildForm();
     this.makeTitle( this.coName);
   }
+  getItem() {if (this.itemKey){
+    this.db.object('/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
+      this.item = data; 
+      this.buildForm(this.item);
+      this.makeTitle(this.coName, this.itemKey);
+    });
+  return;
+  }}
+  getCompany(){
+    console.log("'/users/'+ this.fUserId + '/companies'", '/users/'+ this.fUserId + '/companies');
+     console.log('company URL', '/users/'+ this.fUserId + '/companies/'+ this.companyKey );
+      // obtain the company
+      firebase.database().ref('/users/'+ this.fUserId + '/companies/' + this.companyKey).on('value', (snapshot)=> {
+        console.log('snapshot.val()', snapshot.val());
+        if(snapshot.val()){
+             this.company = snapshot.val(); 
+        this.coName = this.company.name;
+        console.log(`this.company.name ${this.company.name}`);
+        this.makeTitle(this.coName);
+        }
+      })
 
+
+      // console.log('company URL', '/users/'+ this.userId + '/companies/'+ this.companyKey );
+      // this.db.object('/users/'+ this.userId + '/companies/'+ this.companyKey ).subscribe(data => {
+      //   console.log('data', data);
+      //   this.company = data; 
+      //   this.coName = this.company.name;
+      //   console.log(`this.company.name ${this.company.name}`);
+      //   this.makeTitle(this.coName);
+      // });
+  }
   makeTitle(coName:string, itemId?:string){
       this.title = (this.itemKey) ? " Edit Item for " + this.coName : " New Item for " + this.coName;
   }
@@ -162,7 +190,9 @@ export class ItemEditComponent implements OnInit {
   goToCompanies() {
     this.router.navigate(['/companies']);
   }
-
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
   goBack(): void {
     this.location.back();
   }
