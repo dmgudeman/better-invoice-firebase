@@ -94,6 +94,7 @@ export class ItemEditComponent implements OnInit {
       if (!user) { 
         console.log('NOT LOGGED IN');
         this.loggedIn = "Not Logged In"
+        this.goToLogin();
       }
       else if (user){
         this.userId = user.uid;
@@ -123,7 +124,7 @@ export class ItemEditComponent implements OnInit {
     this.makeTitle( this.coName);
   }
   getItem() {if (this.itemKey){
-    this.db.object('/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
+    this.db.object('/users/'+ this.fUserId + '/companies/'+ this.companyKey + '/items/' + this.itemKey ).subscribe(data => {
       this.item = data; 
       this.buildForm(this.item);
       this.makeTitle(this.coName, this.itemKey);
@@ -131,28 +132,15 @@ export class ItemEditComponent implements OnInit {
   return;
   }}
   getCompany(){
-    console.log("'/users/'+ this.fUserId + '/companies'", '/users/'+ this.fUserId + '/companies');
-     console.log('company URL', '/users/'+ this.fUserId + '/companies/'+ this.companyKey );
       // obtain the company
       firebase.database().ref('/users/'+ this.fUserId + '/companies/' + this.companyKey).on('value', (snapshot)=> {
-        console.log('snapshot.val()', snapshot.val());
         if(snapshot.val()){
              this.company = snapshot.val(); 
         this.coName = this.company.name;
-        console.log(`this.company.name ${this.company.name}`);
         this.makeTitle(this.coName);
         }
       })
 
-
-      // console.log('company URL', '/users/'+ this.userId + '/companies/'+ this.companyKey );
-      // this.db.object('/users/'+ this.userId + '/companies/'+ this.companyKey ).subscribe(data => {
-      //   console.log('data', data);
-      //   this.company = data; 
-      //   this.coName = this.company.name;
-      //   console.log(`this.company.name ${this.company.name}`);
-      //   this.makeTitle(this.coName);
-      // });
   }
   makeTitle(coName:string, itemId?:string){
       this.title = (this.itemKey) ? " Edit Item for " + this.coName : " New Item for " + this.coName;
@@ -200,6 +188,8 @@ export class ItemEditComponent implements OnInit {
     
     let payload = this.myform.value;
     payload.companyKey = this.companyKey;
+    payload.userId = this.userId;
+    payload.fUserId = this.fUserId;
     // if(!this.company.items) this.company.items = [];
     // this.company.items.push(this.myform.value);
     // this.db.object('/companies/'+ this.companyKey).update({items:this.company.items});
@@ -216,8 +206,7 @@ export class ItemEditComponent implements OnInit {
     } 
     // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
     let updates = {};
-    updates['/companies/'+ this.companyKey + '/items/' + payload.itemKey] = payload;
-    updates['/items/' + payload.itemKey] = payload;
+    updates['/users/'+ this.fUserId + '/companies/'+ this.companyKey + '/items/' + payload.itemKey] = payload;
     this.db.app.database().ref().update(updates);
     this.goToCompanies();
   }

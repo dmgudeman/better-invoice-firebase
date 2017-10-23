@@ -27,6 +27,7 @@ import {
   Router,
 }                                from '@angular/router';
 // 3rd party
+import { AngularFireAuth }       from 'angularfire2/auth';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable ,
@@ -57,7 +58,8 @@ export class InvoiceEditComponent implements OnInit {
   coName: string;
   errorMessage: string;
   dueDate;
-  icons=["chevron-left"]
+  fUserId;
+  icons=["chevron-left"];
   invoice:any;
   invoiceKey: string;
   invoices: FirebaseListObservable<any[]>;
@@ -65,14 +67,17 @@ export class InvoiceEditComponent implements OnInit {
   item;
   items;
   itemIds: number[] = [];
+  loggedIn;
   m: moment.Moment;
   myform: FormGroup;
   paymentTerms: number;
   output
   submittedForm
   title: string;
+  userId;
 
   constructor(
+    public afAuth: AngularFireAuth, 
     private db: AngularFireDatabase,
     private fb: FormBuilder,
     private iconRegistry:MdIconRegistry,
@@ -86,32 +91,61 @@ export class InvoiceEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.afAuth.authState.subscribe ( user => {
+      if (!user) { 
+        console.log('NOT LOGGED IN');
+        this.loggedIn = "Not Logged In"
+        this.goToLogin();
+      }
+      else if (user){
+        this.userId = user.uid;
+        this.fUserId = user.providerData[0].uid;
+        console.log('user.uid', this.fUserId.uid);
+        this.loggedIn = "Logged In";
+       
 
+        console.log("LOGGED IN", user.uid)
+        this.route.params.subscribe(params => {
+          this.companyKey = params['companyKey'];
+          this.invoiceKey = params[ 'invoiceKey']
+          
+        });
+        this.getCompany();
+        this.getInvoice()
+      }  
+    })
+   
     this.route.params.subscribe(params => {
       this.companyKey = params['companyKey'];
       this.invoiceKey = params['invoiceKey']
     });
-
-    this.db.object('/companies/'+ this.companyKey).subscribe(data => {
+      
+      this.buildForm();
+  }
+  getCompany(){
+    this.db.object('/users/'+ this.fUserId + '/companies/'+ this.companyKey).subscribe(data => {
       this.company = data;
+      console.log('this.company', this.company);
       this.coName = this.company.name; 
-      this.items = this.company.items;
+      this.items = this.company.items; 
       this.address = this.company.address;
       this.paymentTerms = this.company.paymentTerms;
       this.makeTitle(this.coName);
     });
-    
-    this.db.object('/companies/'+ this.companyKey + '/invoices/'+ this.invoiceKey).subscribe(data => {
-      this.invoice = data;
-      this.buildForm(this.invoice);
-      this.coName = this.company.name; 
-      this.items = this.company.items;
-      this.makeTitle(this.coName);
-    });
-      
-      this.buildForm();
   }
-     
+  getInvoice() {
+    if(this.invoiceKey){
+      return this.db.object('/users/'+ this.fUserId + '/companies/'+ this.companyKey + '/invoices/'+ this.invoiceKey).subscribe(data => {
+        this.invoice = data;
+        this.buildForm(this.invoice);
+        this.coName = this.company.name; 
+        this.items = this.company.items;
+        this.makeTitle(this.coName);
+      });
+    } 
+    return;
+
+  }
   buildForm(invoice?) {
     if(!this.invoice){
       this.myform = this.fb.group({
@@ -192,6 +226,9 @@ export class InvoiceEditComponent implements OnInit {
     if(filteredItems.length>0)return filteredItems;
     return 0;
   } 
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
 
   goBack() { this.location.back(); }
 
@@ -238,7 +275,7 @@ export class InvoiceEditComponent implements OnInit {
     } 
     // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
     let updates = {};
-    updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
+    updates['/users/'+ this.fUserId + '/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
     updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
     this.db.app.database().ref().update(updates);
     this.goToPrePdfInvoice();
@@ -264,11 +301,11 @@ export class InvoiceEditComponent implements OnInit {
     //   updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
     //   this.db.app.database().ref().update(updates);
 
-    //   this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
-    //   return;
+      this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
+      return;
     // } 
     // alert('there are no items in that time frame')
-    //   this.router.navigate(['/companies']);
+      // this.router.navigate(['/companies']);
   }
 }
 

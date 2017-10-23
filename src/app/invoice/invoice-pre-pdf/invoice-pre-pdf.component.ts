@@ -90,14 +90,14 @@ goBack(): void {
   this.location.back();
 }
 
-
-
 setColor(color) {
     return color
 }
+
 goToCompanies(){
     this.router.navigate(['/companies']);
-  }
+}
+
 onSubmit(){
   console.log('submit Fired');
   let newPdf = this.invoiceService.addPdf(document.getElementById('invoice-body').innerHTML);

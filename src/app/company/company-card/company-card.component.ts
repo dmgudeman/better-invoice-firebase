@@ -9,6 +9,7 @@ import {
   Params,
 }                                   from '@angular/router';
 // 3rd Party
+import { AngularFireAuth } from 'angularfire2/auth';
 import { 
   AngularFireDatabase, 
   FirebaseListObservable,
@@ -31,18 +32,29 @@ export class CompanyCardComponent implements OnInit {
   @Input() companiesArray;
   name:string;
   color:string;
+  userId;
+  fUserId;
+  user;
   // invoice: Invoice;
 
   constructor(
     private db: AngularFireDatabase,
     private router: Router,
     private route: ActivatedRoute,
-    ) { }
+    public afAuth: AngularFireAuth,
+    ) {
+      this.user = afAuth.authState;
+     }
 
   ngOnInit() {
-    this.name = this.company.name;
-    this.color = this.company.color;
-    this.companyKey = this.company.companyKey
+    this.afAuth.authState.subscribe ( user => {
+      if (!user) return;
+      this.userId = user.uid;
+      this.fUserId = user.providerData[0].uid;
+      this.name = this.company.name;
+      this.color = this.company.color;
+      this.companyKey = this.company.companyKey
+    })
   }
   
   

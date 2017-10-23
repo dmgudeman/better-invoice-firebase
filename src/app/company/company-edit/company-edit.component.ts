@@ -111,7 +111,7 @@ export class CompanyEditComponent implements OnInit{
         this.userId = user.uid;
         this.fUserId = user.providerData[0].uid
         console.log('this.fUserId', this.fUserId);
-        firebase.database().ref('/companies/' + this.companyKey ).on('value', (snapshot)=> {
+        firebase.database().ref('/users/'+ this.fUserId +'/companies/' + this.companyKey ).on('value', (snapshot)=> {
           
           this.company = snapshot.val();
           if(this.company && this.company.address){
@@ -177,15 +177,16 @@ export class CompanyEditComponent implements OnInit{
       paymentTerms:paymentTerms, 
       hourly:hourly, 
       active:true, 
-      userId: this.fUserId,
+      fUserId: this.fUserId,
+      userId: this.userId,
       address: '' 
     }
     if (this.address) payload.address = this.address;
 
-
+    let updates = {};
     if(!this.companyKey){
       let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
-      let updates = {};
+     
       // updates['/companies/' + newCompanyKey] = payload;
       // console.log('this.userId', this.userId);
       
@@ -196,7 +197,7 @@ export class CompanyEditComponent implements OnInit{
       // this.db.object('/companies/'+ this.companyKey).update(payload);
       console.log('this.userId2', this.userId);
       // this.db.object('/users/'+ this.userId + '/companies/').update(payload);
-      this.db.object('/'+ this.fUserId + '/companies/').update(payload);
+      this.db.object('/'+ this.fUserId + '/companies/'+ this.companyKey).update(payload);
     }
       this.router.navigate(['companies']);
   }

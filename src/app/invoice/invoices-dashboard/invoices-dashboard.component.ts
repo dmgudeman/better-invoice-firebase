@@ -44,6 +44,7 @@ export class InvoicesDashboardComponent implements OnInit{
   coId: string;
   coName: string;
   coColor: string;
+  fUserId: string
   icons=['add', 'chevron-left'];
   invoices;
   user: Observable<firebase.User>
@@ -86,22 +87,25 @@ export class InvoicesDashboardComponent implements OnInit{
     this.afAuth.authState.subscribe ( user => {
       if (user) {
           this.userId = user.uid;
-        firebase.database().ref('/companies/' + this.companyKey ).on('value', (snapshot)=> {
-          console.log('snapshot', snapshot.val());
-          this.company = snapshot.val();
-          this.coName = this.company.name
-          this.coColor = this.company.color;
-          this.address = this.company.address;
-          console.log('thiEEEEEEEEE', this.company.invoices);
-          if (this.company.invoices) {
+          this.fUserId = user.providerData[0].uid;
+          this.getCompany();
+          if (this.company && this.company.invoices) {
             this.invoices = (<any>Object).values(this.company.invoices);
           }
-            console.log(    'JJJJJJJJJJJJJJJ', this.invoices);
-        });
       }
     });  
   }
   
+  getCompany() {
+    firebase.database().ref('/users/'+ this.fUserId + '/companies/' + this.companyKey ).on('value', (snapshot)=> {
+      console.log('snapshot', snapshot.val());
+      this.company = snapshot.val();
+      this.coName = this.company.name
+      this.coColor = this.company.color;
+      this.address = this.company.address;
+      console.log('thiEEEEEEEEE', this.company.invoices);
+    });
+  }
   
   goToEditItem() {
         // let id = item.id;
