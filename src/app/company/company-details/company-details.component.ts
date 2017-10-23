@@ -44,6 +44,7 @@ export class CompanyDetailsComponent implements OnInit{
   coId: string;
   coName: string;
   coColor: string;
+  fUserId: string;
   icons=['add', 'chevron-left'];
   items;
   user: Observable<firebase.User>
@@ -85,13 +86,15 @@ export class CompanyDetailsComponent implements OnInit{
 
     this.afAuth.authState.subscribe ( user => {
       if (user) {
-        firebase.database().ref('/users/' + user.uid + '/companies/' + this.companyKey ).once('value', (snapshot)=> {
+        this.userId = user.uid;
+        this.fUserId = user.providerData[0].uid
+        firebase.database().ref('/users/' + this.fUserId + '/companies/' + this.companyKey ).once('value', (snapshot)=> {
           // console.log('snapshot', snapshot.val());
           this.company = snapshot.val();
           this.coName = this.company.name
           this.coColor = this.company.color;
           this.address = this.company.address;
-          if (this.company.items) {
+          if (this.company && this.company.items) {
             this.items = (<any>Object).values(this.company.items);
           }
             console.log(this.items);
