@@ -19,6 +19,7 @@ import { Location }                       from '@angular/common';
 
 // 3rd party
 import * as firebase                      from 'firebase/app';
+import { AngularFireAuth }                from 'angularfire2/auth';
 import 'rxjs/add/operator/filter';
 import { Observable }                     from 'rxjs/Observable';
 
@@ -40,20 +41,24 @@ export class InvoicePrePdfComponent implements OnInit {
   company:Company;
   coName: string = '';
   companyKey: string;
-  errorMessage: string;
   createdDate: string;
   description: string;
   dueDate: Date;
+  errorMessage: string;
+  fUserId;
   icons = ['chevron-left'];
   invoice: Invoice;
   invoiceKey: string;
   items: Item[];
+  loggedIn;
   shared: Shared;
   state: string;
   total: number;
+  userId;
 
   constructor(
     private db: AngularFireDatabase,
+    public afAuth: AngularFireAuth, 
     private invoiceService: InvoiceService,
     private location: Location,
     private iconRegistry: MdIconRegistry,
@@ -72,8 +77,29 @@ export class InvoicePrePdfComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {this.invoiceKey = params['id']; });
+    this.afAuth.authState.subscribe ( user => {
+      if (!user) { 
+        console.log('NOT LOGGED IN');
+        this.loggedIn = "Not Logged In"
+        this.goToLogin();
+      }
+      else if (user){
+        console.log('user', user);
+        this.userId = user.uid;
+        this.fUserId = user.providerData[0].uid;
+        console.log('user.uid', this.fUserId);
+        this.loggedIn = "Logged In";
+       
+
+       
+   
+        
+      }  
+    })
     
-    firebase.database().ref('/invoices/' + this.invoiceKey).on('value', (snapshot)  => {
+    
+    firebase.database().ref('/users/'+ this.fUserId + '/companies/'+ this.companyKey + '/invoices/' + this.invoiceKey).on('value', (snapshot)  => {
+      console.log('snapshot', snapshot );
       this.invoice = snapshot.val();
       this.total = this.invoice.total;
       this.createdDate = this.invoice.createdAt;
@@ -82,6 +108,7 @@ export class InvoicePrePdfComponent implements OnInit {
       this.coName = this.invoice.coName;
       this.dueDate = this.invoice.dueDate;
       this.items = this.invoice.items;
+      
       this.description = this.invoice.description;
     });
   }
@@ -96,6 +123,9 @@ setColor(color) {
 
 goToCompanies(){
     this.router.navigate(['/companies']);
+}
+goToLogin() {
+  this.router.navigate(['/login']);
 }
 
 onSubmit(){

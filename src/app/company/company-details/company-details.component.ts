@@ -99,7 +99,7 @@ export class CompanyDetailsComponent implements OnInit{
           }
             console.log(this.items);
         });
-      }
+      } 
     });  
   }
   

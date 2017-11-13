@@ -48,11 +48,7 @@ export class InvoiceListComponent implements OnInit{
   }
   ngAfterContentInit() {
     this.invoicesArray = (<any>Object).values(this.invoices);
-    console.log('INVOICESARRAY ', this.invoicesArray);
     let date;
-    this.invoicesArray.forEach( (invoice) => { 
-      invoice.createdAt = moment(invoice.createdAt).format('L');
-    });
     this.sortedData = this.invoicesArray.slice();
 
   }

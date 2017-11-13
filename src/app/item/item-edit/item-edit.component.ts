@@ -38,7 +38,7 @@ import {
 import { Observable }                     from 'rxjs/Observable';
 
 import { IMyOptions, IMyDateModel }       from 'mydatepicker';
-import * as moment                        from 'moment'
+import * as moment                             from 'moment'
 // Custom
 import { Company }                        from '../../company/company';
 import { Item }                           from '../item';
@@ -187,9 +187,11 @@ export class ItemEditComponent implements OnInit {
   onSubmit() {
     
     let payload = this.myform.value;
-    payload.companyKey = this.companyKey;
+    // used the coId here because that was used in mobild app
+    payload.coId = this.companyKey;
     payload.userId = this.userId;
     payload.fUserId = this.fUserId;
+    payload.date = moment(this.myform.value.date).format();
     // if(!this.company.items) this.company.items = [];
     // this.company.items.push(this.myform.value);
     // this.db.object('/companies/'+ this.companyKey).update({items:this.company.items});

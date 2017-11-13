@@ -33,7 +33,7 @@ import {
   FirebaseListObservable ,
   FirebaseObjectObservable,
 }                                from 'angularfire2/database';
-import * as moment               from 'moment'
+import * as moment               from 'moment';
 
 // Custom 
 import { Company }               from '../../company/company';
@@ -200,8 +200,8 @@ export class InvoiceEditComponent implements OnInit {
     return this.dueDate;
   }
   filterByDateRange(beginDate?, endDate?) {
-    let bmDate = moment(beginDate).format('LL');
-    let emDate = moment(endDate).format('LL');
+    let bmDate = moment(beginDate).format();
+    let emDate = moment(endDate).format();
     let filteredItems: Item[]=[];
     // console.log(`INVOICE_EDIT filterByDateRange this.items.length= ${JSON.stringify(this.items.length)}`);
     // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
@@ -211,7 +211,7 @@ export class InvoiceEditComponent implements OnInit {
       let itemsArray = (<any>Object).values(this.items);
       itemsArray.forEach(i => {
         let imDate;
-        imDate = moment(i.date);
+        imDate = moment(i.date)
         // console.log(`INVOICE_EDIT filterByDateRange imDate= ${JSON.stringify(imDate)}`);
         // console.log(`INVOICE_EDIT filterByDateRange bmDate= ${JSON.stringify(bmDate)}`);
         // console.log(`INVOICE_EDIT filterByDateRange emDate= ${JSON.stringify(emDate)}`);
@@ -222,7 +222,7 @@ export class InvoiceEditComponent implements OnInit {
         }
       })
     }
-    // console.log(`INVOICE_EDIT filterByDateRange filteredItemsId= ${JSON.stringify(filteredItems)}`);
+    console.log(`INVOICE_EDIT filterByDateRange filteredItems= ${JSON.stringify(filteredItems)}`);
     if(filteredItems.length>0)return filteredItems;
     return 0;
   } 
@@ -260,79 +260,36 @@ export class InvoiceEditComponent implements OnInit {
 
     // calculate total
     let invoiceTotal = 0;
-    if (this.items){
-      let itemsArray = (<any>Object).values(this.items);
+    console.log('this.items', this.items);
+    if (this.invoice.items){
+      let itemsArray = (<any>Object).values(this.invoice.items);
         itemsArray.forEach(i => {
+          console.log('invoiceTotal', invoiceTotal);
           invoiceTotal = invoiceTotal + i.total;
         });
-      this.invoice.total = invoiceTotal;
+      this.invoice.total = invoiceTotal || 0;
       
       if(!this.invoiceKey){
       let newItemKey = this.db.app.database().ref().child('companies').child('invoices').push().key;
       this.invoice.invoiceKey = newItemKey;
     } else {
       this.invoice.invoiceKey = this.invoice.invoiceKey;
-    } 
+    }
+    this.invoice.fUserId = this.fUserId;
     // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
     let updates = {};
     updates['/users/'+ this.fUserId + '/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
-    updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
+    // updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
     this.db.app.database().ref().update(updates);
     this.goToPrePdfInvoice();
   } 
-      // Get a key for a new Invoice
-    //   if (!this.invoiceKey){
-    //     let newInvoiceKey = this.db.app.database().ref().child('/invoices').push().key;
-    //     console.log('newInvoiceKey', newInvoiceKey );
-    //     console.log('this.invoice', this.invoice);
-    //     this.invoice.invoiceKey = newInvoiceKey;
-    //     let updates = {};
-    //     updates['/invoices/' + newInvoiceKey] = this.invoice;
-    //     updates['/companies/' + this.companyKey + '/invoices/' + newInvoiceKey] = this.invoice;
-
-    //     this.db.app.database().ref().update(updates);
-
-    //     return;
-    //   }
-
-    //   // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
-    //   let updates = {};
-    //   updates['/invoices/' + this.invoice.invoiceKey] = this.invoice;
-    //   updates['/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
-    //   this.db.app.database().ref().update(updates);
+      
 
       this.router.navigate(['/invoice-pre-pdf/' + this.invoice.invoiceKey ]);
       return;
-    // } 
+
     // alert('there are no items in that time frame')
       // this.router.navigate(['/companies']);
   }
 }
 
-// Get a key for a new Invoice
-  //   if(!this.itemKey){
-  //     let newItemKey = this.db.app.database().ref().child('companies').child('items').push().key;
-  //     payload.itemKey = newItemKey;
-  //   } else {
-  //     payload.itemKey = this.item.itemKey;
-  //   } 
-  //   // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
-  //   let updates = {};
-  //   updates['/companies/'+ this.companyKey + '/items/' + payload.itemKey] = payload;
-  //   updates['/items/' + payload.itemKey] = payload;
-  //   this.db.app.database().ref().update(updates);
-  //   this.goToCompanies();
-  // }
-// let newCompanyKey = this.db.app.database().ref().child('/companies').push().key;
-
-//     if(!this.companyKey){
-//       let updates = {};
-//       updates['/companies/' + newCompanyKey] = payload;
-//       updates['/companiesByUser/'+ this.userId + '/' + newCompanyKey] = payload;
-//       this.db.app.database().ref().update(updates);
-//     } else {
-//       this.db.object('/companies/'+ this.companyKey).update(payload);
-//       this.db.object('/companiesByUser/' + this.userId + '/' + this.companyKey).update(payload);
-//     }
-//       this.router.navigate(['companies']);
-//   }
