@@ -14,7 +14,7 @@
     <td fxFlex="15%">{{invoice.beginDate | date}}</td>
     <td fxFlex="15%">{{invoice.endDate | date}}</td>
     <td fxFlex="30%"> <div style="word-break: break-all;" >{{invoice.description}}</div></td>
-    <td fxFlex="15%">{{invoice.total | currency:'USD':true}}</td>
+    <td fxFlex="15%">{{invoice.total - 0  | currency:'USD':true}}</td>
 
   </tr>
   <hr>

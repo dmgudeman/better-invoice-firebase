@@ -244,7 +244,7 @@ export class InvoiceEditComponent implements OnInit {
 
     this.invoice = this.myform.value;
 
-    this.createdAt = moment().format('L'); 
+    this.createdAt = moment().format(); 
     let bdate = this.invoice.beginDate;
     let edate = this.invoice.endDate;
     
@@ -254,17 +254,17 @@ export class InvoiceEditComponent implements OnInit {
     this.invoice.address = this.address;
 
     this.invoice.dueDate = this.calcDueDate(this.createdAt, this.paymentTerms);
-    console.log('this.invoice.dueDate', this.invoice.dueDate );
+    // console.log('this.invoice.dueDate', this.invoice.dueDate );
     this.invoice.items = this.filterByDateRange(bdate, edate);
-    console.log('this.invoice.items', this.invoice.items );
+    // console.log('this.invoice.items', this.invoice.items );
 
     // calculate total
     let invoiceTotal = 0;
-    console.log('this.items', this.items);
+    // console.log('this.items', this.items);
     if (this.invoice.items){
       let itemsArray = (<any>Object).values(this.invoice.items);
         itemsArray.forEach(i => {
-          console.log('invoiceTotal', invoiceTotal);
+          console.log('iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiinvoiceTotal', invoiceTotal);
           invoiceTotal = invoiceTotal + i.total;
         });
       this.invoice.total = invoiceTotal || 0;
@@ -276,6 +276,7 @@ export class InvoiceEditComponent implements OnInit {
       this.invoice.invoiceKey = this.invoice.invoiceKey;
     }
     this.invoice.fUserId = this.fUserId;
+    console.log('this.invoice', this.invoice);
     // Write the new Invoice's data simultaneously in the invoice list and the company's invoice list
     let updates = {};
     updates['/users/'+ this.fUserId + '/companies/'+ this.companyKey + '/invoices/' + this.invoice.invoiceKey] = this.invoice;
